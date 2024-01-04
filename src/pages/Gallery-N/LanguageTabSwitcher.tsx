@@ -14,9 +14,9 @@ export type LanguageTabOption = {
 }
 
 const options: LanguageTabOption[] = [
-  { id: 'en', name: '英语', flag: enFlag },
-  { id: 'ja', name: '日语', flag: jpFlag },
-  { id: 'de', name: '德语', flag: deFlag },
+  { id: 'en', name: 'English', flag: enFlag },
+  { id: 'ja', name: 'Japanese', flag: jpFlag },
+  { id: 'de', name: 'German', flag: deFlag },
   { id: 'code', name: 'Code', flag: codeFlag },
 ]
 

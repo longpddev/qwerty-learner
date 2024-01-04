@@ -39,7 +39,11 @@ export default function Chapter({
     >
       <h1>第 {index + 1} 章</h1>
       <p className="pt-[2px] text-xs text-slate-600">
-        {chapterStatus ? (chapterStatus.exerciseCount > 0 ? `练习 ${chapterStatus.exerciseCount} 次` : '未练习') : '加载中...'}
+        {chapterStatus
+          ? chapterStatus.exerciseCount > 0
+            ? `Exercise ${chapterStatus.exerciseCount} times`
+            : 'Not practiced'
+          : 'loading...'}
       </p>
       {checked && (
         <IconCheckCircle className="absolute -bottom-4 -right-4 h-18 w-18 text-6xl text-green-500 opacity-40 dark:text-green-300" />

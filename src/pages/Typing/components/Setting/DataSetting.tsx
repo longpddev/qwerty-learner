@@ -60,12 +60,13 @@ export default function DataSetting() {
           <div className={styles.section}>
             <span className={styles.sectionLabel}>数据导出</span>
             <span className={styles.sectionDescription}>
-              目前，用户的练习数据<strong>仅保存在本地</strong>。如果您需要在不同的设备、浏览器或者其他非官方部署上使用 Qwerty Learner，
-              您需要手动进行数据同步和保存。为了保留您的练习进度，以及使用近期即将上线的数据分析和智能训练功能，
-              我们建议您及时备份您的数据。
+              Currently, a user's practice data is <strong>only saved locally</strong>. If you need to use Qwerty Learner on different
+              devices, browsers, or other unofficial deployments, You need to synchronize and save data manually. In order to retain your
+              practice progress and use the data analysis and intelligent training functions that will be launched in the near future, We
+              recommend that you back up your data promptly.
             </span>
             <span className="pl-4 text-left text-sm font-bold leading-tight text-red-500">
-              为了您的数据安全，请不要修改导出的数据文件。
+              For your data security, please do not modify the exported data files.
             </span>
             <div className="flex h-3 w-full items-center justify-start px-5">
               <Progress.Root
@@ -85,15 +86,16 @@ export default function DataSetting() {
               type="button"
               onClick={onClickExport}
               disabled={isExporting}
-              title="导出数据"
+              title="export data"
             >
-              导出数据
+              export data
             </button>
           </div>
           <div className={styles.section}>
             <span className={styles.sectionLabel}>数据导入</span>
             <span className={styles.sectionDescription}>
-              请注意，导入数据将<strong className="text-sm font-bold text-red-500"> 完全覆盖 </strong>当前数据。请谨慎操作。
+              Please note that importing data will <strong className="text-sm font-bold text-red-500"> completely overwrite </strong>current
+              data. Please proceed with caution.
             </span>
 
             <div className="flex h-3 w-full items-center justify-start px-5">
@@ -114,9 +116,9 @@ export default function DataSetting() {
               type="button"
               onClick={onClickImport}
               disabled={isImporting}
-              title="导入数据"
+              title="Import Data"
             >
-              导入数据
+              Import Data
             </button>
           </div>
         </div>

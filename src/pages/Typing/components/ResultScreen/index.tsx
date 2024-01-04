@@ -68,10 +68,10 @@ const ResultScreen = () => {
         const ws = utils.json_to_sheet(exportData)
         const wb = utils.book_new()
         utils.book_append_sheet(wb, ws, 'Data')
-        writeFileXLSX(wb, `${currentDictInfo.name}第${currentChapter + 1}章.xlsx`)
+        writeFileXLSX(wb, `${currentDictInfo.name}no.${currentChapter + 1}chapter.xlsx`)
       })
       .catch(() => {
-        console.log('写入 xlsx 模块导入失败')
+        console.log('Writing xlsx module import failed')
       })
   }, [currentChapter, currentDictInfo.name, state.chapterData])
 
@@ -219,15 +219,15 @@ const ResultScreen = () => {
         <div className="flex h-screen items-center justify-center">
           <div className="my-card fixed flex w-[90vw] max-w-6xl flex-col overflow-hidden rounded-3xl bg-white pb-14 pl-10 pr-5 pt-10 shadow-lg dark:bg-gray-800 md:w-4/5 lg:w-3/5">
             <div className="text-center font-sans text-xl font-normal text-gray-900 dark:text-gray-400 md:text-2xl">
-              {`${currentDictInfo.name} ${isReviewMode ? '错题复习' : '第' + (currentChapter + 1) + '章'}`}
+              {`${currentDictInfo.name} ${isReviewMode ? 'Review of wrong questions' : 'no.' + (currentChapter + 1) + 'chapter'}`}
             </div>
             <button className="absolute right-7 top-5" onClick={exitButtonHandler}>
               <IconX className="text-gray-400" />
             </button>
             <div className="mt-10 flex flex-row gap-2 overflow-hidden">
               <div className="flex flex-shrink-0 flex-grow-0 flex-col gap-3 px-4 sm:px-1 md:px-2 lg:px-4">
-                <RemarkRing remark={`${state.timerData.accuracy}%`} caption="正确率" percentage={state.timerData.accuracy} />
-                <RemarkRing remark={timeString} caption="章节耗时" />
+                <RemarkRing remark={`${state.timerData.accuracy}%`} caption="Correct rate" percentage={state.timerData.accuracy} />
+                <RemarkRing remark={timeString} caption="Chapter time" />
                 <RemarkRing remark={state.timerData.wpm + ''} caption="WPM" />
               </div>
               <div className="z-10 ml-6 flex-1 overflow-visible rounded-xl bg-indigo-50 dark:bg-gray-700">
@@ -263,7 +263,7 @@ const ResultScreen = () => {
                   }}
                   className="cursor-pointer"
                   type="button"
-                  title="捐赠我们的项目"
+                  title="Donate to our project"
                 >
                   <IconCoffee fontSize={17} className={`text-gray-500 hover:text-amber-500  focus:outline-none ${styles.imgShake}`} />
                 </button>
@@ -275,7 +275,7 @@ const ResultScreen = () => {
                   }}
                   className="cursor-pointer text-gray-500 dark:text-gray-400"
                   type="button"
-                  title="加入我们的社区"
+                  title="Join our community"
                 >
                   <IconWechat fontSize={16} className="text-gray-500 hover:text-green-500 focus:outline-none" />
                 </button>
@@ -288,37 +288,37 @@ const ResultScreen = () => {
             <div className="mt-10 flex w-full justify-center gap-5 px-5 text-xl">
               {!isReviewMode && (
                 <>
-                  <Tooltip content="快捷键：shift + enter">
+                  <Tooltip content="Shortcut key: shift + enter">
                     <button
                       className="my-btn-primary h-12 border-2 border-solid border-gray-300 bg-white text-base text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
                       type="button"
                       onClick={dictationButtonHandler}
-                      title="默写本章节"
+                      title="Write this chapter silently"
                     >
-                      默写本章节
+                      Write this chapter silently
                     </button>
                   </Tooltip>
-                  <Tooltip content="快捷键：space">
+                  <Tooltip content="Shortcut key: space">
                     <button
                       className="my-btn-primary h-12 border-2 border-solid border-gray-300 bg-white text-base text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
                       type="button"
                       onClick={repeatButtonHandler}
-                      title="重复本章节"
+                      title="Repeat this section"
                     >
-                      重复本章节
+                      Repeat this section
                     </button>
                   </Tooltip>
                 </>
               )}
               {!isLastChapter && !isReviewMode && (
-                <Tooltip content="快捷键：enter">
+                <Tooltip content="Shortcut key: enter">
                   <button
                     className={`{ isLastChapter ? 'cursor-not-allowed opacity-50' : ''} my-btn-primary h-12 text-base font-bold `}
                     type="button"
                     onClick={nextButtonHandler}
-                    title="下一章节"
+                    title="next chapter"
                   >
-                    下一章节
+                    next chapter
                   </button>
                 </Tooltip>
               )}
@@ -328,9 +328,9 @@ const ResultScreen = () => {
                   className="my-btn-primary h-12 text-base font-bold"
                   type="button"
                   onClick={onNavigateToGallery}
-                  title="练习其他章节"
+                  title="Practice other chapters"
                 >
-                  练习其他章节
+                  Practice other chapters
                 </button>
               )}
             </div>

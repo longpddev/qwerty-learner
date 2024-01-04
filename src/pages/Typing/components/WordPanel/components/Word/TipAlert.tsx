@@ -26,7 +26,10 @@ export const TipAlert: FC<ITipAlert> = ({ className, show, setShow }) => {
             />
           </svg>
 
-          <span>如果多次输入失败，可能是与本地浏览器插件冲突，请关闭相关插件或切换浏览器试试</span>
+          <span>
+            If the input fails multiple times, it may conflict with the local browser plug-in. Please close the relevant plug-in or try
+            switching browsers.
+          </span>
           <IconX className="h-5 w-5 cursor-pointer text-white " onClick={onClose} />
         </div>
       )}

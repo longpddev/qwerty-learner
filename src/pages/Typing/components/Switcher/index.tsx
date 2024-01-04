@@ -42,18 +42,18 @@ export default function Switcher() {
 
   return (
     <div className="flex items-center justify-center gap-2">
-      <Tooltip content="音效设置">
+      <Tooltip content="Sound settings">
         <SoundSwitcher />
       </Tooltip>
 
-      <Tooltip className="h-7 w-7" content="设置单个单词循环">
+      <Tooltip className="h-7 w-7" content="Set up a single word loop">
         <LoopWordSwitcher />
       </Tooltip>
 
-      <Tooltip className="h-7 w-7" content={`开关默写模式（${CTRL} + V）`}>
+      <Tooltip className="h-7 w-7" content={`Switch silent writing mode (${CTRL} + V）`}>
         <WordDictationSwitcher />
       </Tooltip>
-      <Tooltip className="h-7 w-7" content={`开关释义显示（${CTRL} + Shift + V）`}>
+      <Tooltip className="h-7 w-7" content={`Switch interpretation display (${CTRL} + Shift + V）`}>
         <button
           className={`p-[2px] ${state?.isTransVisible ? 'text-indigo-500' : 'text-gray-500'} text-lg focus:outline-none`}
           type="button"
@@ -61,21 +61,21 @@ export default function Switcher() {
             changeTransVisibleState()
             e.currentTarget.blur()
           }}
-          aria-label={`开关释义显示（${CTRL} + Shift + V）`}
+          aria-label={`Switch interpretation display (${CTRL} + Shift + V）`}
         >
           {state?.isTransVisible ? <IconLanguage /> : <IconLanguageOff />}
         </button>
       </Tooltip>
 
-      <Tooltip content="错题本">
+      <Tooltip content="Wrong question book">
         <ErrorBookButton />
       </Tooltip>
 
-      <Tooltip className="h-7 w-7" content="查看数据统计">
+      <Tooltip className="h-7 w-7" content="View statistics">
         <AnalysisButton />
       </Tooltip>
 
-      <Tooltip className="h-7 w-7" content="开关深色模式">
+      <Tooltip className="h-7 w-7" content="Turn dark mode on and off">
         <button
           className={`p-[2px] text-lg text-indigo-500 focus:outline-none`}
           type="button"
@@ -83,15 +83,15 @@ export default function Switcher() {
             changeDarkModeState()
             e.currentTarget.blur()
           }}
-          aria-label="开关深色模式"
+          aria-label="Turn dark mode on and off"
         >
           {isOpenDarkMode ? <IconMoon className="icon" /> : <IconSun className="icon" />}
         </button>
       </Tooltip>
-      <Tooltip className="h-7 w-7" content="指法图示">
+      <Tooltip className="h-7 w-7" content="Fingering diagram">
         <HandPositionIllustration></HandPositionIllustration>
       </Tooltip>
-      <Tooltip content="设置">
+      <Tooltip content="set up">
         <Setting />
       </Tooltip>
     </div>

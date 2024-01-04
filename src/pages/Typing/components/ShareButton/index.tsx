@@ -41,7 +41,7 @@ export default function ShareButton() {
         {...getReferenceProps()}
         className="cursor-pointer text-xl text-indigo-400"
         onClick={onClickShare}
-        title="分享你的成绩给朋友"
+        title="Share your results with friends"
       >
         <IconShare2 />
       </button>
@@ -58,7 +58,7 @@ export default function ShareButton() {
           }}
           {...getFloatingProps()}
         >
-          ✨ 分享你的成绩给朋友
+          ✨ Share your results with friends
         </div>
       )}
     </>

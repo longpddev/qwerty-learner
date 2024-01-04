@@ -292,7 +292,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
           className={`tooltip-info relative w-fit bg-transparent p-0 leading-normal shadow-none dark:bg-transparent ${
             wordDictationConfig.isOpen ? 'tooltip' : ''
           }`}
-          data-tip="按 Tab 快捷键显示完整单词"
+          data-tip="Press the Tab shortcut key to display the complete word"
         >
           <div
             onMouseEnter={() => handleHoverWord(true)}
@@ -305,7 +305,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
           </div>
           {pronunciationIsOpen && (
             <div className="absolute -right-12 top-1/2 h-9 w-9 -translate-y-1/2 transform ">
-              <Tooltip content={`快捷键${CTRL} + J`}>
+              <Tooltip content={`shortcut key${CTRL} + J`}>
                 <WordPronunciationIcon word={word.name} ref={wordPronunciationIconRef} className="h-full w-full" />
               </Tooltip>
             </div>

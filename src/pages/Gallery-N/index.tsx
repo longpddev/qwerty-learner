@@ -81,10 +81,16 @@ export default function GalleryPage() {
                   <div className="flex items-center justify-center pb-10 pt-[20rem] text-gray-500">
                     <IconInfo className="mr-1 h-5 w-5" />
                     <p className="mr-5 w-10/12 text-xs">
-                      本项目的词典数据来自多个开源项目以及社区贡献者的无偿提供。我们深感感激并尊重每一位贡献者的知识产权。
-                      这些数据仅供个人学习和研究使用，严禁用于任何商业目的。如果你是数据的版权所有者，并且认为我们的使用方式侵犯了你的权利，请通过网站底部的电子邮件与我们联系。一旦收到有效的版权投诉，我们将在最短的时间内删除相关内容或寻求必要的许可。
-                      同时，我们也鼓励所有使用这些数据的人尊重版权所有者的权利，并且在使用这些数据时遵守所有相关的法律和规定。
-                      请注意，虽然我们尽力确保所有数据的合法性和准确性，但我们不能对任何数据的准确性、完整性、合法性或可靠性做出任何保证。使用这些数据的风险完全由用户自己承担。
+                      The dictionary data for this project comes from multiple open source projects and provided free of charge by community
+                      contributors. We deeply appreciate and respect the intellectual property rights of each contributor. This data is for
+                      personal study and research use only and is strictly prohibited from being used for any commercial purposes. If you
+                      are the copyright holder of data and feel that it has been used in a way that infringes upon your rights, please
+                      contact us via the email at the bottom of the site. Once we receive a valid copyright complaint, we will remove the
+                      relevant content or seek the necessary permissions as soon as possible. At the same time, we also encourage everyone
+                      who uses this data to respect the rights of the copyright owners and comply with all relevant laws and regulations
+                      when using this data. Please note that while we strive to ensure the legality and accuracy of all data, we cannot make
+                      any guarantees as to the accuracy, completeness, legality or reliability of any data. Use of this data is entirely at
+                      the user's own risk.
                     </p>
                   </div>
                 </ScrollArea.Viewport>

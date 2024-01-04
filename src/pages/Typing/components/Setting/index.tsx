@@ -36,7 +36,7 @@ export default function Setting() {
         className={`flex items-center justify-center rounded p-[2px] text-lg text-indigo-500 outline-none transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white  ${
           isOpen && 'bg-indigo-500 text-white'
         }`}
-        title="打开设置对话框"
+        title="Open the settings dialog"
       >
         <IconCog6Tooth className="icon" />
       </button>
@@ -86,7 +86,7 @@ export default function Setting() {
                           }
                         >
                           <IconEar className="mr-2 text-neutral-500  dark:text-neutral-300" />
-                          <span className="text-neutral-500 dark:text-neutral-300 ">音效设置</span>
+                          <span className="text-neutral-500 dark:text-neutral-300 ">Sound settings</span>
                         </Tab>
                         <Tab
                           className={({ selected }) =>
@@ -97,7 +97,7 @@ export default function Setting() {
                           }
                         >
                           <IconAdjustmentsHorizontal className="mr-2 text-neutral-500  dark:text-neutral-300" />
-                          <span className="text-neutral-500 dark:text-neutral-300">高级设置</span>
+                          <span className="text-neutral-500 dark:text-neutral-300">advanced settings</span>
                         </Tab>
                         <Tab
                           className={({ selected }) =>
@@ -108,7 +108,7 @@ export default function Setting() {
                           }
                         >
                           <IconEye className="mr-2 text-neutral-500  dark:text-neutral-300" />
-                          <span className="text-neutral-500 dark:text-neutral-300">显示设置</span>
+                          <span className="text-neutral-500 dark:text-neutral-300">display setting</span>
                         </Tab>
                         <Tab
                           className={({ selected }) =>
@@ -119,7 +119,7 @@ export default function Setting() {
                           }
                         >
                           <IconDatabaseCog className="mr-2 text-neutral-500  dark:text-neutral-300" />
-                          <span className="text-neutral-500 dark:text-neutral-300">数据设置</span>
+                          <span className="text-neutral-500 dark:text-neutral-300">Data settings</span>
                         </Tab>
                       </Tab.List>
 

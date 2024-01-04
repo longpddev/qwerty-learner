@@ -18,36 +18,36 @@ export default function DictRequest() {
       {showPanel && (
         <InfoPanel
           openState={showPanel}
-          title="申请词典"
+          title="Apply for a dictionary"
           icon={IconBook2}
           buttonClassName="bg-indigo-500 hover:bg-indigo-400"
           iconClassName="text-indigo-500 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-500"
           onClose={onClosePanel}
         >
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            如果您有相关的编程基础，可以参考
+            If you have relevant programming foundation, you can refer to
             <a
               href="https://github.com/Kaiyiwing/qwerty-learner/blob/master/docs/toBuildDict.md"
               className="px-2 text-blue-500"
               target="_blank"
               rel="noreferrer"
             >
-              导入词典
+              Import dictionary
             </a>
-            ，给项目贡献新的词典。
+            , contribute new dictionaries to the project.
             <br />
             <br />
-            如果您没有相关的编程基础，可以将您的字典需求发送邮件到{' '}
-            <a href="mailto:me@kaiyi.cool" className="px-2 text-blue-500" aria-label="发送邮件到 me@kaiyi.cool">
+            If you have no relevant programming background, you can send your dictionary requirements to{' '}
+            <a href="mailto:me@kaiyi.cool" className="px-2 text-blue-500" aria-label="Send email to me@kaiyi.cool">
               me@kaiyi.cool
             </a>
-            ，或者在网页底部添加我们的用户社群进行反馈。
+            , or add our user community at the bottom of the page for feedback.
           </p>
           <br />
         </InfoPanel>
       )}
       <button className="cursor-pointer pr-6 text-sm text-indigo-500" onClick={onOpenPanel}>
-        没有找到想要的词典？
+        Didn't find the dictionary you were looking for?
       </button>
     </>
   )
