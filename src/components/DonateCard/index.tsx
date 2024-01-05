@@ -128,8 +128,8 @@ export const DonateCard = () => {
                       operations
                       <HighlightedText className="text-indigo-500"> {dayFromQwerty} </HighlightedText> Today, our goal is to provide an
                       efficient, convenient, and distraction-free learning environment for all learners. We sincerely invite you to consider
-                      making a donation, which will be used directly to maintain Qwerty's daily operations and future development, allowing
-                      Qwerty to grow with you.
+                      making a donation, which will be used directly to maintain Qwerty&apos;s daily operations and future development,
+                      allowing Qwerty to grow with you.
                     </p>
                     <p className="mx-auto px-4 indent-4 ">
                       In order to thank you for your generosity, for a single donation of 50 RMB and above, we will give away 5 customized

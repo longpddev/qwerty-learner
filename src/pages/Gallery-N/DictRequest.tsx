@@ -47,7 +47,7 @@ export default function DictRequest() {
         </InfoPanel>
       )}
       <button className="cursor-pointer pr-6 text-sm text-indigo-500" onClick={onOpenPanel}>
-        Didn't find the dictionary you were looking for?
+        Didn&apos;t find the dictionary you were looking for?
       </button>
     </>
   )

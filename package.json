@@ -55,7 +55,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "start": "vite",
+    "start": "vite preview",
     "build": "cross-env CI=false vite build --base=./",
     "test": "echo \"No tests\"",
     "lint": "eslint .",

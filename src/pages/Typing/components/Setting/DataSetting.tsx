@@ -60,7 +60,7 @@ export default function DataSetting() {
           <div className={styles.section}>
             <span className={styles.sectionLabel}>数据导出</span>
             <span className={styles.sectionDescription}>
-              Currently, a user's practice data is <strong>only saved locally</strong>. If you need to use Qwerty Learner on different
+              Currently, a user&apos;s practice data is <strong>only saved locally</strong>. If you need to use Qwerty Learner on different
               devices, browsers, or other unofficial deployments, You need to synchronize and save data manually. In order to retain your
               practice progress and use the data analysis and intelligent training functions that will be launched in the near future, We
               recommend that you back up your data promptly.

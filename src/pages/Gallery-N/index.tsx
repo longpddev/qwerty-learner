@@ -90,7 +90,7 @@ export default function GalleryPage() {
                       who uses this data to respect the rights of the copyright owners and comply with all relevant laws and regulations
                       when using this data. Please note that while we strive to ensure the legality and accuracy of all data, we cannot make
                       any guarantees as to the accuracy, completeness, legality or reliability of any data. Use of this data is entirely at
-                      the user's own risk.
+                      the user&apos;s own risk.
                     </p>
                   </div>
                 </ScrollArea.Viewport>
