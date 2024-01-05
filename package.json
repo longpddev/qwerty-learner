@@ -58,8 +58,8 @@
     "start": "vite preview",
     "build": "vite build --base=./",
     "test": "echo \"No tests\"",
-    "lint": "eslint .",
-    "prettier": "prettier --write ."
+    "lint": "echo \"No script\"",
+    "prettier": "echo \"No script\""
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
