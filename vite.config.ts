@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react'
 import { promises as fs } from 'fs'
+import { getLastCommit } from 'git-last-commit'
 import jotaiDebugLabel from 'jotai/babel/plugin-debug-label'
 import jotaiReactRefresh from 'jotai/babel/plugin-react-refresh'
 import path from 'node:path'
@@ -10,7 +11,9 @@ import type { PluginOption } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
-  const latestCommitHash = '__git_hash_commit__'
+  const latestCommitHash = await new Promise<string>((resolve) => {
+    return getLastCommit((err, commit) => (err ? 'unknown' : resolve(commit.shortHash)))
+  })
   return {
     plugins: [
       react({ babel: { plugins: [jotaiDebugLabel, jotaiReactRefresh] } }),

@@ -5,7 +5,7 @@ import { romajiToHiragana } from '@/utils/kana'
 import noop from '@/utils/noop'
 import type { Howl } from 'howler'
 import { useAtomValue } from 'jotai'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useSound from 'use-sound'
 import type { HookOptions } from 'use-sound/dist/types'
 
@@ -38,6 +38,11 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
     loop,
     volume: pronunciationConfig.volume,
     rate: pronunciationConfig.rate,
+    xhr: {
+      headers: {
+        'Cache-Control': 'max-age=3600',
+      },
+    },
   } as HookOptions)
 
   useEffect(() => {
@@ -70,7 +75,6 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
 
   useEffect(() => {
     if (!word) return
-
     const soundUrl = generateWordSoundSrc(word, pronunciationConfig.type)
     const head = document.head
     const isPrefetch = (Array.from(head.querySelectorAll('link[href]')) as HTMLLinkElement[]).some((el) => el.href === soundUrl)
@@ -86,4 +90,41 @@ export function usePrefetchPronunciationSound(word: string | undefined) {
       }
     }
   }, [pronunciationConfig.type, word])
+}
+
+export function usePrefetchPronunciationSounds(words: string[]) {
+  const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
+  const [preWords] = useState(() => ({ current: new Map<string, HTMLLinkElement>() }))
+  const getSoundUrl = useCallback((url: string) => generateWordSoundSrc(url, pronunciationConfig.type), [pronunciationConfig.type])
+
+  const isChange = () => words.map((url) => getSoundUrl(url)).some((soundUrl) => preWords.current.has(soundUrl))
+
+  useEffect(() => {
+    if (!words.length) return
+
+    const removeAll = () => {
+      Array.from(preWords.current.values()).forEach((el) => el.remove())
+      preWords.current.clear()
+    }
+
+    const createPrefetchLink = (soundUrl: string) => {
+      const link = document.createElement('link')
+      link.rel = 'prefetch'
+      link.href = soundUrl
+      document.head.appendChild(link)
+
+      return link
+    }
+
+    for (const link of words) {
+      const soundUrl = getSoundUrl(link)
+      if (!preWords.current.has(soundUrl)) preWords.current.set(soundUrl, createPrefetchLink(soundUrl))
+    }
+
+    return removeAll
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getSoundUrl, isChange()])
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // useEffect(() => () => Array.from(currentList.current?.values() ?? []).forEach(el => el.remove()), [])
 }

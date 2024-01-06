@@ -56,10 +56,11 @@
   "scripts": {
     "dev": "vite",
     "start": "vite preview",
-    "build": "vite build --base=./",
+    "build": "cross-env CI=false vite build --base=./",
     "test": "echo \"No tests\"",
-    "lint": "echo \"No script\"",
-    "prettier": "echo \"No script\""
+    "lint": "eslint .",
+    "prettier": "prettier --write .",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [

@@ -5,7 +5,7 @@ import Progress from '../Progress'
 import Phonetic from './components/Phonetic'
 import Translation from './components/Translation'
 import WordComponent from './components/Word'
-import { usePrefetchPronunciationSound } from '@/hooks/usePronunciation'
+import { usePrefetchPronunciationSound, usePrefetchPronunciationSounds } from '@/hooks/usePronunciation'
 import { isReviewModeAtom, isShowPrevAndNextWordAtom, loopWordConfigAtom, phoneticConfigAtom, reviewModeInfoAtom } from '@/store'
 import type { Word } from '@/typings'
 import { useAtomValue, useSetAtom } from 'jotai'
@@ -21,7 +21,7 @@ export default function WordPanel() {
   const [currentWordExerciseCount, setCurrentWordExerciseCount] = useState(0)
   const { times: loopWordTimes } = useAtomValue(loopWordConfigAtom)
   const currentWord = state.chapterData.words[state.chapterData.index]
-  const nextWord = state.chapterData.words[state.chapterData.index + 1] as Word | undefined
+  const wordNames = state.chapterData.words.map((item) => item.name)
 
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const isReviewMode = useAtomValue(isReviewModeAtom)
@@ -35,7 +35,7 @@ export default function WordPanel() {
     return newIndex > state.chapterData.words.length - 1 ? state.chapterData.words.length - 1 : newIndex
   }, [state.chapterData.index, state.chapterData.words.length])
 
-  usePrefetchPronunciationSound(nextWord?.name)
+  usePrefetchPronunciationSounds(wordNames)
 
   const reloadCurrentWordComponent = useCallback(() => {
     setWordComponentKey((old) => old + 1)
