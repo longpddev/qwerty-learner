@@ -58,7 +58,7 @@ export default function DataSetting() {
       <ScrollArea.Viewport className="h-full w-full px-3">
         <div className={styles.tabContent}>
           <div className={styles.section}>
-            <span className={styles.sectionLabel}>数据导出</span>
+            <span className={styles.sectionLabel}>Data output</span>
             <span className={styles.sectionDescription}>
               Currently, a user&apos;s practice data is <strong>only saved locally</strong>. If you need to use Qwerty Learner on different
               devices, browsers, or other unofficial deployments, You need to synchronize and save data manually. In order to retain your
@@ -92,7 +92,7 @@ export default function DataSetting() {
             </button>
           </div>
           <div className={styles.section}>
-            <span className={styles.sectionLabel}>数据导入</span>
+            <span className={styles.sectionLabel}>data import</span>
             <span className={styles.sectionDescription}>
               Please note that importing data will <strong className="text-sm font-bold text-red-500"> completely overwrite </strong>current
               data. Please proceed with caution.

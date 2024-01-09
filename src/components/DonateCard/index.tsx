@@ -81,7 +81,7 @@ export const DonateCard = () => {
         as="div"
         className="relative z-50"
         onClose={() => {
-          noop()
+          setShow(false)
         }}
       >
         <Transition.Child

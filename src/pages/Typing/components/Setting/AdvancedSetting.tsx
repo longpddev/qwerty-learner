@@ -97,8 +97,8 @@ export default function AdvancedSetting() {
             </div>
           </div>
           <div className={styles.section}>
-            <span className={styles.sectionLabel}>是否允许选择文本</span>
-            <span className={styles.sectionDescription}>开启后，可以通过鼠标选择文本 </span>
+            <span className={styles.sectionLabel}>Whether to allow text selection</span>
+            <span className={styles.sectionDescription}>When turned on, text can be selected with the mouse</span>
             <div className={styles.switchBlock}>
               <Switch checked={isTextSelectable} onChange={onToggleTextSelectable} className="switch-root">
                 <span aria-hidden="true" className="switch-thumb" />
