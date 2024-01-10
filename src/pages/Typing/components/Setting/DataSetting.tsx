@@ -1,9 +1,14 @@
 import styles from './index.module.css'
+import { autoSaveConfigAtom } from '@/store'
+import { db } from '@/utils/db'
 import type { ExportProgress, ImportProgress } from '@/utils/db/data-export'
 import { exportDatabase, importDatabase } from '@/utils/db/data-export'
+import { backupData } from '@/utils/db/firebase'
+import { Switch } from '@headlessui/react'
 import * as Progress from '@radix-ui/react-progress'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
-import { useCallback, useState } from 'react'
+import { useAtom } from 'jotai'
+import { useCallback, useEffect, useState } from 'react'
 
 export default function DataSetting() {
   const [isExporting, setIsExporting] = useState(false)
@@ -11,6 +16,8 @@ export default function DataSetting() {
 
   const [isImporting, setIsImporting] = useState(false)
   const [importProgress, setImportProgress] = useState(0)
+  const [autoSave, autoSaveSet] = useAtom(autoSaveConfigAtom)
+  const toggleAutoSave = useCallback(() => autoSaveSet((prev) => ({ ...prev, active: !prev.active })), [])
 
   const exportProgressCallback = useCallback(({ totalRows, completedRows, done }: ExportProgress) => {
     if (done) {
@@ -58,6 +65,15 @@ export default function DataSetting() {
       <ScrollArea.Viewport className="h-full w-full px-3">
         <div className={styles.tabContent}>
           <div className={styles.section}>
+            <span className={styles.sectionLabel}>Auto Save</span>
+            <div className="flex w-full justify-between pl-4">
+              <Switch checked={autoSave.active} onChange={toggleAutoSave} className="switch-root">
+                <span aria-hidden="true" className="switch-thumb" />
+              </Switch>
+              <span className="text-right text-xs font-normal leading-tight text-gray-600">{`${autoSave.active ? 'turn on' : 'off'}`}</span>
+            </div>
+          </div>
+          <div className={styles.section}>
             <span className={styles.sectionLabel}>Data output</span>
             <span className={styles.sectionDescription}>
               Currently, a user&apos;s practice data is <strong>only saved locally</strong>. If you need to use Qwerty Learner on different
@@ -80,7 +96,6 @@ export default function DataSetting() {
               </Progress.Root>
               <span className="ml-4 w-10 text-xs font-normal text-gray-600">{`${exportProgress}%`}</span>
             </div>
-
             <button
               className="my-btn-primary ml-4 disabled:bg-gray-300"
               type="button"

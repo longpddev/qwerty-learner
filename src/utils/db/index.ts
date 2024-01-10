@@ -1,3 +1,4 @@
+import './firebase'
 import type { IChapterRecord, IReviewRecord, IRevisionDictRecord, IWordRecord, LetterMistakes } from './record'
 import { ChapterRecord, ReviewRecord, WordRecord } from './record'
 import { TypingContext, TypingStateActionType } from '@/pages/Typing/store'

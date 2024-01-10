@@ -49,6 +49,10 @@ export const hintSoundsConfigAtom = atomForConfig('hintSoundsConfig', {
   correctResource: correctSoundResources[0],
 })
 
+export const autoSaveConfigAtom = atomForConfig('pronunciation', {
+  active: false,
+})
+
 export const pronunciationConfigAtom = atomForConfig('pronunciation', {
   isOpen: true,
   volume: 1,

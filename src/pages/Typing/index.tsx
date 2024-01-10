@@ -1,4 +1,5 @@
 import Layout from '../../components/Layout'
+import AutoSave from './components/AutoSave'
 import { DictChapterButton } from './components/DictChapterButton'
 import PronunciationSwitcher from './components/PronunciationSwitcher'
 import ResultScreen from './components/ResultScreen'
@@ -129,6 +130,7 @@ const App: React.FC = () => {
 
   return (
     <TypingContext.Provider value={{ state: state, dispatch }}>
+      <AutoSave />
       <StarCard />
       {state.isFinished && <DonateCard />}
       {state.isFinished && <ResultScreen />}
