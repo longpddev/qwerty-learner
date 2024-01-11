@@ -1,16 +1,38 @@
 import styles from './index.module.css'
+import useIsLogin from '@/hooks/useIsLogin'
 import { autoSaveConfigAtom } from '@/store'
-import { db } from '@/utils/db'
+import { pullAllRecords, pushAllRecords } from '@/utils/db'
 import type { ExportProgress, ImportProgress } from '@/utils/db/data-export'
 import { exportDatabase, importDatabase } from '@/utils/db/data-export'
-import { backupData } from '@/utils/db/firebase'
-import { Switch } from '@headlessui/react'
 import * as Progress from '@radix-ui/react-progress'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useAtom } from 'jotai'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+
+function useFetch(cb: () => Promise<void>) {
+  const [fetching, fetchingSet] = useState(false)
+
+  return [
+    fetching,
+    useCallback(
+      async function () {
+        fetchingSet(true)
+        try {
+          const result = await cb()
+          return result
+        } finally {
+          fetchingSet(false)
+        }
+      },
+      [cb],
+    ),
+  ] as const
+}
 
 export default function DataSetting() {
+  const isLogin = useIsLogin()
+  const [pullAllRecordsPending, pullAllRecordsCall] = useFetch(pullAllRecords)
+  const [pushAllRecordsPending, pushAllRecordsCall] = useFetch(pushAllRecords)
   const [isExporting, setIsExporting] = useState(false)
   const [exportProgress, setExportProgress] = useState(0)
 
@@ -64,7 +86,26 @@ export default function DataSetting() {
     <ScrollArea.Root className="flex-1 select-none overflow-y-auto ">
       <ScrollArea.Viewport className="h-full w-full px-3">
         <div className={styles.tabContent}>
-          <div className={styles.section}>
+          {isLogin && (
+            <div className={styles.section}>
+              <span className={styles.sectionLabel}>Pull Push data</span>
+              <div className="flex w-full gap-4 pl-4">
+                <button
+                  className="my-btn-primary whitespace-nowrap bg-orange-500 shadow"
+                  onClick={() => !pullAllRecordsPending && pullAllRecordsCall()}
+                >
+                  {pullAllRecordsPending ? 'Loading' : 'Pull data'}
+                </button>
+                <button
+                  className="my-btn-primary whitespace-nowrap bg-indigo-500 shadow"
+                  onClick={() => !pushAllRecordsPending && pushAllRecordsCall()}
+                >
+                  {pushAllRecordsPending ? 'Loading' : 'Push data'}
+                </button>
+              </div>
+            </div>
+          )}
+          {/* <div className={styles.section}>
             <span className={styles.sectionLabel}>Auto Save</span>
             <div className="flex w-full justify-between pl-4">
               <Switch checked={autoSave.active} onChange={toggleAutoSave} className="switch-root">
@@ -72,7 +113,7 @@ export default function DataSetting() {
               </Switch>
               <span className="text-right text-xs font-normal leading-tight text-gray-600">{`${autoSave.active ? 'turn on' : 'off'}`}</span>
             </div>
-          </div>
+          </div> */}
           <div className={styles.section}>
             <span className={styles.sectionLabel}>Data output</span>
             <span className={styles.sectionDescription}>

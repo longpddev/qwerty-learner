@@ -16,6 +16,7 @@ function useAutoSave() {
         await import('dexie-export-import')
         const data = await db.export()
         const text = await data.text()
+        console.log(text)
         if (prevData === text) return
         if (isDestroy) return
         prevData = text
