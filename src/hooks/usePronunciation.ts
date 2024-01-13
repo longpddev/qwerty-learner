@@ -1,6 +1,7 @@
 import { pronunciationConfigAtom } from '@/store'
 import type { PronunciationType } from '@/typings'
 import { addHowlListener } from '@/utils'
+import { groupArray } from '@/utils/groupBy'
 import { romajiToHiragana } from '@/utils/kana'
 import noop from '@/utils/noop'
 import type { Howl } from 'howler'
@@ -38,6 +39,7 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
     loop,
     volume: pronunciationConfig.volume,
     rate: pronunciationConfig.rate,
+    interrupt: true,
     xhr: {
       headers: {
         'Cache-Control': 'max-age=3600',
@@ -55,7 +57,11 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
     if (!sound) return
     const unListens: Array<() => void> = []
 
-    unListens.push(addHowlListener(sound, 'play', () => setIsPlaying(true)))
+    unListens.push(
+      addHowlListener(sound, 'play', () => {
+        setIsPlaying(true)
+      }),
+    )
     unListens.push(addHowlListener(sound, 'end', () => setIsPlaying(false)))
     unListens.push(addHowlListener(sound, 'pause', () => setIsPlaying(false)))
     unListens.push(addHowlListener(sound, 'playerror', () => setIsPlaying(false)))
@@ -107,21 +113,43 @@ export function usePrefetchPronunciationSounds(words: string[]) {
       preWords.current.clear()
     }
 
-    const createPrefetchLink = (soundUrl: string) => {
+    const createPrefetchLink = (soundUrl: string): Promise<HTMLLinkElement> => {
       const link = document.createElement('link')
       link.rel = 'prefetch'
       link.href = soundUrl
       document.head.appendChild(link)
-
-      return link
+      return new Promise((res, rej) => {
+        link.onload = () => res(link)
+        link.onerror = (e) => {
+          rej(e)
+          link.remove()
+        }
+      })
     }
 
-    for (const link of words) {
-      const soundUrl = getSoundUrl(link)
-      if (!preWords.current.has(soundUrl)) preWords.current.set(soundUrl, createPrefetchLink(soundUrl))
+    let cleared = false
+    async function execute() {
+      for (const group of groupArray(words, 10)) {
+        if (cleared) return
+        await Promise.allSettled(
+          group.map(async (link) => {
+            const soundUrl = getSoundUrl(link)
+            if (!preWords.current.has(soundUrl)) {
+              const link = await createPrefetchLink(soundUrl)
+              if (cleared) return
+              preWords.current.set(soundUrl, link)
+            }
+          }),
+        )
+      }
     }
 
-    return removeAll
+    execute()
+
+    return () => {
+      cleared = true
+      removeAll()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getSoundUrl, isChange()])
 

@@ -5,8 +5,8 @@ import React from 'react'
 
 export const WordPronunciationIcon = React.forwardRef<
   WordPronunciationIconRef,
-  { word: string; className?: string; iconClassName?: string }
->(({ word, className, iconClassName }, ref) => {
+  { word: string; className?: string; iconClassName?: string; duration?: number }
+>(({ word, className, iconClassName, duration = 100 }, ref) => {
   const { play, stop, isPlaying } = usePronunciationSound(word)
 
   const playSound = useCallback(() => {
@@ -31,6 +31,7 @@ export const WordPronunciationIcon = React.forwardRef<
       animated={isPlaying}
       onClick={playSound}
       className={`cursor-pointer text-gray-600 ${className}`}
+      duration={duration}
       iconClassName={iconClassName}
     />
   )

@@ -24,3 +24,16 @@ export function groupByDictTags(dicts: Dictionary[]) {
     return result
   }, {})
 }
+
+export function groupArray<T>(arr: T[], by: number): T[][] {
+  return arr.reduce((acc, item) => {
+    const lastIndex = acc.length - 1
+    if (lastIndex < 0 || acc[lastIndex].length >= by) {
+      acc.push([item])
+    } else {
+      acc[lastIndex].push(item)
+    }
+
+    return acc
+  }, [] as T[][])
+}
