@@ -12,6 +12,13 @@ import { useAtomValue, useSetAtom } from 'jotai'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
+function prefetchPosition(index: number, loadMore: number, overlap: number) {
+  const start = index - (index % loadMore)
+  const end = start + loadMore + overlap
+
+  return [start, end]
+}
+
 export default function WordPanel() {
   // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const { state, dispatch } = useContext(TypingContext)!
@@ -20,8 +27,14 @@ export default function WordPanel() {
   const [wordComponentKey, setWordComponentKey] = useState(0)
   const [currentWordExerciseCount, setCurrentWordExerciseCount] = useState(0)
   const { times: loopWordTimes } = useAtomValue(loopWordConfigAtom)
+  const index = state.chapterData.index
+  const [prefetchStart, prefetchEnd] = prefetchPosition(index, 21, 3)
+
   const currentWord = state.chapterData.words[state.chapterData.index]
-  const wordNames = state.chapterData.words.map((item) => item.name)
+  const wordNames = useMemo(
+    () => state.chapterData.words.map((item) => item.name).slice(prefetchStart, prefetchEnd),
+    [prefetchStart, prefetchEnd, state],
+  )
 
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const isReviewMode = useAtomValue(isReviewModeAtom)
