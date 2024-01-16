@@ -10,7 +10,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useSound from 'use-sound'
 import type { HookOptions } from 'use-sound/dist/types'
 
-const pronunciationApi = 'https://dict.youdao.com/dictvoice?audio='
+const pronunciationApi = 'https://hono-proxy.longpddev.workers.dev/dictvoice?audio='
 export function generateWordSoundSrc(word: string, pronunciation: Exclude<PronunciationType, false>) {
   switch (pronunciation) {
     case 'uk':
@@ -28,53 +28,170 @@ export function generateWordSoundSrc(word: string, pronunciation: Exclude<Pronun
   }
 }
 
+function silenceOffset(buffer: AudioBuffer) {
+  const threshold = 0.01 // Adjust this threshold value based on your audio characteristics
+  const length = buffer.length
+  const data = buffer.getChannelData(0) // Assuming mono audio
+
+  // Trim from the start
+  let start = 0
+  while (start < length && Math.abs(data[start]) < threshold) {
+    start++
+  }
+
+  // Trim from the end
+  let end = length - 1
+  while (end > start && Math.abs(data[end]) < threshold) {
+    end--
+  }
+
+  return { start, end }
+}
+
+async function loadAudio(url: string): Promise<ArrayBuffer> {
+  return new Promise((res, rej) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    xhr.responseType = 'arraybuffer'
+    xhr.withCredentials = true
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        // Decode the audio data
+        res(xhr.response)
+      } else {
+        rej("can't load data")
+      }
+    }
+
+    xhr.send()
+  })
+}
+
+async function fetchAudio(url: string) {
+  console.log(url)
+  const response = await fetch(url)
+
+  const buffer = await response.arrayBuffer()
+  console.log('buffer', buffer)
+  const audioContext = new AudioContext()
+  const arrayBuffer = await audioContext.decodeAudioData(buffer)
+  const { numberOfChannels: channels, sampleRate: rate } = arrayBuffer
+  const { start, end } = silenceOffset(arrayBuffer)
+
+  const frameCount = end - start
+  const anotherArray = new Float32Array(frameCount)
+  const newArrayBuffer = audioContext.createBuffer(channels, frameCount, rate)
+
+  for (let channel = 0; channel < channels; channel++) {
+    arrayBuffer.copyFromChannel(anotherArray, channel, start)
+    newArrayBuffer.copyToChannel(anotherArray, channel, 0)
+  }
+
+  const source = audioContext.createBufferSource()
+  source.buffer = newArrayBuffer
+  source.connect(audioContext.destination)
+
+  return source
+}
+
 export default function usePronunciationSound(word: string, isLoop?: boolean) {
   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
   const loop = useMemo(() => (typeof isLoop === 'boolean' ? isLoop : pronunciationConfig.isLoop), [isLoop, pronunciationConfig.isLoop])
   const [isPlaying, setIsPlaying] = useState(false)
-
-  const [play, { stop, sound }] = useSound(generateWordSoundSrc(word, pronunciationConfig.type), {
-    html5: true,
-    format: ['mp3'],
-    loop,
-    volume: pronunciationConfig.volume,
-    rate: pronunciationConfig.rate,
-    interrupt: true,
-    xhr: {
-      headers: {
-        'Cache-Control': 'max-age=3600',
-      },
-    },
-  } as HookOptions)
-
-  useEffect(() => {
-    if (!sound) return
-    sound.loop(loop)
-    return noop
-  }, [loop, sound])
-
-  useEffect(() => {
-    if (!sound) return
-    const unListens: Array<() => void> = []
-
-    unListens.push(
-      addHowlListener(sound, 'play', () => {
-        setIsPlaying(true)
-      }),
-    )
-    unListens.push(addHowlListener(sound, 'end', () => setIsPlaying(false)))
-    unListens.push(addHowlListener(sound, 'pause', () => setIsPlaying(false)))
-    unListens.push(addHowlListener(sound, 'playerror', () => setIsPlaying(false)))
-
-    return () => {
-      setIsPlaying(false)
-      unListens.forEach((unListen) => unListen())
-      ;(sound as Howl).unload()
+  const audioUrl = generateWordSoundSrc(word, pronunciationConfig.type)
+  const [play, stop] = useMemo(() => {
+    const fetching = fetchAudio(audioUrl)
+    const isStop = false
+    let isStart = false
+    async function play() {
+      const audio = await fetching
+      if (isStart) return
+      audio.start()
+      setIsPlaying(true)
+      isStart = true
     }
-  }, [sound])
+
+    async function stop() {
+      if (!isStart) return
+      setIsPlaying(false)
+      const audio = await fetching
+      audio.stop()
+      isStart = false
+    }
+
+    return [play, stop]
+  }, [audioUrl])
+
+  // useEffect(() => {
+  //   if (!sound) return
+  //   const unListens: Array<() => void> = []
+
+  //   unListens.push(
+  //     addHowlListener(sound, 'play', () => {
+  //       setIsPlaying(true)
+  //     }),
+  //   )
+  //   unListens.push(addHowlListener(sound, 'end', () => setIsPlaying(false)))
+  //   unListens.push(addHowlListener(sound, 'pause', () => setIsPlaying(false)))
+  //   unListens.push(addHowlListener(sound, 'playerror', () => setIsPlaying(false)))
+
+  //   return () => {
+  //     setIsPlaying(false)
+  //     unListens.forEach((unListen) => unListen())
+  //     ;(sound as Howl).unload()
+  //   }
+  // }, [sound])
 
   return { play, stop, isPlaying }
 }
+
+// export default function usePronunciationSound(word: string, isLoop?: boolean) {
+//   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
+//   const loop = useMemo(() => (typeof isLoop === 'boolean' ? isLoop : pronunciationConfig.isLoop), [isLoop, pronunciationConfig.isLoop])
+//   const [isPlaying, setIsPlaying] = useState(false)
+
+//   const [play, { stop, sound }] = useSound(generateWordSoundSrc(word, pronunciationConfig.type), {
+//     html5: true,
+//     format: ['mp3'],
+//     loop,
+//     volume: pronunciationConfig.volume,
+//     rate: pronunciationConfig.rate,
+//     interrupt: true,
+//     xhr: {
+//       headers: {
+//         'Cache-Control': 'max-age=3600',
+//       },
+//     },
+//   } as HookOptions)
+
+//   useEffect(() => {
+//     if (!sound) return
+//     sound.loop(loop)
+//     return noop
+//   }, [loop, sound])
+
+//   useEffect(() => {
+//     if (!sound) return
+//     const unListens: Array<() => void> = []
+
+//     unListens.push(
+//       addHowlListener(sound, 'play', () => {
+//         setIsPlaying(true)
+//       }),
+//     )
+//     unListens.push(addHowlListener(sound, 'end', () => setIsPlaying(false)))
+//     unListens.push(addHowlListener(sound, 'pause', () => setIsPlaying(false)))
+//     unListens.push(addHowlListener(sound, 'playerror', () => setIsPlaying(false)))
+
+//     return () => {
+//       setIsPlaying(false)
+//       unListens.forEach((unListen) => unListen())
+//       ;(sound as Howl).unload()
+//     }
+//   }, [sound])
+
+//   return { play, stop, isPlaying }
+// }
 
 export function usePrefetchPronunciationSound(word: string | undefined) {
   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
