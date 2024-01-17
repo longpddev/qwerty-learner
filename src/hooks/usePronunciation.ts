@@ -68,11 +68,9 @@ async function loadAudio(url: string): Promise<ArrayBuffer> {
 }
 
 async function fetchAudio(url: string) {
-  console.log(url)
   const response = await fetch(url)
 
   const buffer = await response.arrayBuffer()
-  console.log('buffer', buffer)
   const audioContext = new AudioContext()
   const arrayBuffer = await audioContext.decodeAudioData(buffer)
   const { numberOfChannels: channels, sampleRate: rate } = arrayBuffer
@@ -87,11 +85,21 @@ async function fetchAudio(url: string) {
     newArrayBuffer.copyToChannel(anotherArray, channel, 0)
   }
 
-  const source = audioContext.createBufferSource()
-  source.buffer = newArrayBuffer
-  source.connect(audioContext.destination)
-
-  return source
+  let source: AudioBufferSourceNode | undefined
+  return {
+    play: () => {
+      source = audioContext.createBufferSource()
+      source.buffer = newArrayBuffer
+      source.connect(audioContext.destination)
+      source.start()
+      return source
+    },
+    stop: () => {
+      source?.stop()
+      source = undefined
+    },
+    audioContext,
+  }
 }
 
 export default function usePronunciationSound(word: string, isLoop?: boolean) {
@@ -101,13 +109,16 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
   const audioUrl = generateWordSoundSrc(word, pronunciationConfig.type)
   const [play, stop] = useMemo(() => {
     const fetching = fetchAudio(audioUrl)
-    const isStop = false
     let isStart = false
     async function play() {
       const audio = await fetching
       if (isStart) return
-      audio.start()
+      const audioNode = audio.play()
       setIsPlaying(true)
+      audioNode.addEventListener('ended', function handle() {
+        setIsPlaying(false)
+        audioNode.removeEventListener('ended', handle)
+      })
       isStart = true
     }
 
