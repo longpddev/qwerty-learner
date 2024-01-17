@@ -86,6 +86,7 @@ async function fetchAudio(url: string) {
   }
 
   let source: AudioBufferSourceNode | undefined
+
   return {
     play: () => {
       source = audioContext.createBufferSource()
@@ -133,26 +134,12 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
     return [play, stop]
   }, [audioUrl])
 
-  // useEffect(() => {
-  //   if (!sound) return
-  //   const unListens: Array<() => void> = []
-
-  //   unListens.push(
-  //     addHowlListener(sound, 'play', () => {
-  //       setIsPlaying(true)
-  //     }),
-  //   )
-  //   unListens.push(addHowlListener(sound, 'end', () => setIsPlaying(false)))
-  //   unListens.push(addHowlListener(sound, 'pause', () => setIsPlaying(false)))
-  //   unListens.push(addHowlListener(sound, 'playerror', () => setIsPlaying(false)))
-
-  //   return () => {
-  //     setIsPlaying(false)
-  //     unListens.forEach((unListen) => unListen())
-  //     ;(sound as Howl).unload()
-  //   }
-  // }, [sound])
-
+  useEffect(
+    () => () => {
+      stop()
+    },
+    [stop],
+  )
   return { play, stop, isPlaying }
 }
 
