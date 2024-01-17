@@ -88,14 +88,26 @@ async function fetchAudio(url: string) {
   let source: AudioBufferSourceNode | undefined
 
   return {
-    play: () => {
-      source = audioContext.createBufferSource()
+    init() {
+      const source = audioContext.createBufferSource()
       source.buffer = newArrayBuffer
       source.connect(audioContext.destination)
+      return source
+    },
+    loop() {
+      this.stop()
+      source = this.init()
+      source.loop = true
       source.start()
       return source
     },
-    stop: () => {
+    play() {
+      this.stop()
+      source = this.init()
+      source.start()
+      return source
+    },
+    stop() {
       source?.stop()
       source = undefined
     },
@@ -107,36 +119,37 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
   const pronunciationConfig = useAtomValue(pronunciationConfigAtom)
   const loop = useMemo(() => (typeof isLoop === 'boolean' ? isLoop : pronunciationConfig.isLoop), [isLoop, pronunciationConfig.isLoop])
   const [isPlaying, setIsPlaying] = useState(false)
+  const isStarted = useRef(false)
   const audioUrl = generateWordSoundSrc(word, pronunciationConfig.type)
   const [play, stop] = useMemo(() => {
     const fetching = fetchAudio(audioUrl)
-    let isStart = false
     async function play() {
       const audio = await fetching
-      if (isStart) return
-      const audioNode = audio.play()
+      if (isStarted.current) return
+      const audioNode = loop ? audio.loop() : audio.play()
       setIsPlaying(true)
       audioNode.addEventListener('ended', function handle() {
         setIsPlaying(false)
         audioNode.removeEventListener('ended', handle)
       })
-      isStart = true
+      isStarted.current = true
     }
 
     async function stop() {
-      if (!isStart) return
+      if (!isStarted.current) return
       setIsPlaying(false)
       const audio = await fetching
       audio.stop()
-      isStart = false
+      isStarted.current = false
     }
 
     return [play, stop]
-  }, [audioUrl])
+  }, [audioUrl, loop])
 
   useEffect(
     () => () => {
       stop()
+      isStarted.current = false
     },
     [stop],
   )
