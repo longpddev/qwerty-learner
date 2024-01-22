@@ -1,6 +1,7 @@
 import { CHAPTER_LENGTH } from '@/constants'
 import { currentChapterAtom, currentDictInfoAtom, reviewModeInfoAtom } from '@/store'
 import type { Word, WordWithIndex } from '@/typings/index'
+import { getChapterById } from '@/utils/db'
 import { wordListFetcher } from '@/utils/wordListFetcher'
 import { useAtom, useAtomValue } from 'jotai'
 import { useMemo } from 'react'
@@ -15,7 +16,7 @@ export type UseWordListResult = {
 /**
  * Use word lists from the current selected dictionary.
  */
-export function useWordList(): UseWordListResult {
+export function useWordList() {
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const { isReviewMode, reviewRecord } = useAtomValue(reviewModeInfoAtom)
@@ -27,6 +28,8 @@ export function useWordList(): UseWordListResult {
 
   const isFirstChapter = !isReviewMode && currentDictInfo.id === 'cet4' && currentChapter === 0
   const { data: wordList, error, isLoading } = useSWR(currentDictInfo.url, wordListFetcher)
+
+  const { data: schedule, isLoading: isScheduleLoading } = useSWR(currentChapter + '_' + currentDictInfo.id, getChapterById)
 
   const words: WordWithIndex[] = useMemo(() => {
     let newWords: Word[]
@@ -58,7 +61,7 @@ export function useWordList(): UseWordListResult {
     })
   }, [isFirstChapter, isReviewMode, wordList, reviewRecord?.words, currentChapter])
 
-  return { words, isLoading, error }
+  return { words, isLoading, error, schedule, isScheduleLoading }
 }
 
 const firstChapter = [

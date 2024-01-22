@@ -1,5 +1,7 @@
 import { useChapterStats } from '../hooks/useChapterStats'
 import useIntersectionObserver from '@/hooks/useIntersectionObserver'
+import clsx from 'clsx'
+import { Rating } from 'fsrs.js'
 import { useEffect, useRef } from 'react'
 import IconCheckCircle from '~icons/heroicons/check-circle-solid'
 
@@ -31,10 +33,22 @@ export default function Chapter({
     }
   }, [checked])
 
+  const reviewlog = chapterStatus?.schedule?.review_log
+  const card = chapterStatus?.schedule?.card
+  const now = new Date()
   return (
     <div
       ref={ref}
-      className="relative flex h-16 w-40 cursor-pointer  flex-col items-start justify-center overflow-hidden rounded-xl bg-slate-100 px-3 py-2 dark:bg-slate-800"
+      className={clsx(
+        'relative flex h-16 w-40 cursor-pointer  flex-col items-start justify-center overflow-hidden rounded-xl border border-solid bg-slate-100 px-3 py-2 dark:bg-slate-800',
+        {
+          'border-slate-100': !reviewlog || reviewlog.rating === Rating.Again,
+          'border-green-400': reviewlog && reviewlog.rating === Rating.Good,
+          'border-red-400': reviewlog && reviewlog.rating === Rating.Hard,
+          'border-blue-400': reviewlog && reviewlog.rating === Rating.Easy,
+          'pointer-events-none opacity-50': card && card.due > now,
+        },
+      )}
       onClick={() => onChange(index)}
     >
       <h1>Chapter {index + 1}</h1>

@@ -13,7 +13,7 @@ import { useCallback, useContext } from 'react'
 
 class RecordDB extends Dexie {
   wordRecords!: Table<IWordRecord, number>
-  chapterRecords!: Table<IChapterRecord, number>
+  chapterRecords!: Table<IChapterRecord, string>
   reviewRecords!: Table<IReviewRecord, number>
 
   revisionDictRecords!: Table<IRevisionDictRecord, number>
@@ -82,6 +82,14 @@ export async function deleteAllRecords() {
   await db.reviewRecords.clear()
 }
 
+window._db = db
+
+window._clear = async () => {
+  await db.wordRecords.clear()
+  await db.chapterRecords.clear()
+  await db.reviewRecords.clear()
+}
+
 export async function pullAllRecords() {
   const [wordRecords, chapterRecords, reviewRecords] = (await Promise.all(
     ['wordRecords', 'chapterRecords', 'reviewRecords'].map(pullRecords),
@@ -94,7 +102,7 @@ export async function pullAllRecords() {
 
   if (chapterRecords.length > 0) {
     await db.chapterRecords.clear()
-    await Promise.all(chapterRecords.map((item) => db.chapterRecords.add(item, (item as unknown as { id: number }).id)))
+    await Promise.all(chapterRecords.map((item) => db.chapterRecords.add(item, (item as unknown as { id: number }).id.toString())))
   }
 
   if (reviewRecords.length > 0) {
@@ -113,6 +121,10 @@ export async function pushAllRecords() {
   alert('pushAllRecords done')
 }
 
+export async function getChapterById(id: string) {
+  return db.chapterRecords.get(id)
+}
+
 export function useSaveChapterRecord() {
   const currentChapter = useAtomValue(currentChapterAtom)
   const isRevision = useAtomValue(isReviewModeAtom)
@@ -121,14 +133,16 @@ export function useSaveChapterRecord() {
   const saveChapterRecord = useCallback(
     (typingState: TypingState) => {
       const {
-        chapterData: { correctCount, wrongCount, userInputLogs, wordCount, words, wordRecordIds },
+        chapterData: { correctCount, wrongCount, userInputLogs, wordCount, words, wordRecordIds, schedule },
         timerData: { time },
       } = typingState
       const correctWordIndexes = userInputLogs.filter((log) => log.correctCount > 0 && log.wrongCount === 0).map((log) => log.index)
 
+      if (!schedule) throw new Error('schedule do not setup')
+
       const chapterRecord = new ChapterRecord(
         dictID,
-        isRevision ? -1 : currentChapter,
+        currentChapter,
         time,
         correctCount,
         wrongCount,
@@ -136,8 +150,9 @@ export function useSaveChapterRecord() {
         correctWordIndexes,
         words.length,
         wordRecordIds ?? [],
+        schedule,
       )
-      db.chapterRecords.add(chapterRecord)
+      db.chapterRecords.put(chapterRecord, chapterRecord.id)
     },
     [currentChapter, dictID, isRevision],
   )

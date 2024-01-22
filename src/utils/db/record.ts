@@ -1,5 +1,7 @@
 import { getUTCUnixTimestamp } from '../index'
+import type { IFlatSchedule } from '@/pages/Typing/store/type'
 import type { Word } from '@/typings'
+import { Card, type Rating, ReviewLog, SchedulingInfo, type State } from 'fsrs.js'
 
 export interface IWordRecord {
   word: string
@@ -45,7 +47,7 @@ export class WordRecord implements IWordRecord {
   }
 }
 
-export interface IChapterRecord {
+export interface IChapterRecord extends IFlatSchedule {
   // 正常章节为 dictKey, 其他功能则为对应的类型
   dict: string
   // 在错题场景中为 -1
@@ -65,9 +67,14 @@ export interface IChapterRecord {
   wordNumber: number
   // 单词 record 的 id 列表
   wordRecordIds: number[]
+
+  card: Card
+  reviewLog: ReviewLog
+  schedule: SchedulingInfo
 }
 
 export class ChapterRecord implements IChapterRecord {
+  id: string
   dict: string
   chapter: number | null
   timeStamp: number
@@ -78,7 +85,20 @@ export class ChapterRecord implements IChapterRecord {
   correctWordIndexes: number[]
   wordNumber: number
   wordRecordIds: number[]
-
+  card_difficulty: number
+  card_due: string
+  card_elapsed_days: number
+  card_lapses: number
+  card_last_review: string
+  card_reps: number
+  card_scheduled_days: number
+  card_stability: number
+  card_state: State
+  review_elapsed_days: number
+  review_rating: Rating
+  review_review: string
+  review_scheduled_days: number
+  review_state: State
   constructor(
     dict: string,
     chapter: number | null,
@@ -89,7 +109,9 @@ export class ChapterRecord implements IChapterRecord {
     correctWordIndexes: number[],
     wordNumber: number,
     wordRecordIds: number[],
+    schedule: SchedulingInfo,
   ) {
+    this.id = dict + '_' + chapter
     this.dict = dict
     this.chapter = chapter
     this.timeStamp = getUTCUnixTimestamp()
@@ -100,6 +122,22 @@ export class ChapterRecord implements IChapterRecord {
     this.correctWordIndexes = correctWordIndexes
     this.wordNumber = wordNumber
     this.wordRecordIds = wordRecordIds
+
+    this.card_difficulty = schedule.card.difficulty
+    this.card_due = schedule.card.due.toISOString()
+    this.card_elapsed_days = schedule.card.elapsed_days
+    this.card_lapses = schedule.card.lapses
+    this.card_last_review = schedule.card.last_review.toISOString()
+    this.card_reps = schedule.card.reps
+    this.card_scheduled_days = schedule.card.scheduled_days
+    this.card_stability = schedule.card.stability
+    this.card_state = schedule.card.state
+
+    this.review_elapsed_days = schedule.review_log.elapsed_days
+    this.review_rating = schedule.review_log.rating
+    this.review_review = schedule.review_log.review.toISOString()
+    this.review_scheduled_days = schedule.review_log.scheduled_days
+    this.review_state = schedule.review_log.state
   }
 
   get wpm() {
@@ -112,6 +150,34 @@ export class ChapterRecord implements IChapterRecord {
 
   get wordAccuracy() {
     return Math.round((this.correctWordIndexes.length / this.wordNumber) * 100)
+  }
+
+  get card() {
+    const _card = new Card()
+    _card.difficulty = this.card_difficulty
+    _card.due = new Date(this.card_due)
+    _card.elapsed_days = this.card_elapsed_days
+    _card.lapses = this.card_lapses
+    _card.last_review = new Date(this.card_last_review)
+    _card.reps = this.card_reps
+    _card.scheduled_days = this.card_scheduled_days
+    _card.stability = this.card_stability
+    _card.state = this.card_state
+    return _card
+  }
+
+  get reviewLog() {
+    const review_elapsed_days = this.review_elapsed_days
+    const review_rating = this.review_rating
+    const review_review = this.review_review
+    const review_scheduled_days = this.review_scheduled_days
+    const review_state = this.review_state
+
+    return new ReviewLog(review_rating, review_scheduled_days, review_elapsed_days, new Date(review_review), review_state)
+  }
+
+  get schedule() {
+    return new SchedulingInfo(this.card, this.reviewLog)
   }
 }
 

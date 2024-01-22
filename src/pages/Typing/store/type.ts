@@ -1,5 +1,23 @@
 import type { WordWithIndex } from '@/typings'
 import type { LetterMistakes } from '@/utils/db/record'
+import type { Rating, SchedulingInfo, State } from 'fsrs.js'
+
+export type IFlatSchedule = {
+  card_due: string
+  card_stability: number
+  card_difficulty: number
+  card_elapsed_days: number
+  card_scheduled_days: number
+  card_reps: number
+  card_lapses: number
+  card_state: State
+  card_last_review: string
+  review_rating: Rating
+  review_scheduled_days: number
+  review_elapsed_days: number
+  review_review: string
+  review_state: State
+}
 
 export type ChapterData = {
   // warning: 因为有章节内随机的存在，所有记录 index 的场景都应该使用 WordWithIndex.index
@@ -16,6 +34,7 @@ export type ChapterData = {
   userInputLogs: UserInputLog[]
   // 本章节用户输入的单词的 record id 列表
   wordRecordIds: number[]
+  schedule?: SchedulingInfo
 }
 
 export type UserInputLog = {
@@ -43,6 +62,7 @@ export type WrongWordData = {
 
 export type TypingState = {
   chapterData: ChapterData
+  prevSchedule?: SchedulingInfo
   timerData: TimerData
   isTyping: boolean
   isFinished: boolean

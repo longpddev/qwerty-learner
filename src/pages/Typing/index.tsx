@@ -3,6 +3,8 @@ import AutoSave from './components/AutoSave'
 import { DictChapterButton } from './components/DictChapterButton'
 import PronunciationSwitcher from './components/PronunciationSwitcher'
 import ResultScreen from './components/ResultScreen'
+import SearchWord from './components/SearchWord'
+import SeachWord from './components/SearchWord'
 import Speed from './components/Speed'
 import StartButton from './components/StartButton'
 import Switcher from './components/Switcher'
@@ -28,7 +30,7 @@ import { useImmerReducer } from 'use-immer'
 const App: React.FC = () => {
   const [state, dispatch] = useImmerReducer(typingReducer, structuredClone(initialState))
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const { words } = useWordList()
+  const { words, schedule, isScheduleLoading } = useWordList()
 
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const setCurrentChapter = useSetAtom(currentChapterAtom)
@@ -94,16 +96,15 @@ const App: React.FC = () => {
   }, [state.isTyping, isLoading, dispatch])
 
   useEffect(() => {
-    if (words !== undefined) {
+    if (words !== undefined && !isScheduleLoading) {
       const initialIndex = isReviewMode && reviewModeInfo.reviewRecord?.index ? reviewModeInfo.reviewRecord.index : 0
-
       dispatch({
         type: TypingStateActionType.SETUP_CHAPTER,
-        payload: { words, shouldShuffle: randomConfig.isOpen, initialIndex },
+        payload: { words, shouldShuffle: randomConfig.isOpen, initialIndex, schedule: schedule?.schedule },
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [words])
+  }, [words, schedule, isScheduleLoading])
 
   useEffect(() => {
     // 当用户完成章节后且完成 word Record 数据保存，记录 chapter Record 数据,

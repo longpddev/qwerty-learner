@@ -4,9 +4,26 @@ import type { LetterMistakes } from '@/utils/db/record'
 import '@/utils/db/review-record'
 import { mergeLetterMistake } from '@/utils/db/utils'
 import shuffle from '@/utils/shuffle'
+import type { SchedulingInfo } from 'fsrs.js'
+import { Card, FSRS, Rating, State } from 'fsrs.js'
 import { createContext } from 'react'
 
+const fsrs = new FSRS()
+const calcRating = (accuracy: number) => {
+  let rating: Rating
+
+  if (accuracy > 98) {
+    rating = Rating.Easy
+  } else if (accuracy > 80) {
+    rating = Rating.Good
+  } else {
+    rating = Rating.Hard
+  }
+
+  return rating
+}
 export const initialState: TypingState = {
+  prevSchedule: undefined,
   chapterData: {
     words: [],
     index: 0,
@@ -15,6 +32,7 @@ export const initialState: TypingState = {
     wrongCount: 0,
     wordRecordIds: [],
     userInputLogs: [],
+    schedule: undefined,
   },
   timerData: {
     time: 0,
@@ -62,7 +80,10 @@ export enum TypingStateActionType {
 }
 
 export type TypingStateAction =
-  | { type: TypingStateActionType.SETUP_CHAPTER; payload: { words: WordWithIndex[]; shouldShuffle: boolean; initialIndex?: number } }
+  | {
+      type: TypingStateActionType.SETUP_CHAPTER
+      payload: { words: WordWithIndex[]; shouldShuffle: boolean; initialIndex?: number; schedule: SchedulingInfo | undefined }
+    }
   | { type: TypingStateActionType.SET_IS_SKIP; payload: boolean }
   | { type: TypingStateActionType.SET_IS_TYPING; payload: boolean }
   | { type: TypingStateActionType.TOGGLE_IS_TYPING }
@@ -100,6 +121,7 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
       }
       newState.chapterData.index = initialIndex
       newState.chapterData.words = words
+      newState.chapterData.schedule = state.chapterData.schedule
       newState.chapterData.userInputLogs = words.map((_, index) => ({ ...structuredClone(initialUserInputLog), index }))
 
       return newState
@@ -144,12 +166,20 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
       state.isShowSkip = false
       state.chapterData.wordCount += 1
       break
-    case TypingStateActionType.FINISH_CHAPTER:
+    case TypingStateActionType.FINISH_CHAPTER: {
       state.chapterData.wordCount += 1
+
+      const card = state.chapterData.schedule?.card ?? new Card()
+      if (card.due <= new Date()) {
+        if (state.chapterData.schedule) state.prevSchedule = state.chapterData.schedule
+        state.chapterData.schedule = fsrs.repeat(card, new Date())[calcRating(state.timerData.accuracy)]
+      }
+
       state.isTyping = false
       state.isFinished = true
       state.isShowSkip = false
       break
+    }
     case TypingStateActionType.SKIP_WORD: {
       const newIndex = state.chapterData.index + 1
       if (newIndex >= state.chapterData.words.length) {
@@ -175,6 +205,7 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
       newState.chapterData.userInputLogs = state.chapterData.words.map((_, index) => ({ ...structuredClone(initialUserInputLog), index }))
       newState.isTyping = true
       newState.chapterData.words = action.shouldShuffle ? shuffle(state.chapterData.words) : state.chapterData.words
+      newState.chapterData.schedule = state.prevSchedule ?? state.chapterData.schedule
       newState.isTransVisible = state.isTransVisible
       return newState
     }

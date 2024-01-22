@@ -16,7 +16,6 @@ fs.writeFileSync(
   fs
     .readFileSync(sourceFilePath, { encoding: 'utf-8' })
     .replace(/dicts\/([a-zA-Z0-9_-]+.json)',([\n\s]+)length: \d+/gm, (original, dictFileName, whiteSpace) => {
-      console.log(dictFileName)
       return dictSizeMap[dictFileName] ? `dicts/${dictFileName}',${whiteSpace}length: ${dictSizeMap[dictFileName]}` : original
     }),
 )
