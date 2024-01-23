@@ -74,11 +74,10 @@ export interface IChapterRecord extends IFlatSchedule {
 }
 
 export class ScheduleHandle {
-  public now = new Date()
   constructor(public schedule: IChapterRecord) {}
 
   isDueDate() {
-    return this.schedule.card.due <= this.now
+    return this.schedule.card.due <= new Date()
   }
 }
 

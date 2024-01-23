@@ -8,7 +8,7 @@ import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { currentChapterAtom, currentDictIdAtom, reviewModeInfoAtom } from '@/store'
 import type { Dictionary } from '@/typings'
-import { getAllChapterDetailByDict } from '@/utils/db'
+import { getAllChapterDetailByDict, useAllChapterDetail } from '@/utils/db'
 import { useAtom, useSetAtom } from 'jotai'
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -24,8 +24,8 @@ enum Tab {
 }
 
 export default function DictDetail({ dictionary: dict }: { dictionary: Dictionary }) {
-  const { data } = useSWR(dict, getAllChapterDetailByDict)
-  const dataNotOrder = useMemo(() => [...(data ?? [])].sort((a, b) => a.chapter - b.chapter), [data])
+  const { allChapter } = useAllChapterDetail()
+  const dataNotOrder = useMemo(() => [...(allChapter ?? [])].sort((a, b) => a.chapter - b.chapter), [allChapter])
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const [curTab, setCurTab] = useState<Tab>(Tab.Chapters)

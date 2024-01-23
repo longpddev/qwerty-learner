@@ -14,7 +14,7 @@ import Dexie from 'dexie'
 import { getDoc, setDoc } from 'firebase/firestore/lite'
 import { useAtomValue } from 'jotai'
 import maxBy from 'lodash/maxBy'
-import { useCallback, useContext } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import useSWR from 'swr'
 
 class RecordDB extends Dexie {
@@ -148,7 +148,8 @@ export function produceChapterStats(record: IChapterRecord): IChapterStats {
   return { exerciseCount, avgWrongWordCount, avgWrongInputCount, schedule: record ? new ScheduleHandle(record) : undefined }
 }
 
-export async function getAllChapterDetailByDict(dict: Dictionary) {
+export async function getAllChapterDetailByDict(dictJson: string) {
+  const dict = JSON.parse(dictJson) as { id: string; chapterCount: number; currentChapter: number }
   const chapterRecorded = await getChapterByDict(dict.id)
   chapterRecorded.sort((a, b) => new Date(a.card_due).getTime() - new Date(b.card_due).getTime())
   const stats: Array<IChapterDetail> = chapterRecorded.map((record) => ({
@@ -181,7 +182,15 @@ export function getNextChapter(chapters: Array<IChapterDetail>, chapter: number)
 
 export function useAllChapterDetail() {
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
-  const { data: allChapter, isLoading, error } = useSWR(currentDictInfo, getAllChapterDetailByDict)
+  const currentChapter = useAtomValue(currentChapterAtom)
+  const {
+    data: allChapter,
+    isLoading,
+    error,
+  } = useSWR(
+    JSON.stringify({ id: currentDictInfo.id, chapterCount: currentDictInfo.chapterCount, currentChapter }),
+    getAllChapterDetailByDict,
+  )
 
   const getNext = useCallback((index: number) => getNextChapter(allChapter ?? [], index), [allChapter])
 

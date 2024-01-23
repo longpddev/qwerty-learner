@@ -123,7 +123,7 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
       }
       newState.chapterData.index = initialIndex
       newState.chapterData.words = words
-      newState.chapterData.schedule = state.chapterData.schedule
+      newState.chapterData.schedule = action.payload.schedule
       newState.chapterData.userInputLogs = words.map((_, index) => ({ ...structuredClone(initialUserInputLog), index }))
 
       return newState
