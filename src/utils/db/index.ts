@@ -11,9 +11,9 @@ import { currentChapterAtom, currentDictIdAtom, currentDictInfoAtom, isReviewMod
 import type { Dictionary } from '@/typings'
 import type { Table } from 'dexie'
 import Dexie from 'dexie'
-import { deleteDoc, getDoc, setDoc } from 'firebase/firestore/lite'
+import { getDoc, setDoc } from 'firebase/firestore/lite'
 import { useAtomValue } from 'jotai'
-import { maxBy } from 'lodash'
+import maxBy from 'lodash/maxBy'
 import { useCallback, useContext } from 'react'
 import useSWR from 'swr'
 
@@ -165,10 +165,13 @@ export async function getAllChapterDetailByDict(dict: Dictionary) {
     chapter: record.chapter as number,
   }))
   const chapterMaxIndex = maxBy(stats, (item) => item.chapter)
-  if (chapterMaxIndex && chapterMaxIndex.chapter) {
-    return stats.concat(range(chapterMaxIndex.chapter + 1, dict.chapterCount, 1).map((item) => ({ chapter: item, stats: undefined })))
-  }
-  return stats
+  console.log('🚀 ~ getAllChapterDetailByDict ~ chapterMaxIndex:', chapterMaxIndex)
+  const last = range(chapterMaxIndex ? chapterMaxIndex.chapter + 1 : 0, dict.chapterCount, 1).map((item) => ({
+    chapter: item,
+    stats: undefined,
+  }))
+
+  return stats.concat(last)
 }
 
 export function getNextChapter(chapters: Array<IChapterDetail>, chapter: number) {

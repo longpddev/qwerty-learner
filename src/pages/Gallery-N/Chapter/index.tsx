@@ -30,8 +30,8 @@ export default function Chapter({
     }
   }, [checked])
 
-  const reviewlog = chapterStatus?.schedule?.review_log
-  const card = chapterStatus?.schedule?.card
+  const reviewlog = chapterStatus?.schedule?.schedule?.reviewLog
+  const card = chapterStatus?.schedule?.schedule?.card
   const now = new Date()
   return (
     <div
@@ -50,11 +50,7 @@ export default function Chapter({
     >
       <h1>Chapter {index + 1}</h1>
       <p className="pt-[2px] text-xs text-slate-600">
-        {chapterStatus
-          ? chapterStatus.exerciseCount > 0
-            ? `Exercise ${chapterStatus.exerciseCount} times`
-            : 'Not practiced'
-          : 'loading...'}
+        {chapterStatus ? (chapterStatus.exerciseCount > 0 ? `Exercise ${chapterStatus.exerciseCount} times` : 'Not practiced') : ''}
       </p>
       {checked && (
         <IconCheckCircle className="absolute -bottom-4 -right-4 h-18 w-18 text-6xl text-green-500 opacity-40 dark:text-green-300" />

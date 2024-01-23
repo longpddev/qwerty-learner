@@ -25,6 +25,7 @@ enum Tab {
 
 export default function DictDetail({ dictionary: dict }: { dictionary: Dictionary }) {
   const { data } = useSWR(dict, getAllChapterDetailByDict)
+  const dataNotOrder = useMemo(() => [...(data ?? [])].sort((a, b) => a.chapter - b.chapter), [data])
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const [curTab, setCurTab] = useState<Tab>(Tab.Chapters)
@@ -83,7 +84,7 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
           <TabsContent value={Tab.Chapters} className="h-full ">
             <ScrollArea className="h-[30rem] ">
               <div className="flex w-full flex-wrap gap-3">
-                {data?.map(({ chapter, stats }) => (
+                {dataNotOrder.map(({ chapter, stats }) => (
                   <Chapter key={chapter} index={chapter} checked={chaptered === chapter} onChange={onChangeChapter} chapterStatus={stats} />
                 ))}
               </div>
