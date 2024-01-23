@@ -1,7 +1,9 @@
 import Tooltip from '@/components/Tooltip'
 import { currentChapterAtom, currentDictInfoAtom, isReviewModeAtom } from '@/store'
+import { useAllChapterDetail } from '@/utils/db'
 import range from '@/utils/range'
 import { Listbox, Transition } from '@headlessui/react'
+import clsx from 'clsx'
 import { useAtom, useAtomValue } from 'jotai'
 import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
@@ -12,7 +14,7 @@ export const DictChapterButton = () => {
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const chapterCount = currentDictInfo.chapterCount
   const isReviewMode = useAtomValue(isReviewModeAtom)
-
+  const { allChapter, getNext } = useAllChapterDetail()
   return (
     <>
       <Tooltip content="Dictionary switch">
@@ -30,21 +32,28 @@ export const DictChapterButton = () => {
               Chapter {currentChapter + 1}
             </Listbox.Button>
             <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
-              <Listbox.Options className="listbox-options z-10 w-32">
-                {range(0, chapterCount, 1).map((index) => (
-                  <Listbox.Option key={index} value={index}>
-                    {({ selected }) => (
-                      <div className="group flex cursor-pointer items-center justify-between">
-                        {selected ? (
-                          <span className="listbox-options-icon">
-                            <IconCheck className="focus:outline-none" />
-                          </span>
-                        ) : null}
-                        <span>Chapter {index + 1}</span>
-                      </div>
-                    )}
-                  </Listbox.Option>
-                ))}
+              <Listbox.Options className="listbox-options z-10 w-min">
+                {allChapter.map((chap) => {
+                  const canSelect = !chap.stats?.schedule || (chap.stats?.schedule && chap.stats.schedule.isDueDate())
+                  return (
+                    <Listbox.Option key={chap.chapter} value={chap.chapter} disabled={!canSelect}>
+                      {({ selected }) => (
+                        <div
+                          className={clsx('group flex cursor-pointer items-center justify-between whitespace-nowrap', {
+                            'pointer-events-none opacity-50': !canSelect,
+                          })}
+                        >
+                          {selected ? (
+                            <span className="listbox-options-icon">
+                              <IconCheck className="focus:outline-none" />
+                            </span>
+                          ) : null}
+                          <span>Chapter {chap.chapter + 1}</span>
+                        </div>
+                      )}
+                    </Listbox.Option>
+                  )
+                })}
               </Listbox.Options>
             </Transition>
           </Listbox>

@@ -8,10 +8,11 @@ import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { currentChapterAtom, currentDictIdAtom, reviewModeInfoAtom } from '@/store'
 import type { Dictionary } from '@/typings'
-import range from '@/utils/range'
+import { getAllChapterDetailByDict } from '@/utils/db'
 import { useAtom, useSetAtom } from 'jotai'
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useSWR from 'swr'
 import IcOutlineCollectionsBookmark from '~icons/ic/outline-collections-bookmark'
 import MajesticonsPaperFoldTextLine from '~icons/majesticons/paper-fold-text-line'
 import PajamasReviewList from '~icons/pajamas/review-list'
@@ -23,13 +24,14 @@ enum Tab {
 }
 
 export default function DictDetail({ dictionary: dict }: { dictionary: Dictionary }) {
+  const { data } = useSWR(dict, getAllChapterDetailByDict)
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const [curTab, setCurTab] = useState<Tab>(Tab.Chapters)
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const navigate = useNavigate()
 
-  const chapter = useMemo(() => (dict.id === currentDictId ? currentChapter : 0), [currentChapter, currentDictId, dict.id])
+  const chaptered = useMemo(() => (dict.id === currentDictId ? currentChapter : 0), [currentChapter, currentDictId, dict.id])
   const { errorWordData, isLoading, error } = useErrorWordData(dict)
   const tableData = useMemo(() => getRowsFromErrorWordData(errorWordData), [errorWordData])
 
@@ -81,14 +83,8 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
           <TabsContent value={Tab.Chapters} className="h-full ">
             <ScrollArea className="h-[30rem] ">
               <div className="flex w-full flex-wrap gap-3">
-                {range(0, dict.chapterCount, 1).map((index) => (
-                  <Chapter
-                    key={`${dict.id}-${index}`}
-                    index={index}
-                    checked={chapter === index}
-                    dictID={dict.id}
-                    onChange={onChangeChapter}
-                  />
+                {data?.map(({ chapter, stats }) => (
+                  <Chapter key={chapter} index={chapter} checked={chaptered === chapter} onChange={onChangeChapter} chapterStatus={stats} />
                 ))}
               </div>
             </ScrollArea>

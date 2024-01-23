@@ -1,6 +1,6 @@
 import { toFixedNumber } from '@/utils'
 import { db } from '@/utils/db'
-import type { IChapterRecord } from '@/utils/db/record'
+import { IChapterRecord, ScheduleHandle } from '@/utils/db/record'
 import type { SchedulingInfo } from 'fsrs.js'
 import { useEffect, useState } from 'react'
 
@@ -22,11 +22,11 @@ export function useChapterStats(chapter: number, dictID: string, isStartLoad: bo
   return chapterStats
 }
 
-interface IChapterStats {
+export interface IChapterStats {
   exerciseCount: number
   avgWrongWordCount: number
   avgWrongInputCount: number
-  schedule?: SchedulingInfo
+  schedule?: ScheduleHandle
 }
 
 async function getChapterStats(dict: string, chapter: number | null): Promise<IChapterStats> {
@@ -42,6 +42,5 @@ async function getChapterStats(dict: string, chapter: number | null): Promise<IC
 
   const totalWrongInputCount = records.reduce((total, { wrongCount }) => total + (wrongCount ?? 0), 0)
   const avgWrongInputCount = exerciseCount > 0 ? toFixedNumber(totalWrongInputCount / exerciseCount, 2) : 0
-
-  return { exerciseCount, avgWrongWordCount, avgWrongInputCount, schedule: record?.schedule }
+  return { exerciseCount, avgWrongWordCount, avgWrongInputCount, schedule: record ? new ScheduleHandle(record) : undefined }
 }

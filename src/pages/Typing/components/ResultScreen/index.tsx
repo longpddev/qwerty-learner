@@ -16,6 +16,7 @@ import {
 } from '@/store'
 import type { InfoPanelType } from '@/typings'
 import { recordOpenInfoPanelAction } from '@/utils'
+import { useAllChapterDetail } from '@/utils/db'
 import { Transition } from '@headlessui/react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useCallback, useContext, useEffect, useMemo } from 'react'
@@ -38,6 +39,7 @@ const ResultScreen = () => {
   const setInfoPanelState = useSetAtom(infoPanelStateAtom)
   const randomConfig = useAtomValue(randomConfigAtom)
   const navigate = useNavigate()
+  const { getNext } = useAllChapterDetail()
 
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const isReviewMode = useAtomValue(isReviewModeAtom)
@@ -150,10 +152,10 @@ const ResultScreen = () => {
       return old
     })
     if (!isLastChapter) {
-      setCurrentChapter((old) => old + 1)
+      setCurrentChapter((old) => getNext(old).chapter)
       dispatch({ type: TypingStateActionType.NEXT_CHAPTER })
     }
-  }, [dispatch, isLastChapter, isReviewMode, setCurrentChapter, setWordDictationConfig])
+  }, [dispatch, isLastChapter, isReviewMode, setCurrentChapter, setWordDictationConfig, getNext])
 
   const exitButtonHandler = useCallback(() => {
     if (isReviewMode) {
@@ -217,8 +219,8 @@ const ResultScreen = () => {
         leaveTo="opacity-0"
       >
         <div className="flex h-screen items-center justify-center">
-          <div className="my-card fixed flex w-[90vw] max-w-6xl flex-col overflow-hidden rounded-3xl bg-white pb-14 pl-10 pr-5 pt-10 shadow-lg md:w-4/5 lg:w-3/5 dark:bg-gray-800">
-            <div className="text-center font-sans text-xl font-normal text-gray-900 md:text-2xl dark:text-gray-400">
+          <div className="my-card fixed flex w-[90vw] max-w-6xl flex-col overflow-hidden rounded-3xl bg-white pb-14 pl-10 pr-5 pt-10 shadow-lg dark:bg-gray-800 md:w-4/5 lg:w-3/5">
+            <div className="text-center font-sans text-xl font-normal text-gray-900 dark:text-gray-400 md:text-2xl">
               {`${currentDictInfo.name} ${isReviewMode ? 'Review of wrong questions' : 'no.' + (currentChapter + 1) + 'chapter'}`}
             </div>
             <button className="absolute right-7 top-5" onClick={exitButtonHandler}>

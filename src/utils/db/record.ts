@@ -50,8 +50,8 @@ export class WordRecord implements IWordRecord {
 export interface IChapterRecord extends IFlatSchedule {
   // 正常章节为 dictKey, 其他功能则为对应的类型
   dict: string
-  // 在错题场景中为 -1
-  chapter: number | null
+
+  chapter: number
   timeStamp: number
   // 单位为 s，章节的记录没必要到毫秒级
   time: number
@@ -73,10 +73,19 @@ export interface IChapterRecord extends IFlatSchedule {
   schedule: SchedulingInfo
 }
 
+export class ScheduleHandle {
+  public now = new Date()
+  constructor(public schedule: IChapterRecord) {}
+
+  isDueDate() {
+    return this.schedule.card.due <= this.now
+  }
+}
+
 export class ChapterRecord implements IChapterRecord {
   id: string
   dict: string
-  chapter: number | null
+  chapter: number
   timeStamp: number
   time: number
   correctCount: number
@@ -99,9 +108,14 @@ export class ChapterRecord implements IChapterRecord {
   review_review: string
   review_scheduled_days: number
   review_state: State
+
+  static createId(dict: string, chapter: number | null) {
+    return dict + '_' + chapter
+  }
+
   constructor(
     dict: string,
-    chapter: number | null,
+    chapter: number,
     time: number,
     correctCount: number,
     wrongCount: number,
@@ -111,7 +125,7 @@ export class ChapterRecord implements IChapterRecord {
     wordRecordIds: number[],
     schedule: SchedulingInfo,
   ) {
-    this.id = dict + '_' + chapter
+    this.id = ChapterRecord.createId(dict, chapter)
     this.dict = dict
     this.chapter = chapter
     this.timeStamp = getUTCUnixTimestamp()
