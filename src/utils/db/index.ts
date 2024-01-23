@@ -88,13 +88,6 @@ export async function deleteAllRecords() {
   await db.reviewRecords.clear()
 }
 
-window._db = db
-window._clear = async () => {
-  await db.wordRecords.clear()
-  await db.chapterRecords.clear()
-  await db.reviewRecords.clear()
-}
-
 export async function pullAllRecords() {
   const [wordRecords, chapterRecords, reviewRecords] = (await Promise.all(
     ['wordRecords', 'chapterRecords', 'reviewRecords'].map(pullRecords),
@@ -138,8 +131,6 @@ export async function getChapterByDict(dict: string) {
 
   return records
 }
-
-window.getChapterByDict = getChapterByDict
 
 export interface IChapterDetail {
   stats?: IChapterStats

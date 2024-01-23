@@ -12,12 +12,14 @@ const fsrs = new FSRS()
 const calcRating = (accuracy: number) => {
   let rating: Rating
 
-  if (accuracy > 98) {
+  if (accuracy >= 100) {
     rating = Rating.Easy
-  } else if (accuracy > 80) {
+  } else if (accuracy >= 95) {
     rating = Rating.Good
-  } else {
+  } else if (accuracy >= 85) {
     rating = Rating.Hard
+  } else {
+    rating = Rating.Again
   }
 
   return rating

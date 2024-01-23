@@ -9,6 +9,8 @@ export default function InputHandler({ updateInput }: { updateInput: (updateObj:
   const dictInfo = useAtomValue(currentDictInfoAtom)
   const handler = useMemo(() => {
     switch (dictInfo.language) {
+      case 'en':
+        return <KeyEventHandler updateInput={updateInput} />
       case 'de':
         return <KeyEventHandler updateInput={updateInput} />
       case 'romaji':
