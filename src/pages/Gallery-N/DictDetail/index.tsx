@@ -6,10 +6,10 @@ import useErrorWordData from '../hooks/useErrorWords'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { currentChapterAtom, currentDictIdAtom, reviewModeInfoAtom } from '@/store'
+import { currentChapterAtom, currentDictIdAtom, currentDictInfoAtom, reviewModeInfoAtom } from '@/store'
 import type { Dictionary } from '@/typings'
-import { getAllChapterDetailByDict, useAllChapterDetail } from '@/utils/db'
-import { useAtom, useSetAtom } from 'jotai'
+import { useAllChapterDetail } from '@/utils/db'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
@@ -24,7 +24,7 @@ enum Tab {
 }
 
 export default function DictDetail({ dictionary: dict }: { dictionary: Dictionary }) {
-  const { allChapter } = useAllChapterDetail()
+  const { allChapter } = useAllChapterDetail(dict)
   const dataNotOrder = useMemo(() => [...(allChapter ?? [])].sort((a, b) => a.chapter - b.chapter), [allChapter])
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)

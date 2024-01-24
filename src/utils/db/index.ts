@@ -157,7 +157,6 @@ export async function getAllChapterDetailByDict(dictJson: string) {
     chapter: record.chapter as number,
   }))
   const chapterMaxIndex = maxBy(stats, (item) => item.chapter)
-  console.log('🚀 ~ getAllChapterDetailByDict ~ chapterMaxIndex:', chapterMaxIndex)
   const last = range(chapterMaxIndex ? chapterMaxIndex.chapter + 1 : 0, dict.chapterCount, 1).map((item) => ({
     chapter: item,
     stats: undefined,
@@ -180,17 +179,14 @@ export function getNextChapter(chapters: Array<IChapterDetail>, chapter: number)
   throw new Error('can not get next chap')
 }
 
-export function useAllChapterDetail() {
-  const currentDictInfo = useAtomValue(currentDictInfoAtom)
+export function useAllChapterDetail(dict: Dictionary) {
   const currentChapter = useAtomValue(currentChapterAtom)
+  console.log(JSON.stringify({ id: dict.id, chapterCount: dict.chapterCount, currentChapter }))
   const {
     data: allChapter,
     isLoading,
     error,
-  } = useSWR(
-    JSON.stringify({ id: currentDictInfo.id, chapterCount: currentDictInfo.chapterCount, currentChapter }),
-    getAllChapterDetailByDict,
-  )
+  } = useSWR(JSON.stringify({ id: dict.id, chapterCount: dict.chapterCount, currentChapter }), getAllChapterDetailByDict)
 
   const getNext = useCallback((index: number) => getNextChapter(allChapter ?? [], index), [allChapter])
 

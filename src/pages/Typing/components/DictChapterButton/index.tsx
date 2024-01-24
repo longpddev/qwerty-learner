@@ -12,9 +12,8 @@ import IconCheck from '~icons/tabler/check'
 export const DictChapterButton = () => {
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
-  const chapterCount = currentDictInfo.chapterCount
   const isReviewMode = useAtomValue(isReviewModeAtom)
-  const { allChapter, getNext } = useAllChapterDetail()
+  const { allChapter } = useAllChapterDetail(currentDictInfo)
   return (
     <>
       <Tooltip content="Dictionary switch">

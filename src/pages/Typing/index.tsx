@@ -18,7 +18,7 @@ import Tooltip from '@/components/Tooltip'
 import { idDictionaryMap } from '@/resources/dictionary'
 import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom, randomConfigAtom, reviewModeInfoAtom } from '@/store'
 import { IsDesktop, isLegal } from '@/utils'
-import { useAllChapterDetail, useSaveChapterRecord } from '@/utils/db'
+import { useSaveChapterRecord } from '@/utils/db'
 import { useMixPanelChapterLogUploader } from '@/utils/mixpanel'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import type React from 'react'
@@ -38,8 +38,6 @@ const App: React.FC = () => {
 
   const reviewModeInfo = useAtomValue(reviewModeInfoAtom)
   const isReviewMode = useAtomValue(isReviewModeAtom)
-  const data = useAllChapterDetail()
-  window._data = data
   useEffect(() => {
     // 检测用户设备
     if (!IsDesktop()) {

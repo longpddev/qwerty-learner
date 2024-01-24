@@ -39,7 +39,7 @@ const ResultScreen = () => {
   const setInfoPanelState = useSetAtom(infoPanelStateAtom)
   const randomConfig = useAtomValue(randomConfigAtom)
   const navigate = useNavigate()
-  const { getNext } = useAllChapterDetail()
+  const { getNext } = useAllChapterDetail(currentDictInfo)
 
   const setReviewModeInfo = useSetAtom(reviewModeInfoAtom)
   const isReviewMode = useAtomValue(isReviewModeAtom)
