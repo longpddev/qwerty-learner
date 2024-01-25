@@ -38,7 +38,7 @@ const TranslateText = ({ onClose }: { onClose: () => void }) => {
 }
 
 const Translate = () => {
-  const [isOpen, isOpenSet] = useState(true)
+  const [isOpen, isOpenSet] = useState(false)
   const closeModal = () => {
     isOpenSet(false)
   }
