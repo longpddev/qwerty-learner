@@ -1,7 +1,7 @@
 import { toFixedNumber } from '..'
 import range from '../range'
 import './firebase'
-import { getDocRef } from './firebase'
+import { getDocRef, refPath } from './firebase'
 import type { IChapterRecord, IReviewRecord, IRevisionDictRecord, IWordRecord, LetterMistakes } from './record'
 import { ChapterRecord, ReviewRecord, ScheduleHandle, WordRecord } from './record'
 import type { IChapterStats } from '@/pages/Gallery-N/hooks/useChapterStats'
@@ -11,13 +11,24 @@ import { currentChapterAtom, currentDictIdAtom, currentDictInfoAtom, isReviewMod
 import type { Dictionary } from '@/typings'
 import type { Table } from 'dexie'
 import Dexie from 'dexie'
+import { child, get, onValue, push, remove, update } from 'firebase/database'
 import { getDoc, setDoc } from 'firebase/firestore/lite'
 import { useAtomValue } from 'jotai'
 import maxBy from 'lodash/maxBy'
-import { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect, useRef } from 'react'
 import useSWR from 'swr'
 
-class RecordDB extends Dexie {
+export interface IRecordDB {
+  wordRecords: Table<IWordRecord, number>
+  chapterRecords: Table<IChapterRecord, string>
+  reviewRecords: Table<IReviewRecord, number>
+  revisionDictRecords: Table<IRevisionDictRecord, number>
+  revisionWordRecords: Table<IWordRecord, number>
+}
+
+export type IRecordName = keyof IRecordDB
+
+class RecordDB extends Dexie implements IRecordDB {
   wordRecords!: Table<IWordRecord, number>
   chapterRecords!: Table<IChapterRecord, string>
   reviewRecords!: Table<IReviewRecord, number>
@@ -67,19 +78,74 @@ async function saveRecords(data: string, name: string) {
   // await deleteDoc(docref)
   await setDoc(docref, { content: data })
 }
-
-export async function pushRecords(name: string, data: string) {
-  const docref = await getDocRef(name, 'rawData')
-  await setDoc(docref, { content: data })
+type ArrayOf<T extends Array<any>> = T extends Array<infer R> ? R : never
+export async function pushRecords(name: IRecordName) {
+  const data = await db[name].toArray()
+  const ref = await refPath(name)
+  await remove(ref)
+  const dataOb = data.reduce((acc, item, index) => {
+    acc[index] = item
+    return acc
+  }, {} as Record<number, ArrayOf<typeof data>>)
+  await update(ref, dataOb)
   console.log('pushed record', name)
 }
 
-export async function pullRecords(name: string) {
-  const docref = await getDocRef(name, 'rawData')
-  const doc = await getDoc(docref)
-  const json = doc.data()?.content ?? '[]'
+export async function updateRecord<D>(name: IRecordName, data: Record<string | number, D>) {
+  const ref = await refPath(name)
+  await update(ref, data)
+}
 
-  return JSON.parse(json)
+export function onRecordDiff(name: IRecordName, cb: () => void) {
+  let isClean = false
+  let cleaner: (() => void) | undefined
+  const run = async () => {
+    const ref = await refPath(name)
+    cleaner = onValue(ref, async (snapshot) => {
+      const counted = await db[name].count()
+      if (isClean) return
+      if (counted !== snapshot.size) cb()
+    })
+
+    if (isClean) {
+      cleaner()
+      cleaner = undefined
+    }
+  }
+
+  run()
+
+  return () => {
+    isClean = true
+    cleaner?.()
+  }
+}
+
+export function useRecordDiff(name: IRecordName, cb: () => void) {
+  const forward = useRef({ cb })
+  forward.current.cb = cb
+  useEffect(() => {
+    return onRecordDiff(name, () => forward.current.cb())
+  }, [name])
+}
+
+export async function getRecords(name: IRecordName) {
+  const ref = await refPath(name)
+  const data = (await get(ref)).val()
+  if (!data) return {}
+  if (Array.isArray(data))
+    return data.reduce((acc, item, index) => {
+      acc[index] = item
+      return acc
+    }, {})
+
+  return data
+}
+
+export async function pullRecords(name: IRecordName) {
+  const records = await getRecords(name)
+  await db[name].clear()
+  await Promise.all(Object.entries(records).map(([key, value]) => db[name].add(value as any, key as unknown as undefined)))
 }
 
 export async function deleteAllRecords() {
@@ -89,35 +155,19 @@ export async function deleteAllRecords() {
 }
 
 export async function pullAllRecords() {
-  const [wordRecords, chapterRecords, reviewRecords] = (await Promise.all(
-    ['wordRecords', 'chapterRecords', 'reviewRecords'].map(pullRecords),
-  )) as [IWordRecord[], IChapterRecord[], IReviewRecord[]]
-
-  if (wordRecords.length > 0) {
-    await db.wordRecords.clear()
-    await Promise.all(wordRecords.map((item) => db.wordRecords.add(item, (item as unknown as { id: number }).id)))
-  }
-
-  if (chapterRecords.length > 0) {
-    await db.chapterRecords.clear()
-    await Promise.all(chapterRecords.map((item) => db.chapterRecords.add(item, (item as unknown as { id: number }).id.toString())))
-  }
-
-  if (reviewRecords.length > 0) {
-    await db.reviewRecords.clear()
-    await Promise.all(reviewRecords.map((item) => db.reviewRecords.add(item)))
-  }
+  await Promise.all((['wordRecords', 'chapterRecords', 'reviewRecords'] as const).map(pullRecords))
 
   alert('pullAllRecords done')
 }
 
 export async function pushAllRecords() {
-  await pushRecords('wordRecords', JSON.stringify(await db.wordRecords.toArray()))
-  await pushRecords('chapterRecords', JSON.stringify(await db.chapterRecords.toArray()))
-  await pushRecords('reviewRecords', JSON.stringify(await db.reviewRecords.toArray()))
+  await Promise.all([pushRecords('wordRecords'), pushRecords('chapterRecords'), pushRecords('reviewRecords')])
 
   alert('pushAllRecords done')
 }
+
+window.pushAllRecords = pushAllRecords
+window.pullAllRecords = pullAllRecords
 
 export async function getChapterById(id: string) {
   return db.chapterRecords.get(id)
@@ -181,7 +231,6 @@ export function getNextChapter(chapters: Array<IChapterDetail>, chapter: number)
 
 export function useAllChapterDetail(dict: Dictionary) {
   const currentChapter = useAtomValue(currentChapterAtom)
-  console.log(JSON.stringify({ id: dict.id, chapterCount: dict.chapterCount, currentChapter }))
   const {
     data: allChapter,
     isLoading,
@@ -199,7 +248,7 @@ export function useSaveChapterRecord() {
 
   const dictID = useAtomValue(currentDictIdAtom)
   const saveChapterRecord = useCallback(
-    (typingState: TypingState) => {
+    async (typingState: TypingState) => {
       const {
         chapterData: { correctCount, wrongCount, userInputLogs, wordCount, words, wordRecordIds, schedule },
         timerData: { time },
@@ -220,9 +269,11 @@ export function useSaveChapterRecord() {
         wordRecordIds ?? [],
         schedule,
       )
+
       db.chapterRecords.put(chapterRecord, chapterRecord.id)
+      await updateRecord('chapterRecords', { [chapterRecord.id]: chapterRecord })
     },
-    [currentChapter, dictID, isRevision],
+    [currentChapter, dictID],
   )
 
   return saveChapterRecord
@@ -263,6 +314,7 @@ export function useSaveWordRecord() {
       let dbID = -1
       try {
         dbID = await db.wordRecords.add(wordRecord)
+        await updateRecord('wordRecords', { [dbID]: wordRecord })
       } catch (e) {
         console.error(e)
       }

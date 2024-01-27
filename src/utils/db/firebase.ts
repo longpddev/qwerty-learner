@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import type { User } from 'firebase/auth'
 import { GoogleAuthProvider, browserSessionPersistence, getAuth, signInWithPopup } from 'firebase/auth'
+import { child, getDatabase, onValue, push, ref, update } from 'firebase/database'
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore/lite'
 
 const firebaseConfig = {
@@ -10,10 +11,12 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_storageBucket,
   messagingSenderId: import.meta.env.VITE_FIREBASE_messagingSenderId,
   appId: import.meta.env.VITE_FIREBASE_appId,
+  databaseURL: 'https://robotic-tiger-332407-default-rtdb.asia-southeast1.firebasedatabase.app/',
 }
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig)
+const database = getDatabase(firebaseApp)
 const db = getFirestore(firebaseApp)
 const auth = getAuth()
 export const isLogin = auth.setPersistence(browserSessionPersistence).then((): Promise<User> => {
@@ -50,5 +53,24 @@ export async function getBackupData() {
   const docRef = await getDocRef('backup')
   return (await getDoc(docRef)).data()
 }
+
+export async function refPath(...args: string[]) {
+  const user = await isLogin
+  return ref(database, ['users', user.uid].concat(args).join('/') || undefined)
+}
+
+// async function run() {
+//   const user = await isLogin
+
+//   const testRef = refPath('users', user.uid, 'word-count')
+//   window.test = () => {
+//     push(child(testRef, 'posts'), 123)
+//   }
+//   onValue(testRef, (snapshot) => {
+//     snapshot
+//     console.log(snapshot.val())
+//   })
+// }
+// run()
 
 export default firebaseApp
