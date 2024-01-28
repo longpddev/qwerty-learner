@@ -1,11 +1,8 @@
-import { TypingContext } from '../../store'
 import Popup from '../Popup'
-import { LoadingUI } from '@/components/Loading'
 import type { IRecordName } from '@/utils/db'
 import { pullRecords, pushRecords, useRecordDiff } from '@/utils/db'
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import useSWR from 'swr'
 import IconX from '~icons/tabler/x'
 
 const usePromise = <P, R>(param: P, cb: (p: P) => Promise<R>) => {
@@ -31,10 +28,10 @@ const PullPush = ({ name, onDone }: { name: IRecordName; onDone: () => void }) =
     <div className="">
       <p className="mb-2 text-left text-xl text-indigo-500">{name}</p>
       <div className="flex gap-4 pl-4">
-        <button className="my-btn-primary bg-orange-400" onClick={() => !pullLoading && runPull().finally(onDone)}>
+        <button className="my-btn-primary bg-orange-400" onClick={() => !pullLoading && runPull().then(onDone)}>
           {pullLoading ? 'pending' : 'Download'}
         </button>
-        <button className="my-btn-primary" onClick={() => !pushLoading && runPush().finally(onDone)}>
+        <button className="my-btn-primary" onClick={() => !pushLoading && runPush().then(onDone)}>
           {pushLoading ? 'pending' : 'Upload'}
         </button>
       </div>

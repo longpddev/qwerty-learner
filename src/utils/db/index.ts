@@ -83,8 +83,9 @@ export async function pushRecords(name: IRecordName) {
   const data = await db[name].toArray()
   const ref = await refPath(name)
   await remove(ref)
-  const dataOb = data.reduce((acc, item, index) => {
-    acc[index] = item
+  const dataOb = data.reduce((acc, item) => {
+    const id = (item as unknown as { id: number }).id
+    acc[id] = item
     return acc
   }, {} as Record<number, ArrayOf<typeof data>>)
   await update(ref, dataOb)
@@ -139,13 +140,27 @@ export async function getRecords(name: IRecordName) {
       return acc
     }, {})
 
+  if (name === 'chapterRecords') {
+    return Object.values(data).reduce((acc, item) => {
+      acc[item.id] = item
+      return acc
+    }, {})
+  }
   return data
 }
 
 export async function pullRecords(name: IRecordName) {
   const records = await getRecords(name)
   await db[name].clear()
-  await Promise.all(Object.entries(records).map(([key, value]) => db[name].add(value as any, key as unknown as undefined)))
+  await Promise.all(
+    Object.entries(records).map(async ([key, value]) => {
+      try {
+        return await db[name].add(value as any, key as unknown as undefined)
+      } catch (e) {
+        console.log(await db[name].toArray())
+      }
+    }),
+  )
 }
 
 export async function deleteAllRecords() {
@@ -166,6 +181,7 @@ export async function pushAllRecords() {
   alert('pushAllRecords done')
 }
 
+window.db = db
 window.pushAllRecords = pushAllRecords
 window.pullAllRecords = pullAllRecords
 
