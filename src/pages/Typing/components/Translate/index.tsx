@@ -1,8 +1,7 @@
 import { TypingContext } from '../../store'
 import Popup from '../Popup'
 import { LoadingUI } from '@/components/Loading'
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import useSWR from 'swr'
 import IconX from '~icons/tabler/x'
@@ -25,7 +24,7 @@ const TranslateText = ({ onClose }: { onClose: () => void }) => {
           <IconX className="absolute right-7 top-5 cursor-pointer text-gray-400" />
         </button>
       </div>
-      <div className="min-h-32 p-4 text-left">
+      <div className="min-h-32 whitespace-break-spaces p-4 text-left">
         {isLoading ? (
           <div className="flex h-full w-full items-center justify-center">
             <LoadingUI />
