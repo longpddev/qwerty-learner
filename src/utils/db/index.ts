@@ -81,6 +81,7 @@ async function saveRecords(data: string, name: string) {
 type ArrayOf<T extends Array<any>> = T extends Array<infer R> ? R : never
 export async function pushRecords(name: IRecordName) {
   const data = await db[name].toArray()
+
   const ref = await refPath(name)
   await remove(ref)
   const dataOb = data.reduce((acc, item, index) => {
@@ -165,7 +166,7 @@ export async function pushAllRecords() {
 
   alert('pushAllRecords done')
 }
-
+window.db = db
 window.pushAllRecords = pushAllRecords
 window.pullAllRecords = pullAllRecords
 
@@ -269,6 +270,12 @@ export function useSaveChapterRecord() {
         wordRecordIds ?? [],
         schedule,
       )
+
+      const oldRecord = await db.chapterRecords.get(chapterRecord.id)
+
+      if (oldRecord) {
+        chapterRecord.practiceTime += oldRecord.practiceTime
+      }
 
       db.chapterRecords.put(chapterRecord, chapterRecord.id)
       await updateRecord('chapterRecords', { [chapterRecord.id]: chapterRecord })

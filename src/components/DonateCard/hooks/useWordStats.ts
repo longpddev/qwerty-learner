@@ -7,7 +7,7 @@ export function useChapterNumber() {
 
   useEffect(() => {
     const fetchChapterNumber = async () => {
-      const number = await db.chapterRecords.count()
+      const number = (await db.chapterRecords.toArray()).reduce((total, item) => total + item.practiceTime, 0)
       setChapterNumber(number)
     }
 

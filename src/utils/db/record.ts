@@ -68,6 +68,8 @@ export interface IChapterRecord extends IFlatSchedule {
   // 单词 record 的 id 列表
   wordRecordIds: number[]
 
+  practiceTime: number
+
   card: Card
   reviewLog: ReviewLog
   schedule: SchedulingInfo
@@ -107,6 +109,7 @@ export class ChapterRecord implements IChapterRecord {
   review_review: string
   review_scheduled_days: number
   review_state: State
+  practiceTime = 1
 
   static createId(dict: string, chapter: number | null) {
     return dict + '_' + chapter
