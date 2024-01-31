@@ -31,6 +31,24 @@ import { useImmer } from 'use-immer'
 
 const vowelLetters = ['A', 'E', 'I', 'O', 'U']
 
+function compareLetter(l1: string, l2: string) {
+  const similarPairs = {
+    '’': "'",
+    '‘': "'",
+    '“': '"',
+    '”': '"',
+    '–': '-',
+    '—': '-',
+    '°': '.', // Degree symbol
+    '·': '.', // Middle dot
+    '•': '.', // Bullet
+  }
+
+  const similarL1 = l1 in similarPairs ? similarPairs[l1 as keyof typeof similarPairs] : l1
+  const similarL2 = l2 in similarPairs ? similarPairs[l2 as keyof typeof similarPairs] : l2
+  return similarL1 === similarL2
+}
+
 export default function WordComponent({ word, onFinish }: { word: Word; onFinish: () => void }) {
   // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const { state, dispatch } = useContext(TypingContext)!
@@ -181,7 +199,7 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
     const correctChar = wordState.displayWord[inputLength - 1]
     let isEqual = false
     if (inputChar != undefined && correctChar != undefined) {
-      isEqual = isIgnoreCase ? inputChar.toLowerCase() === correctChar.toLowerCase() : inputChar === correctChar
+      isEqual = isIgnoreCase ? compareLetter(inputChar.toLowerCase(), correctChar.toLowerCase()) : inputChar === correctChar
     }
 
     if (isEqual) {
