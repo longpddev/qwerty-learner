@@ -135,17 +135,12 @@ export async function getRecords(name: IRecordName) {
   const data = (await get(ref)).val()
   if (!data) return {}
   if (Array.isArray(data))
-    return data.reduce((acc, item, index) => {
-      acc[index] = item
+    return data.reduce((acc, item) => {
+      const id = (item as unknown as { id: number }).id
+      acc[id] = item
       return acc
     }, {})
 
-  if (name === 'chapterRecords') {
-    return Object.values(data).reduce((acc, item) => {
-      acc[item.id] = item
-      return acc
-    }, {})
-  }
   return data
 }
 
