@@ -84,8 +84,9 @@ export async function pushRecords(name: IRecordName) {
 
   const ref = await refPath(name)
   await remove(ref)
-  const dataOb = data.reduce((acc, item, index) => {
-    acc[index] = item
+  const dataOb = data.reduce((acc, item) => {
+    const id = (item as unknown as { id: number }).id
+    acc[id] = item
     return acc
   }, {} as Record<number, ArrayOf<typeof data>>)
   await update(ref, dataOb)
@@ -169,6 +170,8 @@ export async function pushAllRecords() {
 window.db = db
 window.pushAllRecords = pushAllRecords
 window.pullAllRecords = pullAllRecords
+window.getRecords = getRecords
+window.pullRecords = pullRecords
 
 export async function getChapterById(id: string) {
   return db.chapterRecords.get(id)
