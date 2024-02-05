@@ -26,6 +26,9 @@ export interface IRecordDB {
   revisionWordRecords: Table<IWordRecord, number>
 }
 
+export type TableType<T extends Table> = T extends Table<infer R> ? R : never
+export type TableKey<T extends Table> = T extends Table<unknown, infer R> ? R : never
+
 export type IRecordName = keyof IRecordDB
 
 class RecordDB extends Dexie implements IRecordDB {
@@ -131,10 +134,12 @@ export function useRecordDiff(name: IRecordName, cb: () => void) {
   }, [name])
 }
 
-export async function getRecords(name: IRecordName) {
+export async function getRecords<TN extends IRecordName, S extends TableType<IRecordDB[TN]>, I extends TableKey<IRecordDB[TN]>>(
+  name: TN,
+): Promise<Record<I, S & { id: I }>> {
   const ref = await refPath(name)
   const data = (await get(ref)).val()
-  if (!data) return {}
+  if (!data) return {} as unknown as any
   if (Array.isArray(data))
     return data.reduce((acc, item) => {
       const id = (item as unknown as { id: number }).id
@@ -148,15 +153,8 @@ export async function getRecords(name: IRecordName) {
 export async function pullRecords(name: IRecordName) {
   const records = await getRecords(name)
   await db[name].clear()
-  await Promise.all(
-    Object.entries(records).map(async ([key, value]) => {
-      try {
-        return await db[name].add(value as any, key as unknown as undefined)
-      } catch (e) {
-        console.log(await db[name].toArray())
-      }
-    }),
-  )
+  const values = Object.values(records)
+  await (db[name] as unknown as { bulkAdd: (v: any) => Promise<void> }).bulkAdd(values)
 }
 
 export async function deleteAllRecords() {
@@ -181,6 +179,21 @@ window.pushAllRecords = pushAllRecords
 window.pullAllRecords = pullAllRecords
 window.getRecords = getRecords
 window.pullRecords = pullRecords
+window.deleteAllRecords = deleteAllRecords
+
+export const firebase = {
+  get chapterRecords() {
+    return refPath('chapterRecords')
+  },
+
+  get wordRecords() {
+    return refPath('wordRecords')
+  },
+
+  get reviewRecords() {
+    return refPath('reviewRecords')
+  },
+}
 
 export async function getChapterById(id: string) {
   return db.chapterRecords.get(id)
