@@ -19,6 +19,10 @@ const firebaseApp = initializeApp(firebaseConfig)
 const database = getDatabase(firebaseApp)
 const db = getFirestore(firebaseApp)
 const auth = getAuth()
+auth.onAuthStateChanged((data) => {
+  console.log(data)
+})
+
 export const isLogin = auth.setPersistence(browserSessionPersistence).then((): Promise<User> => {
   const currentUser = auth.currentUser
   if (currentUser) return Promise.resolve(currentUser)

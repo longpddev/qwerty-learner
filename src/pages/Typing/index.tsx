@@ -17,6 +17,7 @@ import { DonateCard } from '@/components/DonateCard'
 import Header from '@/components/Header'
 import StarCard from '@/components/StarCard'
 import Tooltip from '@/components/Tooltip'
+import { Testing } from '@/firebase'
 import { idDictionaryMap } from '@/resources/dictionary'
 import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom, randomConfigAtom, reviewModeInfoAtom } from '@/store'
 import { IsDesktop, isLegal } from '@/utils'
@@ -130,6 +131,7 @@ const App: React.FC = () => {
 
   return (
     <TypingContext.Provider value={{ state: state, dispatch }}>
+      <Testing />
       <CheckDataDiff />
       <Translate />
       <AutoSave />
