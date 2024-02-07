@@ -95,7 +95,7 @@ const App: React.FC = () => {
   }, [state.isTyping, isLoading, dispatch])
 
   useEffect(() => {
-    if (words !== undefined && !isScheduleLoading) {
+    if (words !== undefined && !isScheduleLoading && !state.isFinished) {
       const initialIndex = isReviewMode && reviewModeInfo.reviewRecord?.index ? reviewModeInfo.reviewRecord.index : 0
       dispatch({
         type: TypingStateActionType.SETUP_CHAPTER,
@@ -103,7 +103,7 @@ const App: React.FC = () => {
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [words, schedule, isScheduleLoading])
+  }, [words, schedule, isScheduleLoading, state.isFinished])
 
   useEffect(() => {
     if (state.isFinished && !state.isSavingRecord) {

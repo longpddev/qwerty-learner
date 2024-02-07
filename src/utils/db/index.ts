@@ -1,135 +1,16 @@
 import { toFixedNumber } from '..'
 import range from '../range'
-import type { IChapterRecord, IReviewRecord, IRevisionDictRecord, IWordRecord, LetterMistakes } from './record'
-import { ChapterRecord, ReviewRecord, ScheduleHandle, WordRecord } from './record'
+import type { IChapterRecord, LetterMistakes } from './record'
+import { ChapterRecord, ScheduleHandle, WordRecord } from './record'
 import { chapterRecordsAtom, wordRecordsAtom } from '@/firebase'
 import type { IChapterStats } from '@/pages/Gallery-N/hooks/useChapterStats'
 import { TypingContext, TypingStateActionType } from '@/pages/Typing/store'
 import type { TypingState } from '@/pages/Typing/store/type'
-import { currentChapterAtom, currentDictIdAtom, currentDictInfoAtom, isReviewModeAtom } from '@/store'
+import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom } from '@/store'
 import type { Dictionary } from '@/typings'
-import type { Table } from 'dexie'
-import Dexie from 'dexie'
-import { child, get, onValue, push, remove, update } from 'firebase/database'
-import { getDoc, setDoc } from 'firebase/firestore/lite'
 import { useAtomValue } from 'jotai'
 import maxBy from 'lodash/maxBy'
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import useSWR from 'swr'
-
-export interface IRecordDB {
-  wordRecords: Table<IWordRecord, number>
-  chapterRecords: Table<IChapterRecord, string>
-  reviewRecords: Table<IReviewRecord, number>
-  revisionDictRecords: Table<IRevisionDictRecord, number>
-  revisionWordRecords: Table<IWordRecord, number>
-}
-
-export type TableType<T extends Table> = T extends Table<infer R> ? R : never
-export type TableKey<T extends Table> = T extends Table<unknown, infer R> ? R : never
-
-export type IRecordName = keyof IRecordDB
-
-class RecordDB extends Dexie implements IRecordDB {
-  wordRecords!: Table<IWordRecord, number>
-  chapterRecords!: Table<IChapterRecord, string>
-  reviewRecords!: Table<IReviewRecord, number>
-
-  revisionDictRecords!: Table<IRevisionDictRecord, number>
-  revisionWordRecords!: Table<IWordRecord, number>
-
-  constructor() {
-    super('RecordDB')
-    this.version(1).stores({
-      wordRecords: '++id,word,timeStamp,dict,chapter,errorCount,[dict+chapter]',
-      chapterRecords: '++id,timeStamp,dict,chapter,time,[dict+chapter]',
-    })
-    this.version(2).stores({
-      wordRecords: '++id,word,timeStamp,dict,chapter,wrongCount,[dict+chapter]',
-      chapterRecords: '++id,timeStamp,dict,chapter,time,[dict+chapter]',
-    })
-    this.version(3).stores({
-      wordRecords: '++id,word,timeStamp,dict,chapter,wrongCount,[dict+chapter]',
-      chapterRecords: '++id,timeStamp,dict,chapter,time,[dict+chapter]',
-      reviewRecords: '++id,dict,createTime,isFinished',
-    })
-  }
-}
-
-export const db = new RecordDB()
-
-db.wordRecords.mapToClass(WordRecord)
-db.chapterRecords.mapToClass(ChapterRecord)
-db.reviewRecords.mapToClass(ReviewRecord)
-
-// type ArrayOf<T extends Array<any>> = T extends Array<infer R> ? R : never
-// export async function pushRecords(name: IRecordName) {
-//   const data = await db[name].toArray()
-
-//   const ref = await refPath(name)
-//   await remove(ref)
-//   const dataOb = data.reduce((acc, item) => {
-//     const id = (item as unknown as { id: number }).id
-//     acc[id] = item
-//     return acc
-//   }, {} as Record<number, ArrayOf<typeof data>>)
-//   await update(ref, dataOb)
-//   console.log('pushed record', name)
-// }
-
-// export async function updateRecord<D>(name: IRecordName, data: Record<string | number, D>) {
-//   const ref = await refPath(name)
-//   await update(ref, data)
-// }
-
-// export function onRecordDiff(name: IRecordName, cb: () => void) {
-//   let isClean = false
-//   let cleaner: (() => void) | undefined
-//   const run = async () => {
-//     const ref = await refPath(name)
-//     cleaner = onValue(ref, async (snapshot) => {
-//       const counted = await db[name].count()
-//       if (isClean) return
-//       if (counted !== snapshot.size) cb()
-//     })
-
-//     if (isClean) {
-//       cleaner()
-//       cleaner = undefined
-//     }
-//   }
-
-//   run()
-
-//   return () => {
-//     isClean = true
-//     cleaner?.()
-//   }
-// }
-
-// export function useRecordDiff(name: IRecordName, cb: () => void) {
-//   const forward = useRef({ cb })
-//   forward.current.cb = cb
-//   useEffect(() => {
-//     return onRecordDiff(name, () => forward.current.cb())
-//   }, [name])
-// }
-
-// export async function getRecords<TN extends IRecordName, S extends TableType<IRecordDB[TN]>, I extends TableKey<IRecordDB[TN]>>(
-//   name: TN,
-// ): Promise<Record<I, S & { id: I }>> {
-//   const ref = await refPath(name)
-//   const data = (await get(ref)).val()
-//   if (!data) return {} as unknown as any
-//   if (Array.isArray(data))
-//     return data.reduce((acc, item) => {
-//       const id = (item as unknown as { id: number }).id
-//       acc[id] = item
-//       return acc
-//     }, {})
-
-//   return data
-// }
+import { useCallback, useContext, useEffect, useState } from 'react'
 
 export interface IChapterDetail {
   stats?: IChapterStats

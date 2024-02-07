@@ -30,7 +30,7 @@ interface AnyClass<T> {
 export abstract class RefControl<T extends object, K extends string | number = string | number> {
   public ref: DatabaseReference
   public refLastIndex: DatabaseReference
-  constructor(protected userId: string, dbName: string, public schema: AnyClass<T>) {
+  constructor(protected userId: string, public dbName: string, public schema: AnyClass<T>) {
     this.ref = getRef(this.userId, dbName)
     this.refLastIndex = getRef(this.userId, dbName + 'LastIndex')
   }
@@ -55,6 +55,8 @@ export abstract class RefControl<T extends object, K extends string | number = s
 
   async add(data: T, id?: K) {
     let newKey: K
+    console.log(`${this.dbName} adding ${id} starting`)
+    console.time(`${this.dbName} adding ${id}`)
     if (id === undefined) {
       const lastKey = ((await get(this.refLastIndex)).val() as string) ?? '-1'
       const lastKeyNum = parseInt(lastKey)
@@ -74,7 +76,9 @@ export abstract class RefControl<T extends object, K extends string | number = s
 
     const unknownData = data as unknown as any
     unknownData[id] = newKey
-    await update(this.ref, { [newKey]: data })
+    update(this.ref, { [newKey]: data })
+    console.timeEnd(`${this.dbName} adding ${id}`)
+    console.log(`${this.dbName} adding ${id} ended`)
     return newKey
   }
 

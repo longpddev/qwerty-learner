@@ -2,7 +2,6 @@ import { CHAPTER_LENGTH } from '@/constants'
 import { chapterRecordsAtom } from '@/firebase'
 import { currentChapterAtom, currentDictInfoAtom, reviewModeInfoAtom } from '@/store'
 import type { Word, WordWithIndex } from '@/typings/index'
-import { getChapterById } from '@/utils/db'
 import type { IChapterRecord } from '@/utils/db/record'
 import { ChapterRecord } from '@/utils/db/record'
 import { wordListFetcher } from '@/utils/wordListFetcher'
@@ -33,10 +32,15 @@ export function useWordList() {
   const { data: wordList, error, isLoading } = useSWR(currentDictInfo.url, wordListFetcher)
   const [schedule, scheduleSet] = useState<IChapterRecord>()
 
-  useEffect(
-    () => chapterRecordControl?.getById(ChapterRecord.createId(currentDictInfo.id, currentChapter), (data) => data && scheduleSet(data)),
-    [chapterRecordControl, currentDictInfo.id, currentChapter],
-  )
+  useEffect(() => {
+    console.log(
+      '🚀 ~ useWordList ~ ChapterRecord.createId(currentDictInfo.id, currentChapter):',
+      ChapterRecord.createId(currentDictInfo.id, currentChapter),
+    )
+    return chapterRecordControl?.getById(ChapterRecord.createId(currentDictInfo.id, currentChapter), (data) => {
+      return data && scheduleSet(data)
+    })
+  }, [chapterRecordControl, currentDictInfo.id, currentChapter])
 
   const words: WordWithIndex[] = useMemo(() => {
     let newWords: Word[]
@@ -68,7 +72,7 @@ export function useWordList() {
     })
   }, [isFirstChapter, isReviewMode, wordList, reviewRecord?.words, currentChapter])
 
-  return { words, isLoading, error, schedule, isScheduleLoading: false }
+  return { words, isLoading, error, schedule, isScheduleLoading: isLoading }
 }
 
 const firstChapter = [

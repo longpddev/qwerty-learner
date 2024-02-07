@@ -5,7 +5,7 @@ import '@/utils/db/review-record'
 import { mergeLetterMistake } from '@/utils/db/utils'
 import shuffle from '@/utils/shuffle'
 import type { SchedulingInfo } from 'fsrs.js'
-import { Card, FSRS, Rating, State } from 'fsrs.js'
+import { Card, FSRS, Rating } from 'fsrs.js'
 import { createContext } from 'react'
 
 const fsrs = new FSRS()
