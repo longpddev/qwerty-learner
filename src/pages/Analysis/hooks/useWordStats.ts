@@ -1,6 +1,8 @@
+import { wordRecordsAtom } from '@/firebase'
 import { db } from '@/utils/db'
 import type { IWordRecord } from '@/utils/db/record'
 import dayjs from 'dayjs'
+import { useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
 import type { Activity } from 'react-activity-calendar'
 
@@ -44,22 +46,19 @@ export function useWordStats(startTimeStamp: number, endTimeStamp: number) {
     wrongTimeRecord: [],
   })
 
-  useEffect(() => {
-    const fetchWordStats = async () => {
-      const stats = await getChapterStats(startTimeStamp, endTimeStamp)
-      setWordStats(stats)
-    }
+  const wordRecordControl = useAtomValue(wordRecordsAtom)
 
-    fetchWordStats()
-  }, [startTimeStamp, endTimeStamp])
+  useEffect(() => {
+    return wordRecordControl?.getBetween(startTimeStamp, endTimeStamp, (records) => {
+      const stats = getChapterStats(startTimeStamp, endTimeStamp, records)
+      setWordStats(stats)
+    })
+  }, [startTimeStamp, endTimeStamp, wordRecordControl])
 
   return wordStats
 }
 
-async function getChapterStats(startTimeStamp: number, endTimeStamp: number): Promise<IWordStats> {
-  // indexedDB查找某个数字范围内的数据
-  const records: IWordRecord[] = await db.wordRecords.where('timeStamp').between(startTimeStamp, endTimeStamp).toArray()
-
+function getChapterStats(startTimeStamp: number, endTimeStamp: number, records: IWordRecord[]): IWordStats {
   if (records.length === 0) {
     return { isEmpty: true, exerciseRecord: [], wordRecord: [], wpmRecord: [], accuracyRecord: [], wrongTimeRecord: [] }
   }

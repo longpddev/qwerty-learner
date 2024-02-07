@@ -1,3 +1,4 @@
+import Authentication from './components/Authentication'
 import Loading from './components/Loading'
 import './index.css'
 import { ErrorBook } from './pages/ErrorBook'
@@ -9,6 +10,7 @@ import process from 'process'
 import React, { Suspense, lazy, useEffect } from 'react'
 import 'react-app-polyfill/stable'
 import { createRoot } from 'react-dom/client'
+import { Toaster } from 'react-hot-toast'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 const AnalysisPage = lazy(() => import('./pages/Analysis'))
@@ -32,6 +34,8 @@ function Root() {
 
   return (
     <React.StrictMode>
+      <Toaster />
+      <Authentication />
       <BrowserRouter basename={REACT_APP_DEPLOY_ENV === 'pages' ? '/qwerty-learner' : ''}>
         <Suspense fallback={<Loading />}>
           <Routes>

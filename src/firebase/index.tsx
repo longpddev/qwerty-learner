@@ -1,16 +1,22 @@
-import { auth, getRef } from './setup'
+import { auth, getProvider, getRef } from './setup'
 import type { groupedWordRecords } from '@/pages/ErrorBook/type'
 import type { TErrorWordData } from '@/pages/Gallery-N/hooks/useErrorWords'
 import type { Word } from '@/typings'
-import type { IChapterRecord, IWordRecord, WordRecord } from '@/utils/db/record'
+import { ChapterRecord, type IChapterRecord, type IReviewRecord, type IWordRecord, ReviewRecord, WordRecord } from '@/utils/db/record'
+import { signInWithPopup, signOut } from 'firebase/auth'
+import type { DataSnapshot, Unsubscribe } from 'firebase/database'
 import {
   type DatabaseReference,
   child,
   endAt,
   equalTo,
+  get,
   limitToFirst,
+  limitToLast,
   onValue,
   orderByChild,
+  orderByKey,
+  push,
   query,
   remove,
   startAt,
@@ -18,10 +24,25 @@ import {
 } from 'firebase/database'
 import { atom, useAtom } from 'jotai'
 
-abstract class RefControl<T> {
+interface AnyClass<T> {
+  new (...args: any): T
+}
+export abstract class RefControl<T extends object, K extends string | number = string | number> {
   public ref: DatabaseReference
-  constructor(protected userId: string, dbName: string) {
+  public refLastIndex: DatabaseReference
+  constructor(protected userId: string, dbName: string, public schema: AnyClass<T>) {
     this.ref = getRef(this.userId, dbName)
+    this.refLastIndex = getRef(this.userId, dbName + 'LastIndex')
+  }
+
+  applySchema(data: T): T {
+    const instance = Object.create(this.schema.prototype)
+    Object.assign(instance, data)
+    return instance
+  }
+
+  getDataFromSnapShot(snapshot: DataSnapshot): T[] {
+    return (Object.values(snapshot.val() ?? {}) as T[]).map((item) => this.applySchema(item))
   }
 
   count(cb: (c: number) => void) {
@@ -32,26 +53,67 @@ abstract class RefControl<T> {
     return remove(this.ref)
   }
 
-  add(data: Record<string | number, T>) {
-    return update(this.ref, data)
+  async add(data: T, id?: K) {
+    let newKey: K
+    if (id === undefined) {
+      const lastKey = ((await get(this.refLastIndex)).val() as string) ?? '-1'
+      const lastKeyNum = parseInt(lastKey)
+      if (isNaN(lastKeyNum)) {
+        const key = push(this.ref).key
+        if (key === null) {
+          console.error('can not save data', data)
+          throw new Error('can not save data')
+        }
+        newKey = key as K
+      } else {
+        newKey = (lastKeyNum + 1) as K
+      }
+    } else {
+      newKey = id
+    }
+
+    const unknownData = data as unknown as any
+    unknownData[id] = newKey
+    await update(this.ref, { [newKey]: data })
+    return newKey
   }
 
-  remove(id: string | number) {
+  remove(id: K) {
     return remove(child(this.ref, id.toString()))
   }
-
-  get(cb: (s: T[]) => void) {
-    return onValue(this.ref, (snapshot) => cb(snapshot.val()))
+  get(): Promise<T[]>
+  get(cb: (s: T[]) => void): Unsubscribe
+  get(cb?: (s: T[]) => void): Promise<T[]> | Unsubscribe {
+    if (cb === undefined) {
+      return get(this.ref).then((snapshot) => this.getDataFromSnapShot(snapshot))
+    } else {
+      return onValue(this.ref, (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
+    }
   }
 
-  getById(id: string, cb: (s: T[]) => void) {
-    return onValue(child(this.ref, id), (snapshot) => cb(snapshot.val()))
+  getById(id: K): Promise<T | null>
+  getById(id: K, cb?: (s: T | null) => void): Unsubscribe
+  getById(id: K, cb?: (s: T | null) => void): Promise<T | null> | Unsubscribe {
+    const _query = child(this.ref, id.toString())
+    if (cb === undefined) {
+      return get(_query).then((snapshot) => {
+        const val = snapshot.val()
+        if (!val) return null
+        return this.applySchema(val)
+      })
+    } else {
+      return onValue(_query, (snapshot) => {
+        const val = snapshot.val()
+        if (!val) return cb(null)
+        return cb(this.applySchema(val))
+      })
+    }
   }
 }
 
-class ChapterRecordsControl extends RefControl<IChapterRecord> {
+export class ChapterRecordsControl extends RefControl<IChapterRecord, string> {
   constructor(protected userId: string) {
-    super(userId, 'chapterRecords')
+    super(userId, 'chapterRecords', ChapterRecord)
   }
 
   sort(a: IChapterRecord, b: IChapterRecord) {
@@ -60,23 +122,23 @@ class ChapterRecordsControl extends RefControl<IChapterRecord> {
 
   getByDict(dict: string, cb: (s: IChapterRecord[]) => void) {
     return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) =>
-      cb(Object.values(snapshot.val() as Record<string, IChapterRecord>).sort(this.sort)),
+      cb(this.getDataFromSnapShot(snapshot).sort(this.sort)),
     )
   }
 }
 
-class WordRecordsControl extends RefControl<IWordRecord> {
+export class WordRecordsControl extends RefControl<IWordRecord, number> {
   constructor(protected userId: string) {
-    super(userId, 'wordRecords')
+    super(userId, 'wordRecords', WordRecord)
   }
 
-  getFirstWord(cb: (s: IWordRecord[]) => void) {
-    return onValue(query(this.ref, orderByChild('timeStamp'), limitToFirst(1)), (snapshot) => cb(snapshot.val()))
+  getFirstWord(cb: (s: IWordRecord | undefined) => void) {
+    return onValue(query(this.ref, orderByChild('timeStamp'), limitToFirst(1)), (snapshot) => cb(this.getDataFromSnapShot(snapshot).at(0)))
   }
 
   getBetween(startTimeStamp: number, endTimeStamp: number, cb: (s: IWordRecord[]) => void) {
     return onValue(query(this.ref, orderByChild('timeStamp'), startAt(startTimeStamp), endAt(endTimeStamp)), (snapshot) =>
-      cb(snapshot.val()),
+      cb(this.getDataFromSnapShot(snapshot)),
     )
   }
 
@@ -104,15 +166,14 @@ class WordRecordsControl extends RefControl<IWordRecord> {
 
   getGroupRecords(cb: (s: groupedWordRecords[]) => void) {
     return onValue(query(this.ref, orderByChild('wrongCount'), startAt(0)), (snapshot) => {
-      const records = Object.values(snapshot.val() ?? {}) as Array<IWordRecord>
-
+      const records = this.getDataFromSnapShot(snapshot)
       cb(this.createGroupRecord(records))
     })
   }
 
   getGroupRecordsByDict(dict: string, cb: (s: groupedWordRecords[]) => void) {
     return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => {
-      const records = Object.values(snapshot.val() ?? {}) as Array<IWordRecord>
+      const records = this.getDataFromSnapShot(snapshot)
 
       cb(this.createGroupRecord(records.filter((item) => item.dict === dict)))
     })
@@ -161,43 +222,58 @@ class WordRecordsControl extends RefControl<IWordRecord> {
   }
 
   getByDict(dict: string, cb: (s: IWordRecord[]) => void) {
-    return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) =>
-      cb(Object.values(snapshot.val() as Record<string, IWordRecord>)),
-    )
+    return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
   }
 
   getRevisionWordCount(dict: string, cb: (s: number) => void) {
     return this.getByDict(dict, (wordRecords) => {
-      wordRecords
       const res = new Map()
-      const reducedRecords = wordRecords.filter((item) => !res.has(item['word'] + item['dict']) && res.set(item['word'] + item['dict'], 1))
+      const reducedRecords = wordRecords
+        .filter((item) => item.wrongCount > 0)
+        .filter((item) => !res.has(item['word'] + item['dict']) && res.set(item['word'] + item['dict'], 1))
       cb(reducedRecords.length)
     })
   }
 }
 
-const userAtom = atom(auth.currentUser)
+export class ReviewRecordsControl extends RefControl<IReviewRecord> {
+  constructor(protected userId: string) {
+    super(userId, 'reviewRecords', ReviewRecord)
+  }
+
+  getByDict(dict: string, cb: (s: IReviewRecord[]) => void) {
+    return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
+  }
+}
+
+export const userAtom = atom(auth.currentUser)
 userAtom.onMount = (set) =>
   auth.onAuthStateChanged(function (data) {
     set(data)
   })
 
-const chapterRecordsAtom = atom((get) => {
+export const chapterRecordsAtom = atom((get) => {
   const user = get(userAtom)
   if (!user) return null
   return new ChapterRecordsControl(user.uid)
 })
 
-const wordRecordsAtom = atom((get) => {
+export const wordRecordsAtom = atom((get) => {
   const user = get(userAtom)
   if (!user) return null
   return new WordRecordsControl(user.uid)
 })
 
-export function Testing() {
-  const [chapterController] = useAtom(chapterRecordsAtom)
-  const [wordController] = useAtom(wordRecordsAtom)
-  window.chapterController = chapterController
-  window.wordController = wordController
-  return <></>
+export const reviewRecordsAtom = atom((get) => {
+  const user = get(userAtom)
+  if (!user) return null
+  return new ReviewRecordsControl(user.uid)
+})
+
+export async function login() {
+  return await signInWithPopup(auth, getProvider())
+}
+
+export async function logout() {
+  await signOut(auth)
 }

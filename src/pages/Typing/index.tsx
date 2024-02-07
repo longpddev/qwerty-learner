@@ -17,7 +17,6 @@ import { DonateCard } from '@/components/DonateCard'
 import Header from '@/components/Header'
 import StarCard from '@/components/StarCard'
 import Tooltip from '@/components/Tooltip'
-import { Testing } from '@/firebase'
 import { idDictionaryMap } from '@/resources/dictionary'
 import { currentChapterAtom, currentDictIdAtom, isReviewModeAtom, randomConfigAtom, reviewModeInfoAtom } from '@/store'
 import { IsDesktop, isLegal } from '@/utils'
@@ -107,12 +106,11 @@ const App: React.FC = () => {
   }, [words, schedule, isScheduleLoading])
 
   useEffect(() => {
-    // 当用户完成章节后且完成 word Record 数据保存，记录 chapter Record 数据,
     if (state.isFinished && !state.isSavingRecord) {
       chapterLogUploader()
+      console.log('🚀 ~ useEffect ~ state:', state)
       saveChapterRecord(state)
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.isFinished, state.isSavingRecord])
 
@@ -131,7 +129,6 @@ const App: React.FC = () => {
 
   return (
     <TypingContext.Provider value={{ state: state, dispatch }}>
-      <Testing />
       <CheckDataDiff />
       <Translate />
       <AutoSave />

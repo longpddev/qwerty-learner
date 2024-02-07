@@ -1,23 +1,24 @@
+import { chapterRecordsAtom, wordRecordsAtom } from '@/firebase'
 import { toFixedNumber } from '@/utils'
-import { db } from '@/utils/db'
-import { IChapterRecord, ScheduleHandle } from '@/utils/db/record'
-import type { SchedulingInfo } from 'fsrs.js'
+import type { IChapterRecord } from '@/utils/db/record'
+import { ChapterRecord, ScheduleHandle } from '@/utils/db/record'
+import { useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
 
 export function useChapterStats(chapter: number, dictID: string, isStartLoad: boolean) {
   const [chapterStats, setChapterStats] = useState<IChapterStats | null>(null)
+  const chapterRecordControl = useAtomValue(chapterRecordsAtom)
 
   useEffect(() => {
-    const fetchChapterStats = async () => {
-      const stats = await getChapterStats(dictID, chapter)
-      setChapterStats(stats)
-    }
-
     if (isStartLoad && !chapterStats) {
-      fetchChapterStats()
+      const id = ChapterRecord.createId(dictID, chapter)
+      return chapterRecordControl?.getById(id, (chapter) => {
+        if (!chapter) return
+        setChapterStats(getChapterStats(chapter))
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dictID, chapter, isStartLoad])
+  }, [dictID, chapter, isStartLoad, chapterRecordControl])
 
   return chapterStats
 }
@@ -29,9 +30,7 @@ export interface IChapterStats {
   schedule?: ScheduleHandle
 }
 
-async function getChapterStats(dict: string, chapter: number | null): Promise<IChapterStats> {
-  const id = dict + '_' + chapter
-  const record = await db.chapterRecords.get(id)
+function getChapterStats(record: IChapterRecord): IChapterStats {
   const records = record ? [record] : []
   const exerciseCount = records.length
   const totalWrongWordCount = records.reduce(

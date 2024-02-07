@@ -1,26 +1,26 @@
-import { db } from '.'
+import type { IReviewRecord } from './record'
 import { ReviewRecord } from './record'
+import type { ReviewRecordsControl } from '@/firebase'
+import { reviewRecordsAtom } from '@/firebase'
 import type { TErrorWordData } from '@/pages/Gallery-N/hooks/useErrorWords'
 import type { Word } from '@/typings'
+import { useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
 
 export function useGetLatestReviewRecord(dictID: string) {
   const [wordReviewRecord, setWordReviewRecord] = useState<ReviewRecord | undefined>(undefined)
+  const reviewRecordsControl = useAtomValue(reviewRecordsAtom)
   useEffect(() => {
-    const fetchWordReviewRecords = async () => {
-      const record = await getReviewRecords(dictID)
-      setWordReviewRecord(record)
-    }
     if (dictID) {
-      fetchWordReviewRecords()
+      return reviewRecordsControl?.getByDict(dictID, (records) => {
+        setWordReviewRecord(getReviewRecords(records))
+      })
     }
-  }, [dictID])
+  }, [dictID, reviewRecordsControl])
   return wordReviewRecord
 }
 
-async function getReviewRecords(dictID: string): Promise<ReviewRecord | undefined> {
-  const records = await db.reviewRecords.where('dict').equals(dictID).toArray()
-
+function getReviewRecords(records: IReviewRecord[]): ReviewRecord | undefined {
   const latestRecord = records.sort((a, b) => a.createTime - b.createTime).pop()
 
   return latestRecord && (latestRecord.isFinished ? undefined : latestRecord)
@@ -31,7 +31,7 @@ type TRankedErrorWordData = TErrorWordData & {
   latestErrorTimeScore: number
 }
 
-export async function generateNewWordReviewRecord(dictID: string, errorData: TErrorWordData[]) {
+export async function generateNewWordReviewRecord(reviewRecordsControl: ReviewRecordsControl, dictID: string, errorData: TErrorWordData[]) {
   const errorCountRankings = [...errorData].sort((a, b) => a.errorCount - b.errorCount)
   const latestErrorTimeRankings = [...errorData].sort((a, b) => a.latestErrorTime - b.latestErrorTime)
 
@@ -58,11 +58,6 @@ export async function generateNewWordReviewRecord(dictID: string, errorData: TEr
     .map((item) => item.originData)
 
   const record = new ReviewRecord(dictID, sortedWords)
-
-  await db.reviewRecords.put(record)
+  await reviewRecordsControl.add(record)
   return record
-}
-
-export async function putWordReviewRecord(record: ReviewRecord) {
-  db.reviewRecords.put(record)
 }

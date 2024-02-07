@@ -1,6 +1,5 @@
 import Popup from '../Popup'
 import type { IRecordName } from '@/utils/db'
-import { pullRecords, pushRecords, useRecordDiff } from '@/utils/db'
 import { useCallback, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import IconX from '~icons/tabler/x'
@@ -22,19 +21,17 @@ const usePromise = <P, R>(param: P, cb: (p: P) => Promise<R>) => {
   return [run, loading, data] as const
 }
 const PullPush = ({ name, onDone }: { name: IRecordName; onDone: () => void }) => {
-  const [runPull, pullLoading] = usePromise(name, pullRecords)
-  const [runPush, pushLoading] = usePromise(name, pushRecords)
   return (
     <div className="">
       <p className="mb-2 text-left text-xl text-indigo-500">{name}</p>
-      <div className="flex gap-4 pl-4">
+      {/* <div className="flex gap-4 pl-4">
         <button className="my-btn-primary bg-orange-400" onClick={() => !pullLoading && runPull().then(onDone)}>
           {pullLoading ? 'pending' : 'Download'}
         </button>
         <button className="my-btn-primary" onClick={() => !pushLoading && runPush().then(onDone)}>
           {pushLoading ? 'pending' : 'Upload'}
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }
@@ -52,9 +49,9 @@ const CheckDataDiff = () => {
       set[mode](name)
       return Array.from(set)
     })
-  useRecordDiff('chapterRecords', onDiff('chapterRecords', 'add'))
-  useRecordDiff('wordRecords', onDiff('wordRecords', 'add'))
-  useRecordDiff('reviewRecords', onDiff('reviewRecords', 'add'))
+  // useRecordDiff('chapterRecords', onDiff('chapterRecords', 'add'))
+  // useRecordDiff('wordRecords', onDiff('wordRecords', 'add'))
+  // useRecordDiff('reviewRecords', onDiff('reviewRecords', 'add'))
 
   return (
     <Popup isOpen={!!diff.length} closeModal={closeModal}>

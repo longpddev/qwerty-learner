@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
-import { GoogleAuthProvider, browserSessionPersistence, getAuth, signInWithPopup } from 'firebase/auth'
-import { child, getDatabase, onValue, push, ref, update } from 'firebase/database'
+import { GoogleAuthProvider, browserSessionPersistence, getAuth } from 'firebase/auth'
+import { getDatabase, ref } from 'firebase/database'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_apiKey,
@@ -15,13 +15,12 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig)
 export const database = getDatabase(firebaseApp)
 export const auth = getAuth()
-
 auth.setPersistence(browserSessionPersistence)
 
-export async function login() {
+export function getProvider() {
   const provider = new GoogleAuthProvider()
   provider.addScope('https://www.googleapis.com/auth/admin.directory.user.readonly')
-  return await signInWithPopup(auth, provider)
+  return provider
 }
 
 export function getRef(userId: string, ...paths: string[]) {

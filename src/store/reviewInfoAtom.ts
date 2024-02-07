@@ -1,5 +1,5 @@
+import { reviewRecordsAtom } from '@/firebase'
 import type { ReviewRecord } from '@/utils/db/record'
-import { putWordReviewRecord } from '@/utils/db/review-record'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 
@@ -17,10 +17,12 @@ export function reviewInfoAtom(initialValue: TReviewInfoAtomData) {
     },
     (get, set, updater: TReviewInfoAtomData | ((oldValue: TReviewInfoAtomData) => TReviewInfoAtomData)) => {
       const newValue = typeof updater === 'function' ? updater(get(storageAtom)) : updater
-
+      const reviewRecordControl = get(reviewRecordsAtom)
       // update reviewRecord to indexdb
-      if (newValue.reviewRecord?.id) {
-        putWordReviewRecord(newValue.reviewRecord)
+      const id = newValue.reviewRecord?.id
+      const reviewRecord = newValue.reviewRecord
+      if (reviewRecord && id) {
+        reviewRecordControl?.add(reviewRecord, id)
       }
       set(storageAtom, newValue)
     },

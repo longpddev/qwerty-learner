@@ -142,7 +142,6 @@ const ResultScreen = () => {
     if (isReviewMode) {
       return
     }
-
     setWordDictationConfig((old) => {
       if (old.isOpen) {
         if (old.openBy === 'auto') {

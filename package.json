@@ -44,6 +44,7 @@
     "react-activity-calendar": "^2.0.2",
     "react-app-polyfill": "^3.0.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-hotkeys-hook": "^4.3.7",
     "react-router-dom": "^6.8.2",
     "react-timer-hook": "^3.0.5",

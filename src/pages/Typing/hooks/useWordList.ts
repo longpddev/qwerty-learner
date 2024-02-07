@@ -1,11 +1,13 @@
 import { CHAPTER_LENGTH } from '@/constants'
+import { chapterRecordsAtom } from '@/firebase'
 import { currentChapterAtom, currentDictInfoAtom, reviewModeInfoAtom } from '@/store'
 import type { Word, WordWithIndex } from '@/typings/index'
 import { getChapterById } from '@/utils/db'
+import type { IChapterRecord } from '@/utils/db/record'
 import { ChapterRecord } from '@/utils/db/record'
 import { wordListFetcher } from '@/utils/wordListFetcher'
 import { useAtom, useAtomValue } from 'jotai'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import useSWR from 'swr'
 
 export type UseWordListResult = {
@@ -21,7 +23,7 @@ export function useWordList() {
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
   const [currentChapter, setCurrentChapter] = useAtom(currentChapterAtom)
   const { isReviewMode, reviewRecord } = useAtomValue(reviewModeInfoAtom)
-
+  const chapterRecordControl = useAtomValue(chapterRecordsAtom)
   // Reset current chapter to 0, when currentChapter is greater than chapterCount.
   if (currentChapter >= currentDictInfo.chapterCount) {
     setCurrentChapter(0)
@@ -29,10 +31,11 @@ export function useWordList() {
 
   const isFirstChapter = !isReviewMode && currentDictInfo.id === 'cet4' && currentChapter === 0
   const { data: wordList, error, isLoading } = useSWR(currentDictInfo.url, wordListFetcher)
+  const [schedule, scheduleSet] = useState<IChapterRecord>()
 
-  const { data: schedule, isLoading: isScheduleLoading } = useSWR(
-    ChapterRecord.createId(currentDictInfo.id, currentChapter),
-    getChapterById,
+  useEffect(
+    () => chapterRecordControl?.getById(ChapterRecord.createId(currentDictInfo.id, currentChapter), (data) => data && scheduleSet(data)),
+    [chapterRecordControl, currentDictInfo.id, currentChapter],
   )
 
   const words: WordWithIndex[] = useMemo(() => {
@@ -65,7 +68,7 @@ export function useWordList() {
     })
   }, [isFirstChapter, isReviewMode, wordList, reviewRecord?.words, currentChapter])
 
-  return { words, isLoading, error, schedule, isScheduleLoading }
+  return { words, isLoading, error, schedule, isScheduleLoading: false }
 }
 
 const firstChapter = [
