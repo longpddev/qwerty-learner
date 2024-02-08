@@ -31,15 +31,24 @@ export function useWordList() {
   const isFirstChapter = !isReviewMode && currentDictInfo.id === 'cet4' && currentChapter === 0
   const { data: wordList, error, isLoading } = useSWR(currentDictInfo.url, wordListFetcher)
   const [schedule, scheduleSet] = useState<IChapterRecord>()
+  const [isScheduleLoading, isScheduleLoadingSet] = useState(false)
 
   useEffect(() => {
-    console.log(
-      '🚀 ~ useWordList ~ ChapterRecord.createId(currentDictInfo.id, currentChapter):',
-      ChapterRecord.createId(currentDictInfo.id, currentChapter),
-    )
-    return chapterRecordControl?.getById(ChapterRecord.createId(currentDictInfo.id, currentChapter), (data) => {
-      return data && scheduleSet(data)
-    })
+    if (!chapterRecordControl) return
+    const id = ChapterRecord.createId(currentDictInfo.id, currentChapter)
+    let stop = false
+    isScheduleLoadingSet(true)
+    chapterRecordControl
+      .getById(id)
+      .then((data) => {
+        if (stop) return
+        scheduleSet(data ?? undefined)
+      })
+      .finally(() => isScheduleLoadingSet(false))
+
+    return () => {
+      stop = true
+    }
   }, [chapterRecordControl, currentDictInfo.id, currentChapter])
 
   const words: WordWithIndex[] = useMemo(() => {
@@ -72,7 +81,7 @@ export function useWordList() {
     })
   }, [isFirstChapter, isReviewMode, wordList, reviewRecord?.words, currentChapter])
 
-  return { words, isLoading, error, schedule, isScheduleLoading: isLoading }
+  return { words, isLoading, error, schedule, isScheduleLoading }
 }
 
 const firstChapter = [

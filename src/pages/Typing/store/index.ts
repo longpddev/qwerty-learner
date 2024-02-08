@@ -113,9 +113,10 @@ export type TypingStateAction =
 type Dispatch = (action: TypingStateAction) => void
 
 export const typingReducer = (state: TypingState, action: TypingStateAction) => {
+  console.log('🚀 ~ typingReducer ~ action.type:', action.type)
   switch (action.type) {
     case TypingStateActionType.SETUP_CHAPTER: {
-      console.log('🚀 ~ typingReducer ~ TypingStateActionType.SETUP_CHAPTER:', TypingStateActionType.SETUP_CHAPTER)
+      console.timeEnd('next to setup')
       const newState = structuredClone(initialState)
       const words = action.payload.shouldShuffle ? shuffle(action.payload.words) : action.payload.words
       let initialIndex = action.payload.initialIndex ?? 0
@@ -213,6 +214,7 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
       return newState
     }
     case TypingStateActionType.NEXT_CHAPTER: {
+      console.time('next to setup')
       const newState = structuredClone(initialState)
       newState.chapterData.userInputLogs = state.chapterData.words.map((_, index) => ({ ...structuredClone(initialUserInputLog), index }))
       newState.isTyping = true
