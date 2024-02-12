@@ -100,6 +100,7 @@ export function useSaveChapterRecord() {
       // console.log('chapterRecord.card_due', chapterRecord.card_due)
       const oldRecord = await chapterRecordsControl.getById(chapterRecord.id)
 
+      console.log('🚀 ~ chapterRecord:', chapterRecord)
       if (oldRecord) {
         chapterRecord.practiceTime += oldRecord.practiceTime
       }

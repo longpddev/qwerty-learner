@@ -1,3 +1,4 @@
+import { getAnalytics } from 'firebase/analytics'
 import { initializeApp } from 'firebase/app'
 import { GoogleAuthProvider, browserSessionPersistence, getAuth } from 'firebase/auth'
 import { getDatabase, ref } from 'firebase/database'
@@ -13,6 +14,7 @@ const firebaseConfig = {
 }
 
 export const firebaseApp = initializeApp(firebaseConfig)
+const analytics = getAnalytics(firebaseApp)
 export const database = getDatabase(firebaseApp)
 export const auth = getAuth()
 auth.setPersistence(browserSessionPersistence)

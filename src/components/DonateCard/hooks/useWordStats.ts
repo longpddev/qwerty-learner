@@ -11,9 +11,9 @@ export function useChapterNumber() {
     if (!chapterRecordsControl) return
 
     return safePromise(
-      () => chapterRecordsControl.get(),
-      (records) => {
-        setChapterNumber(records.reduce((total, item) => total + item.practiceTime, 0))
+      () => chapterRecordsControl.getPracticeTime(),
+      (num) => {
+        setChapterNumber(num)
       },
     )
   }, [chapterRecordsControl])
@@ -60,8 +60,8 @@ export function useSumWrongCount() {
   useEffect(() => {
     if (!chapterRecordsControl) return
     return safePromise(
-      () => chapterRecordsControl.get(),
-      (records) => setSumWrongCount(records.reduce((total, item) => total + item.wrongCount, 0)),
+      () => chapterRecordsControl.getWrongCount(),
+      (num) => setSumWrongCount(num),
     )
   }, [chapterRecordsControl])
 

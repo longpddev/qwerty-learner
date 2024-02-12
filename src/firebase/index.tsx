@@ -11,6 +11,7 @@ import {
   endAt,
   equalTo,
   get,
+  increment,
   limitToFirst,
   limitToLast,
   onValue,
@@ -19,6 +20,7 @@ import {
   push,
   query,
   remove,
+  set,
   startAt,
   update,
 } from 'firebase/database'
@@ -41,9 +43,11 @@ function debug(cb: () => void, ...args: any) {
 export abstract class RefControl<T extends object, K extends string | number = string | number> {
   public ref: DatabaseReference
   public refLastIndex: DatabaseReference
+  public refCount: DatabaseReference
   constructor(protected userId: string, public dbName: string, public schema: AnyClass<T>) {
     this.ref = getRef(this.userId, dbName)
     this.refLastIndex = getRef(this.userId, dbName + 'LastIndex')
+    this.refCount = getRef(this.userId, dbName + 'Count')
   }
 
   applySchema(data: T): T {
@@ -59,8 +63,17 @@ export abstract class RefControl<T extends object, K extends string | number = s
   count(): Promise<number>
   count(cb: (c: number) => void): Unsubscribe
   count(cb?: (c: number) => void): Unsubscribe | Promise<number> {
-    if (!cb) return get(this.ref).then((snapshot) => snapshot.size)
-    const unsubscribe = onValue(this.ref, (snapshot) => cb(snapshot.size))
+    const getCount = async (snapshot: DataSnapshot) => {
+      if (!snapshot.exists()) {
+        const count = await this.realCount()
+        set(this.refCount, count)
+        return count
+      }
+
+      return snapshot.val() ?? 0
+    }
+    if (!cb) return get(this.refCount).then(getCount)
+    const unsubscribe = onValue(this.refCount, async (snapshot) => cb(await getCount(snapshot)))
     return () => debug(unsubscribe)
   }
 
@@ -68,12 +81,29 @@ export abstract class RefControl<T extends object, K extends string | number = s
     return remove(this.ref)
   }
 
+  async getLastKey() {
+    const snapshot = await get(this.refLastIndex)
+    if (snapshot.exists()) return snapshot.val()
+    const formquery = await get(query(this.ref, orderByKey(), limitToLast(1)))
+
+    return Object.keys(formquery.val() ?? {}).at(0)
+  }
+
+  async realCount() {
+    const all = (await this.get()) ?? {}
+    return set(this.refCount, Object.keys(all).length)
+  }
+
+  async initFieldCount() {
+    const all = (await this.get()) ?? {}
+    return set(this.refCount, Object.keys(all).length)
+  }
+
   async add(data: T, id?: K) {
     let newKey: K
-    console.log(`${this.dbName} adding ${id} starting`)
-    console.time(`${this.dbName} adding ${id}`)
     if (id === undefined) {
-      const lastKey = ((await get(this.refLastIndex)).val() as string) ?? '-1'
+      const lastKey = ((await this.getLastKey()) as string) ?? '-1'
+
       const lastKeyNum = parseInt(lastKey)
       if (isNaN(lastKeyNum)) {
         const key = push(this.ref).key
@@ -85,6 +115,8 @@ export abstract class RefControl<T extends object, K extends string | number = s
       } else {
         newKey = (lastKeyNum + 1) as K
       }
+
+      set(this.refLastIndex, newKey)
     } else {
       newKey = id
     }
@@ -92,17 +124,18 @@ export abstract class RefControl<T extends object, K extends string | number = s
     const unknownData = data as unknown as any
     unknownData[id] = newKey
     update(this.ref, { [newKey]: data })
-    console.timeEnd(`${this.dbName} adding ${id}`)
-    console.log(`${this.dbName} adding ${id} ended`)
+    set(this.refCount, increment(1))
     return newKey
   }
 
-  remove(id: K) {
-    return remove(child(this.ref, id.toString()))
+  async remove(id: K) {
+    await remove(child(this.ref, id.toString()))
+    await set(this.refCount, increment(-1))
   }
   get(): Promise<T[]>
   get(cb: (s: T[]) => void): Unsubscribe
   get(cb?: (s: T[]) => void): Promise<T[]> | Unsubscribe {
+    console.trace('get function called')
     if (cb === undefined) {
       return get(this.ref).then((snapshot) => this.getDataFromSnapShot(snapshot))
     } else {
@@ -135,8 +168,13 @@ export abstract class RefControl<T extends object, K extends string | number = s
 }
 
 export class ChapterRecordsControl extends RefControl<IChapterRecord, string> {
+  public refPracticeTime: DatabaseReference
+  public refWrongCount: DatabaseReference
   constructor(protected userId: string) {
-    super(userId, 'chapterRecords', ChapterRecord)
+    const dbname = 'chapterRecords'
+    super(userId, dbname, ChapterRecord)
+    this.refPracticeTime = this.refCount = getRef(this.userId, dbname + 'PracticeTime')
+    this.refWrongCount = this.refCount = getRef(this.userId, dbname + 'WrongCount')
   }
 
   sort(a: IChapterRecord, b: IChapterRecord) {
@@ -149,6 +187,59 @@ export class ChapterRecordsControl extends RefControl<IChapterRecord, string> {
     )
 
     return () => debug(unsubscribe)
+  }
+
+  async getRealWrongCount() {
+    const total = (await this.get()).map((item) => item.wrongCount).reduce((acc, item) => acc + item, 0)
+    return total
+  }
+
+  async getRealPracticeTime() {
+    const total = (await this.get()).map((item) => item.practiceTime).reduce((acc, item) => acc + item, 0)
+    return total
+  }
+
+  async refireWrongCount() {
+    await set(this.refWrongCount, await this.getRealWrongCount())
+  }
+
+  async refirePracticeTime() {
+    await set(this.refPracticeTime, await this.getRealPracticeTime())
+  }
+
+  getWrongCount(): Promise<number>
+  getWrongCount(cb: (num: number) => void): Unsubscribe
+  getWrongCount(cb?: (num: number) => void): Unsubscribe | Promise<number> {
+    if (!cb) return get(this.refWrongCount).then((snap) => snap.val())
+
+    return onValue(this.refWrongCount, (snap) => cb(snap.val()))
+  }
+
+  getPracticeTime(): Promise<number>
+  getPracticeTime(cb: (num: number) => void): Unsubscribe
+  getPracticeTime(cb?: (num: number) => void): Unsubscribe | Promise<number> {
+    if (!cb) return get(this.refPracticeTime).then((snap) => snap.val())
+
+    return onValue(this.refPracticeTime, (snap) => cb(snap.val()))
+  }
+
+  async add(data: IChapterRecord, id?: string | undefined): Promise<string> {
+    if (id) {
+      const oldData = await this.getById(id)
+      if (oldData) {
+        set(this.refPracticeTime, increment(data.practiceTime - oldData.practiceTime))
+        set(this.refWrongCount, increment(data.wrongCount - oldData.wrongCount))
+      } else {
+        set(this.refPracticeTime, increment(data.practiceTime))
+        set(this.refWrongCount, increment(data.wrongCount))
+      }
+    } else {
+      set(this.refPracticeTime, increment(data.practiceTime))
+      set(this.refWrongCount, increment(data.wrongCount))
+    }
+    const newId = await super.add(data, id)
+
+    return newId
   }
 }
 
@@ -295,19 +386,24 @@ userAtom.onMount = (set) =>
 export const chapterRecordsAtom = atom((get) => {
   const user = get(userAtom)
   if (!user) return null
-  return new ChapterRecordsControl(user.uid)
+  const control = new ChapterRecordsControl(user.uid)
+  // control.refireWrongCount()
+  // control.refirePracticeTime()
+  return control
 })
 
 export const wordRecordsAtom = atom((get) => {
   const user = get(userAtom)
   if (!user) return null
-  return new WordRecordsControl(user.uid)
+  const control = new WordRecordsControl(user.uid)
+  return control
 })
 
 export const reviewRecordsAtom = atom((get) => {
   const user = get(userAtom)
   if (!user) return null
-  return new ReviewRecordsControl(user.uid)
+  const control = new ReviewRecordsControl(user.uid)
+  return control
 })
 
 export async function login() {
