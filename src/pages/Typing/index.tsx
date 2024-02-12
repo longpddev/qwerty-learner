@@ -31,7 +31,6 @@ const App: React.FC = () => {
   const [state, dispatch] = useImmerReducer(typingReducer, structuredClone(initialState))
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const { words, schedule, isScheduleLoading } = useWordList()
-  console.log('🚀 ~ words, schedule, isScheduleLoading:', words, schedule, isScheduleLoading)
 
   const [currentDictId, setCurrentDictId] = useAtom(currentDictIdAtom)
   const setCurrentChapter = useSetAtom(currentChapterAtom)
@@ -109,7 +108,6 @@ const App: React.FC = () => {
   useEffect(() => {
     if (state.isFinished && !state.isSavingRecord) {
       chapterLogUploader()
-      console.log('🚀 ~ useEffect ~ state:', state)
       saveChapterRecord(state)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

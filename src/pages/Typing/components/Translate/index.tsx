@@ -15,7 +15,7 @@ const TranslateText = ({ onClose }: { onClose: () => void }) => {
   const { state } = useContext(TypingContext)!
   const currentWord = state.chapterData.words[state.chapterData.index]
 
-  const { data, isLoading } = useSWR(`https://hono-proxy.longpddev.workers.dev/explain?text=${currentWord?.name ?? ''}`, translateFetch)
+  const { data, isLoading } = useSWR(`${import.meta.env.VITE_API_URI}/explain?text=${currentWord?.name ?? ''}`, translateFetch)
   return (
     <>
       <div className="relative flex items-end justify-between rounded-t-lg border-b border-neutral-100 bg-stone-50 px-6 py-3 dark:border-neutral-700 dark:bg-gray-900">

@@ -27,6 +27,17 @@ import { atom, useAtom } from 'jotai'
 interface AnyClass<T> {
   new (...args: any): T
 }
+
+function debug(cb: () => void, ...args: any) {
+  const startTime = performance.now()
+  cb()
+  const endTime = performance.now() - startTime
+  console.log('🚀 ~ debug ~ endTime:', endTime)
+  if (endTime > 100) {
+    console.log(`%cExecute time: ${endTime}ms`, 'color: red;font-size:20px', args)
+    console.trace('Trace debug')
+  }
+}
 export abstract class RefControl<T extends object, K extends string | number = string | number> {
   public ref: DatabaseReference
   public refLastIndex: DatabaseReference
@@ -45,8 +56,12 @@ export abstract class RefControl<T extends object, K extends string | number = s
     return (Object.values(snapshot.val() ?? {}) as T[]).map((item) => this.applySchema(item))
   }
 
-  count(cb: (c: number) => void) {
-    return onValue(this.ref, (snapshot) => cb(snapshot.size))
+  count(): Promise<number>
+  count(cb: (c: number) => void): Unsubscribe
+  count(cb?: (c: number) => void): Unsubscribe | Promise<number> {
+    if (!cb) return get(this.ref).then((snapshot) => snapshot.size)
+    const unsubscribe = onValue(this.ref, (snapshot) => cb(snapshot.size))
+    return () => debug(unsubscribe)
   }
 
   clear() {
@@ -91,7 +106,9 @@ export abstract class RefControl<T extends object, K extends string | number = s
     if (cb === undefined) {
       return get(this.ref).then((snapshot) => this.getDataFromSnapShot(snapshot))
     } else {
-      return onValue(this.ref, (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
+      const unsubscribe = onValue(this.ref, (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
+
+      return () => debug(unsubscribe)
     }
   }
 
@@ -106,11 +123,13 @@ export abstract class RefControl<T extends object, K extends string | number = s
         return this.applySchema(val)
       })
     } else {
-      return onValue(_query, (snapshot) => {
+      const unsubscribe = onValue(_query, (snapshot) => {
         const val = snapshot.val()
         if (!val) return cb(null)
         return cb(this.applySchema(val))
       })
+
+      return () => debug(unsubscribe)
     }
   }
 }
@@ -125,9 +144,11 @@ export class ChapterRecordsControl extends RefControl<IChapterRecord, string> {
   }
 
   getByDict(dict: string, cb: (s: IChapterRecord[]) => void) {
-    return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) =>
+    const unsubscribe = onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) =>
       cb(this.getDataFromSnapShot(snapshot).sort(this.sort)),
     )
+
+    return () => debug(unsubscribe)
   }
 }
 
@@ -135,15 +156,23 @@ export class WordRecordsControl extends RefControl<IWordRecord, number> {
   constructor(protected userId: string) {
     super(userId, 'wordRecords', WordRecord)
   }
+  getFirstWord(): Promise<IWordRecord | undefined>
+  getFirstWord(cb: (s: IWordRecord | undefined) => void): Unsubscribe
+  getFirstWord(cb?: (s: IWordRecord | undefined) => void): Unsubscribe | Promise<IWordRecord | undefined> {
+    const _query = query(this.ref, orderByChild('timeStamp'), limitToFirst(1))
 
-  getFirstWord(cb: (s: IWordRecord | undefined) => void) {
-    return onValue(query(this.ref, orderByChild('timeStamp'), limitToFirst(1)), (snapshot) => cb(this.getDataFromSnapShot(snapshot).at(0)))
+    if (!cb) return get(_query).then((snapshot) => this.getDataFromSnapShot(snapshot).at(0))
+    const unsubscribe = onValue(_query, (snapshot) => cb(this.getDataFromSnapShot(snapshot).at(0)))
+
+    return () => debug(unsubscribe)
   }
 
   getBetween(startTimeStamp: number, endTimeStamp: number, cb: (s: IWordRecord[]) => void) {
-    return onValue(query(this.ref, orderByChild('timeStamp'), startAt(startTimeStamp), endAt(endTimeStamp)), (snapshot) =>
+    const unsubscribe = onValue(query(this.ref, orderByChild('timeStamp'), startAt(startTimeStamp), endAt(endTimeStamp)), (snapshot) =>
       cb(this.getDataFromSnapShot(snapshot)),
     )
+
+    return () => debug(unsubscribe)
   }
 
   createGroupRecord(records: Array<IWordRecord>): groupedWordRecords[] {
@@ -169,18 +198,22 @@ export class WordRecordsControl extends RefControl<IWordRecord, number> {
   }
 
   getGroupRecords(cb: (s: groupedWordRecords[]) => void) {
-    return onValue(query(this.ref, orderByChild('wrongCount'), startAt(0)), (snapshot) => {
+    const unsubscribe = onValue(query(this.ref, orderByChild('wrongCount'), startAt(0)), (snapshot) => {
       const records = this.getDataFromSnapShot(snapshot)
       cb(this.createGroupRecord(records))
     })
+
+    return () => debug(unsubscribe)
   }
 
   getGroupRecordsByDict(dict: string, cb: (s: groupedWordRecords[]) => void) {
-    return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => {
+    const unsubscribe = onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => {
       const records = this.getDataFromSnapShot(snapshot)
 
       cb(this.createGroupRecord(records.filter((item) => item.dict === dict)))
     })
+
+    return () => debug(unsubscribe)
   }
 
   getErrorWordData(dict: string, wordList: Word[], cb: (s: TErrorWordData[]) => void) {
@@ -226,7 +259,9 @@ export class WordRecordsControl extends RefControl<IWordRecord, number> {
   }
 
   getByDict(dict: string, cb: (s: IWordRecord[]) => void) {
-    return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
+    const unsubscribe = onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
+
+    return () => debug(unsubscribe)
   }
 
   getRevisionWordCount(dict: string, cb: (s: number) => void) {
@@ -246,7 +281,8 @@ export class ReviewRecordsControl extends RefControl<IReviewRecord> {
   }
 
   getByDict(dict: string, cb: (s: IReviewRecord[]) => void) {
-    return onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
+    const unsubscribe = onValue(query(this.ref, orderByChild('dict'), equalTo(dict)), (snapshot) => cb(this.getDataFromSnapShot(snapshot)))
+    return () => debug(unsubscribe)
   }
 }
 

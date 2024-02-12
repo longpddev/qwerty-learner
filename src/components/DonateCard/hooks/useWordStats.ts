@@ -1,5 +1,5 @@
 import { chapterRecordsAtom, wordRecordsAtom } from '@/firebase'
-import { db } from '@/utils/db'
+import safePromise from '@/utils/safePromise'
 import dayjs from 'dayjs'
 import { useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
@@ -8,9 +8,14 @@ export function useChapterNumber() {
   const [chapterNumber, setChapterNumber] = useState<number>(0)
   const chapterRecordsControl = useAtomValue(chapterRecordsAtom)
   useEffect(() => {
-    return chapterRecordsControl?.get((records) => {
-      setChapterNumber(records.reduce((total, item) => total + item.practiceTime, 0))
-    })
+    if (!chapterRecordsControl) return
+
+    return safePromise(
+      () => chapterRecordsControl.get(),
+      (records) => {
+        setChapterNumber(records.reduce((total, item) => total + item.practiceTime, 0))
+      },
+    )
   }, [chapterRecordsControl])
 
   return chapterNumber
@@ -19,18 +24,21 @@ export function useChapterNumber() {
 export function useDayFromFirstWordRecord() {
   const [dayFromFirstWordRecord, setDayFromFirstWordRecord] = useState<number>(0)
   const wordRecordControl = useAtomValue(wordRecordsAtom)
-  useEffect(
-    () =>
-      wordRecordControl?.getFirstWord((firstWordRecord) => {
+  useEffect(() => {
+    if (!wordRecordControl) return
+
+    return safePromise(
+      () => wordRecordControl.getFirstWord(),
+      (firstWordRecord) => {
         if (!firstWordRecord) return
         const firstWordRecordTimeStamp = firstWordRecord?.timeStamp || 0
         const now = dayjs()
         const timestamp = dayjs.unix(firstWordRecordTimeStamp)
         const daysPassed = now.diff(timestamp, 'day')
         setDayFromFirstWordRecord(daysPassed)
-      }),
-    [wordRecordControl],
-  )
+      },
+    )
+  }, [wordRecordControl])
 
   return dayFromFirstWordRecord
 }
@@ -38,7 +46,10 @@ export function useDayFromFirstWordRecord() {
 export function useWordNumber() {
   const [wordNumber, setWordNumber] = useState<number>(0)
   const wordRecordControl = useAtomValue(wordRecordsAtom)
-  useEffect(() => wordRecordControl?.count((number) => setWordNumber(number)), [wordRecordControl])
+  useEffect(() => {
+    if (!wordRecordControl) return
+    return safePromise(() => wordRecordControl.count(), setWordNumber)
+  }, [wordRecordControl])
 
   return wordNumber
 }
@@ -46,10 +57,13 @@ export function useWordNumber() {
 export function useSumWrongCount() {
   const [sumWrongCount, setSumWrongCount] = useState<number>(0)
   const chapterRecordsControl = useAtomValue(chapterRecordsAtom)
-  useEffect(
-    () => chapterRecordsControl?.get((records) => setSumWrongCount(records.reduce((total, item) => total + item.wrongCount, 0))),
-    [chapterRecordsControl],
-  )
+  useEffect(() => {
+    if (!chapterRecordsControl) return
+    return safePromise(
+      () => chapterRecordsControl.get(),
+      (records) => setSumWrongCount(records.reduce((total, item) => total + item.wrongCount, 0)),
+    )
+  }, [chapterRecordsControl])
 
   return sumWrongCount
 }

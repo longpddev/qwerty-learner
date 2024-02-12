@@ -113,7 +113,7 @@ export type TypingStateAction =
 type Dispatch = (action: TypingStateAction) => void
 
 export const typingReducer = (state: TypingState, action: TypingStateAction) => {
-  console.log('🚀 ~ typingReducer ~ action.type:', action.type)
+  // console.log('🚀 ~ typingReducer ~ action.type:', action.type)
   switch (action.type) {
     case TypingStateActionType.SETUP_CHAPTER: {
       console.timeEnd('next to setup')

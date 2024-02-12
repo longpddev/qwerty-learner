@@ -1,16 +1,11 @@
 import { pronunciationConfigAtom } from '@/store'
 import type { PronunciationType } from '@/typings'
-import { addHowlListener } from '@/utils'
 import { groupArray } from '@/utils/groupBy'
 import { romajiToHiragana } from '@/utils/kana'
-import noop from '@/utils/noop'
-import type { Howl } from 'howler'
 import { useAtomValue } from 'jotai'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import useSound from 'use-sound'
-import type { HookOptions } from 'use-sound/dist/types'
 
-const pronunciationApi = 'https://hono-proxy.longpddev.workers.dev/dictvoice?audio='
+const pronunciationApi = `${import.meta.env.VITE_API_URI}/dictvoice?audio=`
 export function generateWordSoundSrc(word: string, pronunciation: Exclude<PronunciationType, false>) {
   switch (pronunciation) {
     case 'uk':
