@@ -24,6 +24,7 @@ import {
 import type { Word } from '@/typings'
 import { CTRL, getUtcStringForMixpanel, useMixPanelWordLogUploader } from '@/utils'
 import { useSaveWordRecord } from '@/utils/db'
+import { Rating, State } from 'fsrs.js'
 import { useAtomValue } from 'jotai'
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
@@ -160,18 +161,21 @@ export default function WordComponent({ word, onFinish }: { word: Word; onFinish
         if (wordDictationConfig.type === 'hideAll') return false
 
         const letter = wordState.displayWord[index]
-        if (wordDictationConfig.type === 'hideVowel') {
+        const schedule = state.chapterData.schedule
+        if (wordDictationConfig.type === 'practiceLevel' && schedule) {
+          const review = schedule.review_log
+          return !(review.rating === Rating.Easy || (review.rating === Rating.Good && schedule.card.reps > 2))
+        } else if (wordDictationConfig.type === 'hideVowel') {
           return vowelLetters.includes(letter.toUpperCase()) ? false : true
-        }
-        if (wordDictationConfig.type === 'hideConsonant') {
+        } else if (wordDictationConfig.type === 'hideConsonant') {
           return vowelLetters.includes(letter.toUpperCase()) ? true : false
-        }
-        if (wordDictationConfig.type === 'randomHide') {
+        } else if (wordDictationConfig.type === 'randomHide') {
           return wordState.randomLetterVisible[index]
         }
       }
       return true
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       isHoveringWord,
       isShowAnswerOnHover,

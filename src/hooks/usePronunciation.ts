@@ -120,22 +120,18 @@ export default function usePronunciationSound(word: string, isLoop?: boolean) {
     const fetching = fetchAudio(audioUrl)
     async function play() {
       const audio = await fetching
-      if (isStarted.current) return
       const audioNode = loop ? audio.loop() : audio.play()
       setIsPlaying(true)
       audioNode.addEventListener('ended', function handle() {
         setIsPlaying(false)
         audioNode.removeEventListener('ended', handle)
       })
-      isStarted.current = true
     }
 
     async function stop() {
-      if (!isStarted.current) return
       setIsPlaying(false)
       const audio = await fetching
       audio.stop()
-      isStarted.current = false
     }
 
     return [play, stop]

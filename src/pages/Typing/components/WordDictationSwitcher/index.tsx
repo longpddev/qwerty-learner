@@ -11,6 +11,10 @@ import IconChevronDown from '~icons/tabler/chevron-down'
 
 const wordDictationTypeList: { name: string; type: WordDictationType }[] = [
   {
+    name: 'Practice level',
+    type: 'practiceLevel',
+  },
+  {
     name: 'Hide all',
     type: 'hideAll',
   },
@@ -23,7 +27,7 @@ const wordDictationTypeList: { name: string; type: WordDictationType }[] = [
     type: 'hideConsonant',
   },
   {
-    name: 'randomly hidden',
+    name: 'Randomly hidden',
     type: 'randomHide',
   },
 ]

@@ -389,6 +389,7 @@ export const chapterRecordsAtom = atom((get) => {
   const control = new ChapterRecordsControl(user.uid)
   // control.refireWrongCount()
   // control.refirePracticeTime()
+  window.chapterRecords = control
   return control
 })
 
@@ -396,6 +397,7 @@ export const wordRecordsAtom = atom((get) => {
   const user = get(userAtom)
   if (!user) return null
   const control = new WordRecordsControl(user.uid)
+  window.wordRecords = control
   return control
 })
 
@@ -403,6 +405,7 @@ export const reviewRecordsAtom = atom((get) => {
   const user = get(userAtom)
   if (!user) return null
   const control = new ReviewRecordsControl(user.uid)
+  window.reviewRecords = control
   return control
 })
 
