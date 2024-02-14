@@ -2813,6 +2813,20 @@ const germanExam: DictionaryResource[] = [
   },
 ]
 
+const customDictionary: DictionaryResource[] = [
+  {
+    id: 'barrons-600',
+    name: "Barron's 600",
+    description: "Barron's 600",
+    category: "Barron's 600 Essential Words",
+    tags: ["Barron's 600 Essential"],
+    url: '/dicts/barrons-600.json',
+    length: 600,
+    language: 'en',
+    languageCategory: 'en',
+  },
+]
+
 /**
  * Built-in dictionaries in an array.
  * Why arrays? Because it keeps the order across browsers.
@@ -2824,7 +2838,7 @@ export const dictionaryResources: DictionaryResource[] = [
   ...programming,
   ...japaneseExam,
   ...germanExam,
-
+  ...customDictionary,
   // {
   // id: "zhtest",
   // name: "Chinese test",
