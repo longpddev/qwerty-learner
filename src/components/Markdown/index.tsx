@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { Suspense, lazy } from 'react'
 
 const MarkdownLazy = lazy(() => import('./MarkdownComponent'))
 const Markdown = ({ children }: { children: string }) => {

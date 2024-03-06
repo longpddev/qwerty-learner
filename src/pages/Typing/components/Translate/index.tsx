@@ -89,6 +89,7 @@ const TranslateText = ({ onClose }: { onClose: () => void }) => {
       </div>
       <div className="relative min-h-32 overflow-auto p-4 text-left">
         <Markdown>{dictionary ?? ''}</Markdown>
+        <hr className="my-2 border-b border-solid border-gray-500" />
         <Markdown>{content}</Markdown>
       </div>
     </div>
