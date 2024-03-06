@@ -2,7 +2,7 @@ import { TypingContext } from '../../store'
 import Popup from '../Popup'
 import { LoadingUI } from '@/components/Loading'
 import Markdown from '@/components/Markdown'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import useSWR from 'swr'
 import IconX from '~icons/tabler/x'
@@ -17,14 +17,68 @@ const dictionaryFetch = (url: string) =>
     .then((res) => res.json())
     .then((data) => data.result as string | null)
 
+function parseSSE<T>(callback?: (d: T) => void) {
+  return async (stream: ReadableStream<Uint8Array>) => {
+    const reader = stream.getReader()
+    const decoder = new TextDecoder()
+    let buffer = ''
+    const result: T[] = []
+
+    let done = false
+
+    while (!done) {
+      const { value, done: streamDone } = await reader.read()
+      done = streamDone
+
+      if (done) break
+
+      const decodedData = decoder.decode(value, { stream: true })
+      buffer += decodedData
+
+      const lines = buffer.split('\n')
+      console.log('🚀 ~ return ~ lines:', lines)
+      buffer = lines.pop() || ''
+
+      for (const line of lines) {
+        if (line.trim() !== '') {
+          if (line.startsWith('data:')) {
+            const data = JSON.parse(line.slice(5))
+            result.push(data)
+            callback?.(data)
+          }
+        }
+      }
+    }
+
+    return result
+  }
+}
+function useTranslateFetch(word: string) {
+  const [content, contentSet] = useState('')
+  useEffect(() => {
+    const controller = new AbortController()
+    contentSet('')
+    fetch(`${import.meta.env.VITE_API_URI}/explain?text=${word}`, { signal: controller.signal })
+      .then((response) => response.body!)
+      .then(
+        parseSSE<{ text: string }>((data) => {
+          contentSet((prev) => prev + data.text)
+        }),
+      )
+
+    return () => controller.abort()
+  }, [word])
+
+  return content
+}
+
 const TranslateText = ({ onClose }: { onClose: () => void }) => {
   const { state } = useContext(TypingContext)!
   const currentWord = state.chapterData.words[state.chapterData.index]
 
-  const { data, isLoading } = useSWR(`${import.meta.env.VITE_API_URI}/explain?text=${currentWord?.name ?? ''}`, translateFetch)
   const { data: dictionary } = useSWR(`${import.meta.env.VITE_API_URI}/dictionary?text=${currentWord?.name ?? ''}`, dictionaryFetch)
-  // const bg = currentWord?.name ? `${import.meta.env.VITE_API_URI}/visualize?text=${currentWord.name ?? ''}` : ''
-  console.log('🚀 ~ TranslateText ~ dictionary:', dictionary)
+
+  const content = useTranslateFetch(currentWord?.name ?? '')
   return (
     <div className="flex max-h-[95vh] flex-col">
       <div className="relative flex items-end justify-between rounded-t-lg  bg-stone-50 px-6 py-3 dark:bg-gray-900">
@@ -34,24 +88,8 @@ const TranslateText = ({ onClose }: { onClose: () => void }) => {
         </button>
       </div>
       <div className="relative min-h-32 overflow-auto p-4 text-left">
-        {/* <img
-          src={bg}
-          alt=""
-          className="pointer-events-none absolute inset-0 block h-full w-full object-cover object-center opacity-20"
-          style={{ filter: 'blur(2px) brightness(0.5)' }}
-        /> */}
-        {dictionary && (
-          <div>
-            <Markdown>{dictionary}</Markdown>
-          </div>
-        )}
-        {isLoading ? (
-          <div className="flex h-full w-full items-center justify-center">
-            <LoadingUI />
-          </div>
-        ) : (
-          <Markdown>{data}</Markdown>
-        )}
+        <Markdown>{dictionary ?? ''}</Markdown>
+        <Markdown>{content}</Markdown>
       </div>
     </div>
   )
