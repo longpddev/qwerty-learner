@@ -1,1 +1,67 @@
-[{"name":"supply","trans":["an amount of something that is available for use"],"usphone":"/səˈplɑɪ/","ukphone":"/səˈplɑɪ/"},{"name":"estimate","trans":["to guess the size, cost, etc., of something"],"usphone":"/ˈes·təˌmeɪt/","ukphone":"/ˈes·təˌmeɪt/"},{"name":"administer","trans":["to be responsible for giving something to someone"],"usphone":"/əd'mɪnəstɜ`/","ukphone":"/əd'mɪnəstɜ`/"},{"name":"lure","trans":["to attract a person or animal"],"usphone":"/ɭʊɹ/","ukphone":"/ɭʊɹ/"},{"name":"stem","trans":["grow out of, have roots in, originate in"],"usphone":"/stɛm/","ukphone":"/stɛm/"},{"name":"shortage","trans":["a lack of something needed"],"usphone":"/ˈʃɔr·t̬ɪdʒ/","ukphone":"/ˈʃɔr·t̬ɪdʒ/"},{"name":"cripple","trans":["to make something much less effective; damage"],"usphone":"/ˈkrɪp·əl/","ukphone":"/ˈkrɪp·əl/"},{"name":"complex","trans":["having many parts related to each other in ways that may be difficult to understand"],"usphone":"/kəmˈpleks, ˈkɑm·pleks/","ukphone":"/kəmˈpleks, ˈkɑm·pleks/"},{"name":"vacancy","trans":["a place or position that is available"],"usphone":"/ˈveɪ·kən·si/","ukphone":"/ˈveɪ·kən·si/"},{"name":"abroad","trans":["in or to a foreign country or countries"],"usphone":"/əˈbrɔd/","ukphone":"/əˈbrɔd/"},{"name":"standpoint","trans":["a set of beliefs and ideas from which opinions and decisions are formed"],"usphone":"/ˈstændˌpɔɪnt/","ukphone":"/ˈstændˌpɔɪnt/"},{"name":"primary","trans":["more important than anything else; main"],"usphone":"/ˈprɑɪ·mer·i, -mə·ri/","ukphone":"/ˈprɑɪ·mer·i, -mə·ri/"},{"name":"decline","trans":["to go down in amount or quality; lessen or weaken"],"usphone":"/dɪˈklɑɪn/","ukphone":"/dɪˈklɑɪn/"},{"name":"bulk","trans":["something very large, or a large amount, not divided into smaller parts"],"usphone":"/bʌlk/","ukphone":"/bʌlk/"},{"name":"rudimentary","trans":["only basic, and not deep or detailed"],"usphone":"/ˌrud·əˈment·ə·ri, -ˈmen·tri/","ukphone":"/ˌrud·əˈment·ə·ri, -ˈmen·tri/"},{"name":"epidemic","trans":["the appearance of a particular disease in a very large number of people during the same period of time"],"usphone":"/ˌep·ɪˈdem·ɪk/","ukphone":"/ˌep·ɪˈdem·ɪk/"},{"name":"rampant","trans":["happening a lot or becoming worse, usually in a way that is out of control"],"usphone":"/ˈræm·pənt/","ukphone":"/ˈræm·pənt/"},{"name":"decade","trans":["a period of ten years"],"usphone":"/ˈdek·eɪd, deˈkeɪd/","ukphone":"/ˈdek·eɪd, deˈkeɪd/"},{"name":"qualified","trans":["having the standard of skill, knowledge, or ability that is necessary for doing or being something"],"usphone":"/ˈkwɑl·əˌfɑɪd/","ukphone":"/ˈkwɑl·əˌfɑɪd/"},{"name":"retain","trans":["to keep or continue to have something"],"usphone":"/rɪˈteɪn/","ukphone":"/rɪˈteɪn/"}]
+[
+  { "name": "supply", "trans": ["an amount of something that is available for use"], "usphone": "/səˈplɑɪ/", "ukphone": "/səˈplɑɪ/" },
+  { "name": "estimate", "trans": ["to guess the size, cost, etc., of something"], "usphone": "/ˈes·təˌmeɪt/", "ukphone": "/ˈes·təˌmeɪt/" },
+  {
+    "name": "administer",
+    "trans": ["to be responsible for giving something to someone"],
+    "usphone": "/əd'mɪnəstɜ`/",
+    "ukphone": "/əd'mɪnəstɜ`/"
+  },
+  { "name": "lure", "trans": ["to attract a person or animal"], "usphone": "/ɭʊɹ/", "ukphone": "/ɭʊɹ/" },
+  { "name": "stem", "trans": ["grow out of, have roots in, originate in"], "usphone": "/stɛm/", "ukphone": "/stɛm/" },
+  { "name": "shortage", "trans": ["a lack of something needed"], "usphone": "/ˈʃɔr·t̬ɪdʒ/", "ukphone": "/ˈʃɔr·t̬ɪdʒ/" },
+  { "name": "cripple", "trans": ["to make something much less effective; damage"], "usphone": "/ˈkrɪp·əl/", "ukphone": "/ˈkrɪp·əl/" },
+  {
+    "name": "complex",
+    "trans": ["having many parts related to each other in ways that may be difficult to understand"],
+    "usphone": "/kəmˈpleks, ˈkɑm·pleks/",
+    "ukphone": "/kəmˈpleks, ˈkɑm·pleks/"
+  },
+  { "name": "vacancy", "trans": ["a place or position that is available"], "usphone": "/ˈveɪ·kən·si/", "ukphone": "/ˈveɪ·kən·si/" },
+  { "name": "abroad", "trans": ["in or to a foreign country or countries"], "usphone": "/əˈbrɔd/", "ukphone": "/əˈbrɔd/" },
+  {
+    "name": "standpoint",
+    "trans": ["a set of beliefs and ideas from which opinions and decisions are formed"],
+    "usphone": "/ˈstændˌpɔɪnt/",
+    "ukphone": "/ˈstændˌpɔɪnt/"
+  },
+  {
+    "name": "primary",
+    "trans": ["more important than anything else; main"],
+    "usphone": "/ˈprɑɪ·mer·i, -mə·ri/",
+    "ukphone": "/ˈprɑɪ·mer·i, -mə·ri/"
+  },
+  { "name": "decline", "trans": ["to go down in amount or quality; lessen or weaken"], "usphone": "/dɪˈklɑɪn/", "ukphone": "/dɪˈklɑɪn/" },
+  {
+    "name": "bulk",
+    "trans": ["something very large, or a large amount, not divided into smaller parts"],
+    "usphone": "/bʌlk/",
+    "ukphone": "/bʌlk/"
+  },
+  {
+    "name": "rudimentary",
+    "trans": ["only basic, and not deep or detailed"],
+    "usphone": "/ˌrud·əˈment·ə·ri, -ˈmen·tri/",
+    "ukphone": "/ˌrud·əˈment·ə·ri, -ˈmen·tri/"
+  },
+  {
+    "name": "epidemic",
+    "trans": ["the appearance of a particular disease in a very large number of people during the same period of time"],
+    "usphone": "/ˌep·ɪˈdem·ɪk/",
+    "ukphone": "/ˌep·ɪˈdem·ɪk/"
+  },
+  {
+    "name": "rampant",
+    "trans": ["happening a lot or becoming worse, usually in a way that is out of control"],
+    "usphone": "/ˈræm·pənt/",
+    "ukphone": "/ˈræm·pənt/"
+  },
+  { "name": "decade", "trans": ["a period of ten years"], "usphone": "/ˈdek·eɪd, deˈkeɪd/", "ukphone": "/ˈdek·eɪd, deˈkeɪd/" },
+  {
+    "name": "qualified",
+    "trans": ["having the standard of skill, knowledge, or ability that is necessary for doing or being something"],
+    "usphone": "/ˈkwɑl·əˌfɑɪd/",
+    "ukphone": "/ˈkwɑl·əˌfɑɪd/"
+  },
+  { "name": "retain", "trans": ["to keep or continue to have something"], "usphone": "/rɪˈteɪn/", "ukphone": "/rɪˈteɪn/" }
+]

@@ -1,1 +1,86 @@
-[{"name":"optimal","trans":["being the best or most desirable"],"usphone":"/aptəməɭ/","ukphone":"/aptəməɭ/"},{"name":"fuel","trans":["to provide power to something"],"usphone":"/fjuəɭ/","ukphone":"/fjuəɭ/"},{"name":"breed","trans":["to keep animals or plants for the purpose of producing young animals or plants, often for chosen qualities"],"usphone":"/bɹid/","ukphone":"/bɹid/"},{"name":"obscure","trans":["unclear and difficult to understand or see"],"usphone":"/əbskjʊɹ/","ukphone":"/əbskjʊɹ/"},{"name":"imperative","trans":["something that needs to be done or given attention immediately"],"usphone":"/ɪmpɛɹətɪv/","ukphone":"/ɪmpɛɹətɪv/"},{"name":"aspect","trans":["a particular feature of or way of thinking about something, esp. something complicated"],"usphone":"/ˈæs·pekt/","ukphone":"/ˈæs·pekt/"},{"name":"diurnal","trans":["happening over a period of a day, or being active or happening during the day rather than at night"],"usphone":"/ˌdaɪˈɝː.nəl/","ukphone":"/ˌdaɪˈɝː.nəl/"},{"name":"endure","trans":["to experience and bear something difficult, painful, or unpleasant"],"usphone":"/ɪnˈdʊr/","ukphone":"/ɪnˈdʊr/"},{"name":"evolve","trans":["to change or develop gradually"],"usphone":"/ɪˈvɔlv, -ˈvɑlv/","ukphone":"/ɪˈvɔlv, -ˈvɑlv/"},{"name":"fascinate","trans":["to have someone’s complete interest and attention"],"usphone":"/ˈfæs·əˌneɪt/","ukphone":"/ˈfæs·əˌneɪt/"},{"name":"feat","trans":["an act that shows skill, strength, or bravery"],"usphone":"/fit/","ukphone":"/fit/"},{"name":"hemisphere","trans":["half of the earth"],"usphone":"/ˈhem·əˌsfɪər/","ukphone":"/ˈhem·əˌsfɪər/"},{"name":"inhabit","trans":["to live in a place"],"usphone":"/ɪnˈhæb·ət/","ukphone":"/ɪnˈhæb·ət/"},{"name":"migration","trans":["movement from one region to another and often back again, esp. according to the season of the year"],"usphone":"/mɑɪˈɡreɪ·ʃən/","ukphone":"/mɑɪˈɡreɪ·ʃən/"},{"name":"navigation","trans":["the act of directing a ship, aircraft, etc. from one place to another, or the science of finding a way from one place to another"],"usphone":"/ˌnæv.əˈɡeɪ.ʃən/","ukphone":"/ˌnæv.əˈɡeɪ.ʃən/"},{"name":"nocturnal","trans":["of the night, or active during the night"],"usphone":"/nɑkˈtɜr·nəl/","ukphone":"/nɑkˈtɜr·nəl/"},{"name":"observer","trans":["a person who watches what happens but has no active part in it"],"usphone":"/əbˈzɜr·vər/","ukphone":"/əbˈzɜr·vər/"},{"name":"species","trans":["a set of animals or plants, members of which have similar characteristics to each other and which can breed with each other"],"usphone":"/ˈspi·ʃiz, -siz/","ukphone":"/ˈspi·ʃiz, -siz/"},{"name":"stray","trans":["to move away from a place where you should be or from a direction in which you should go"],"usphone":"/streɪ/","ukphone":"/streɪ/"},{"name":"windswept","trans":["(of places) open to and not protected from strong winds"],"usphone":"/ˈwɪndˌswept/","ukphone":"/ˈwɪndˌswept/"}]
+[
+  { "name": "optimal", "trans": ["being the best or most desirable"], "usphone": "/aptəməɭ/", "ukphone": "/aptəməɭ/" },
+  { "name": "fuel", "trans": ["to provide power to something"], "usphone": "/fjuəɭ/", "ukphone": "/fjuəɭ/" },
+  {
+    "name": "breed",
+    "trans": ["to keep animals or plants for the purpose of producing young animals or plants, often for chosen qualities"],
+    "usphone": "/bɹid/",
+    "ukphone": "/bɹid/"
+  },
+  { "name": "obscure", "trans": ["unclear and difficult to understand or see"], "usphone": "/əbskjʊɹ/", "ukphone": "/əbskjʊɹ/" },
+  {
+    "name": "imperative",
+    "trans": ["something that needs to be done or given attention immediately"],
+    "usphone": "/ɪmpɛɹətɪv/",
+    "ukphone": "/ɪmpɛɹətɪv/"
+  },
+  {
+    "name": "aspect",
+    "trans": ["a particular feature of or way of thinking about something, esp. something complicated"],
+    "usphone": "/ˈæs·pekt/",
+    "ukphone": "/ˈæs·pekt/"
+  },
+  {
+    "name": "diurnal",
+    "trans": ["happening over a period of a day, or being active or happening during the day rather than at night"],
+    "usphone": "/ˌdaɪˈɝː.nəl/",
+    "ukphone": "/ˌdaɪˈɝː.nəl/"
+  },
+  {
+    "name": "endure",
+    "trans": ["to experience and bear something difficult, painful, or unpleasant"],
+    "usphone": "/ɪnˈdʊr/",
+    "ukphone": "/ɪnˈdʊr/"
+  },
+  { "name": "evolve", "trans": ["to change or develop gradually"], "usphone": "/ɪˈvɔlv, -ˈvɑlv/", "ukphone": "/ɪˈvɔlv, -ˈvɑlv/" },
+  {
+    "name": "fascinate",
+    "trans": ["to have someone’s complete interest and attention"],
+    "usphone": "/ˈfæs·əˌneɪt/",
+    "ukphone": "/ˈfæs·əˌneɪt/"
+  },
+  { "name": "feat", "trans": ["an act that shows skill, strength, or bravery"], "usphone": "/fit/", "ukphone": "/fit/" },
+  { "name": "hemisphere", "trans": ["half of the earth"], "usphone": "/ˈhem·əˌsfɪər/", "ukphone": "/ˈhem·əˌsfɪər/" },
+  { "name": "inhabit", "trans": ["to live in a place"], "usphone": "/ɪnˈhæb·ət/", "ukphone": "/ɪnˈhæb·ət/" },
+  {
+    "name": "migration",
+    "trans": ["movement from one region to another and often back again, esp. according to the season of the year"],
+    "usphone": "/mɑɪˈɡreɪ·ʃən/",
+    "ukphone": "/mɑɪˈɡreɪ·ʃən/"
+  },
+  {
+    "name": "navigation",
+    "trans": [
+      "the act of directing a ship, aircraft, etc. from one place to another, or the science of finding a way from one place to another"
+    ],
+    "usphone": "/ˌnæv.əˈɡeɪ.ʃən/",
+    "ukphone": "/ˌnæv.əˈɡeɪ.ʃən/"
+  },
+  { "name": "nocturnal", "trans": ["of the night, or active during the night"], "usphone": "/nɑkˈtɜr·nəl/", "ukphone": "/nɑkˈtɜr·nəl/" },
+  {
+    "name": "observer",
+    "trans": ["a person who watches what happens but has no active part in it"],
+    "usphone": "/əbˈzɜr·vər/",
+    "ukphone": "/əbˈzɜr·vər/"
+  },
+  {
+    "name": "species",
+    "trans": [
+      "a set of animals or plants, members of which have similar characteristics to each other and which can breed with each other"
+    ],
+    "usphone": "/ˈspi·ʃiz, -siz/",
+    "ukphone": "/ˈspi·ʃiz, -siz/"
+  },
+  {
+    "name": "stray",
+    "trans": ["to move away from a place where you should be or from a direction in which you should go"],
+    "usphone": "/streɪ/",
+    "ukphone": "/streɪ/"
+  },
+  {
+    "name": "windswept",
+    "trans": ["(of places) open to and not protected from strong winds"],
+    "usphone": "/ˈwɪndˌswept/",
+    "ukphone": "/ˈwɪndˌswept/"
+  }
+]

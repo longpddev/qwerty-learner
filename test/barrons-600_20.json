@@ -1,1 +1,97 @@
-[{"name":"firm","trans":["a company or business"],"usphone":"/fɜ`m/","ukphone":"/fɜ`m/"},{"name":"epicenter","trans":["the central point of something"],"usphone":"/ɛpisɛntɜ`/","ukphone":"/ɛpisɛntɜ`/"},{"name":"point","trans":["to direct other people’s attention to something by signaling toward it with your finger"],"usphone":"/pɔɪnt/","ukphone":"/pɔɪnt/"},{"name":"branch","trans":["A branch is one of the offices or groups that form part of a large business organization"],"usphone":"/bɹænʈʃ/","ukphone":"/bɹænʈʃ/"},{"name":"shift","trans":["the time period during which you are at work"],"usphone":"/ʃɪft/","ukphone":"/ʃɪft/"},{"name":"wealthy","trans":["rich"],"usphone":"/ˈwel.θi/","ukphone":"/ˈwel.θi/"},{"name":"routinely","trans":["used for describing what often or usually happens"],"usphone":"/ruːˈtiːn.li/","ukphone":"/ruːˈtiːn.li/"},{"name":"decisive","trans":["making choices quickly and surely, without having any doubts"],"usphone":"/dɪˈsɑɪ·sɪv/","ukphone":"/dɪˈsɑɪ·sɪv/"},{"name":"preponderance","trans":["the largest part or greatest amount"],"usphone":"/prɪˈpɑn·dər·əns/","ukphone":"/prɪˈpɑn·dər·əns/"},{"name":"remainder","trans":["the part that is left after the other parts are gone, used, or taken away"],"usphone":"/rɪˈmeɪn·dər/","ukphone":"/rɪˈmeɪn·dər/"},{"name":"confront","trans":["to deal with a difficult problem, situation, or person"],"usphone":"/kənˈfrʌnt/","ukphone":"/kənˈfrʌnt/"},{"name":"looming","trans":["(of something unwanted or unpleasant) about to happen soon and causing worry"],"usphone":"/ˈluː.mɪŋ/","ukphone":"/ˈluː.mɪŋ/"},{"name":"controversy","trans":["a disagreement, often a public one, that involves different ideas or opinions about something"],"usphone":"/ˈkɑn·trəˌvɜr·si/","ukphone":"/ˈkɑn·trəˌvɜr·si/"},{"name":"opponent","trans":["a person who disagrees with something and speaks against it or tries to change it"],"usphone":"/əˈpoʊ·nənt/","ukphone":"/əˈpoʊ·nənt/"},{"name":"proponent","trans":["a person who supports an idea, plan, or cause"],"usphone":"/prəˈpoʊ·nənt/","ukphone":"/prəˈpoʊ·nənt/"},{"name":"boon","trans":["something good or very helpful"],"usphone":"/bun/","ukphone":"/bun/"},{"name":"turnover","trans":["the rate at which employees leave a company and are replaced"],"usphone":"/ˈtɜrnˌoʊ·vər/","ukphone":"/ˈtɜrnˌoʊ·vər/"},{"name":"coincide","trans":["to come together in position or happen at or near the same time"],"usphone":"/ˌkoʊ·ənˈsɑɪd/","ukphone":"/ˌkoʊ·ənˈsɑɪd/"},{"name":"catch up","trans":["to reach the same quality or standard as someone or something else"],"usphone":"/kæʈʃ əp/","ukphone":"/kæʈʃ əp/"},{"name":"enticing","trans":["Something that is enticing attracts you to it by offering you advantages or pleasure"],"usphone":"/ɪnˈtaɪ.sɪŋ/","ukphone":"/ɪnˈtaɪ.sɪŋ/"}]
+[
+  { "name": "firm", "trans": ["a company or business"], "usphone": "/fɜ`m/", "ukphone": "/fɜ`m/" },
+  { "name": "epicenter", "trans": ["the central point of something"], "usphone": "/ɛpisɛntɜ`/", "ukphone": "/ɛpisɛntɜ`/" },
+  {
+    "name": "point",
+    "trans": ["to direct other people’s attention to something by signaling toward it with your finger"],
+    "usphone": "/pɔɪnt/",
+    "ukphone": "/pɔɪnt/"
+  },
+  {
+    "name": "branch",
+    "trans": ["A branch is one of the offices or groups that form part of a large business organization"],
+    "usphone": "/bɹænʈʃ/",
+    "ukphone": "/bɹænʈʃ/"
+  },
+  { "name": "shift", "trans": ["the time period during which you are at work"], "usphone": "/ʃɪft/", "ukphone": "/ʃɪft/" },
+  { "name": "wealthy", "trans": ["rich"], "usphone": "/ˈwel.θi/", "ukphone": "/ˈwel.θi/" },
+  {
+    "name": "routinely",
+    "trans": ["used for describing what often or usually happens"],
+    "usphone": "/ruːˈtiːn.li/",
+    "ukphone": "/ruːˈtiːn.li/"
+  },
+  {
+    "name": "decisive",
+    "trans": ["making choices quickly and surely, without having any doubts"],
+    "usphone": "/dɪˈsɑɪ·sɪv/",
+    "ukphone": "/dɪˈsɑɪ·sɪv/"
+  },
+  {
+    "name": "preponderance",
+    "trans": ["the largest part or greatest amount"],
+    "usphone": "/prɪˈpɑn·dər·əns/",
+    "ukphone": "/prɪˈpɑn·dər·əns/"
+  },
+  {
+    "name": "remainder",
+    "trans": ["the part that is left after the other parts are gone, used, or taken away"],
+    "usphone": "/rɪˈmeɪn·dər/",
+    "ukphone": "/rɪˈmeɪn·dər/"
+  },
+  {
+    "name": "confront",
+    "trans": ["to deal with a difficult problem, situation, or person"],
+    "usphone": "/kənˈfrʌnt/",
+    "ukphone": "/kənˈfrʌnt/"
+  },
+  {
+    "name": "looming",
+    "trans": ["(of something unwanted or unpleasant) about to happen soon and causing worry"],
+    "usphone": "/ˈluː.mɪŋ/",
+    "ukphone": "/ˈluː.mɪŋ/"
+  },
+  {
+    "name": "controversy",
+    "trans": ["a disagreement, often a public one, that involves different ideas or opinions about something"],
+    "usphone": "/ˈkɑn·trəˌvɜr·si/",
+    "ukphone": "/ˈkɑn·trəˌvɜr·si/"
+  },
+  {
+    "name": "opponent",
+    "trans": ["a person who disagrees with something and speaks against it or tries to change it"],
+    "usphone": "/əˈpoʊ·nənt/",
+    "ukphone": "/əˈpoʊ·nənt/"
+  },
+  {
+    "name": "proponent",
+    "trans": ["a person who supports an idea, plan, or cause"],
+    "usphone": "/prəˈpoʊ·nənt/",
+    "ukphone": "/prəˈpoʊ·nənt/"
+  },
+  { "name": "boon", "trans": ["something good or very helpful"], "usphone": "/bun/", "ukphone": "/bun/" },
+  {
+    "name": "turnover",
+    "trans": ["the rate at which employees leave a company and are replaced"],
+    "usphone": "/ˈtɜrnˌoʊ·vər/",
+    "ukphone": "/ˈtɜrnˌoʊ·vər/"
+  },
+  {
+    "name": "coincide",
+    "trans": ["to come together in position or happen at or near the same time"],
+    "usphone": "/ˌkoʊ·ənˈsɑɪd/",
+    "ukphone": "/ˌkoʊ·ənˈsɑɪd/"
+  },
+  {
+    "name": "catch up",
+    "trans": ["to reach the same quality or standard as someone or something else"],
+    "usphone": "/kæʈʃ əp/",
+    "ukphone": "/kæʈʃ əp/"
+  },
+  {
+    "name": "enticing",
+    "trans": ["Something that is enticing attracts you to it by offering you advantages or pleasure"],
+    "usphone": "/ɪnˈtaɪ.sɪŋ/",
+    "ukphone": "/ɪnˈtaɪ.sɪŋ/"
+  }
+]

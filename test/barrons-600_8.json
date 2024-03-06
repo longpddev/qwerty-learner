@@ -1,1 +1,62 @@
-[{"name":"suburban","trans":["relating to an area near a large city"],"usphone":"/səbɜ`bən/","ukphone":"/səbɜ`bən/"},{"name":"charge","trans":["the amount of electricity that an electrical device stores or carries"],"usphone":"/ʈʃaɹdʒ/","ukphone":"/ʈʃaɹdʒ/"},{"name":"embrace","trans":["to accept something with great interest or enthusiasm"],"usphone":"/ɪmbɹeɪs/","ukphone":"/ɪmbɹeɪs/"},{"name":"flair","trans":["style or elegance"],"usphone":"/fɭɛɜ`/","ukphone":"/fɭɛɜ`/"},{"name":"span","trans":["to extend across in space or time"],"usphone":"/spæn/","ukphone":"/spæn/"},{"name":"fume","trans":["a cloud of fine particles suspended in a gas"],"usphone":"/fjum/","ukphone":"/fjum/"},{"name":"urban","trans":["of or in a city or town"],"usphone":"/ˈɜr·bən/","ukphone":"/ˈɜr·bən/"},{"name":"rural","trans":["in, of, or like the country (= land not in cities)"],"usphone":"/ˈrʊr·əl/","ukphone":"/ˈrʊr·əl/"},{"name":"sprawl","trans":["to spread out esp. awkwardly over a large area"],"usphone":"/sprɔl/","ukphone":"/sprɔl/"},{"name":"consume","trans":["to use fuel, energy, or time, esp. in large amounts"],"usphone":"/kənˈsum/","ukphone":"/kənˈsum/"},{"name":"hamper","trans":["to make an action intended to achieve something more difficult"],"usphone":"/ˈhæm·pər/","ukphone":"/ˈhæm·pər/"},{"name":"standard","trans":["usual or expected; not involving something special or extra"],"usphone":"/ˈstæn·dərd/","ukphone":"/ˈstæn·dərd/"},{"name":"plodding","trans":["(of movement) slow and laborious"],"usphone":"/pɭɔdding/","ukphone":"/pɭɔdding/"},{"name":"monetary","trans":["relating to money, esp. the money supply of a country"],"usphone":"/ˈmɑn·ɪˌter·i/","ukphone":"/ˈmɑn·ɪˌter·i/"},{"name":"incentive","trans":["something that encourages a person to do something"],"usphone":"/ɪnˈsen·tɪv/","ukphone":"/ɪnˈsen·tɪv/"},{"name":"appeal","trans":["to be interesting or attractive"],"usphone":"/əˈpil/","ukphone":"/əˈpil/"},{"name":"markedly","trans":["in a clearly noticeable manner"],"usphone":"/maɹkɛdɭj/","ukphone":"/maɹkɛdɭj/"},{"name":"accelerate","trans":["to move more quickly, or to make something happen faster or sooner"],"usphone":"/ɪkˈsel·əˌreɪt, æk-/","ukphone":"/ɪkˈsel·əˌreɪt, æk-/"},{"name":"commuter","trans":["someone who regularly travels between work and home"],"usphone":"/kəˈmjuː.t̬ɚ/","ukphone":"/kəˈmjuː.t̬ɚ/"},{"name":"classify","trans":["to divide things into groups according to type"],"usphone":"/ˈklæs·əˌfɑɪ/","ukphone":"/ˈklæs·əˌfɑɪ/"}]
+[
+  { "name": "suburban", "trans": ["relating to an area near a large city"], "usphone": "/səbɜ`bən/", "ukphone": "/səbɜ`bən/" },
+  {
+    "name": "charge",
+    "trans": ["the amount of electricity that an electrical device stores or carries"],
+    "usphone": "/ʈʃaɹdʒ/",
+    "ukphone": "/ʈʃaɹdʒ/"
+  },
+  { "name": "embrace", "trans": ["to accept something with great interest or enthusiasm"], "usphone": "/ɪmbɹeɪs/", "ukphone": "/ɪmbɹeɪs/" },
+  { "name": "flair", "trans": ["style or elegance"], "usphone": "/fɭɛɜ`/", "ukphone": "/fɭɛɜ`/" },
+  { "name": "span", "trans": ["to extend across in space or time"], "usphone": "/spæn/", "ukphone": "/spæn/" },
+  { "name": "fume", "trans": ["a cloud of fine particles suspended in a gas"], "usphone": "/fjum/", "ukphone": "/fjum/" },
+  { "name": "urban", "trans": ["of or in a city or town"], "usphone": "/ˈɜr·bən/", "ukphone": "/ˈɜr·bən/" },
+  { "name": "rural", "trans": ["in, of, or like the country (= land not in cities)"], "usphone": "/ˈrʊr·əl/", "ukphone": "/ˈrʊr·əl/" },
+  { "name": "sprawl", "trans": ["to spread out esp. awkwardly over a large area"], "usphone": "/sprɔl/", "ukphone": "/sprɔl/" },
+  { "name": "consume", "trans": ["to use fuel, energy, or time, esp. in large amounts"], "usphone": "/kənˈsum/", "ukphone": "/kənˈsum/" },
+  {
+    "name": "hamper",
+    "trans": ["to make an action intended to achieve something more difficult"],
+    "usphone": "/ˈhæm·pər/",
+    "ukphone": "/ˈhæm·pər/"
+  },
+  {
+    "name": "standard",
+    "trans": ["usual or expected; not involving something special or extra"],
+    "usphone": "/ˈstæn·dərd/",
+    "ukphone": "/ˈstæn·dərd/"
+  },
+  { "name": "plodding", "trans": ["(of movement) slow and laborious"], "usphone": "/pɭɔdding/", "ukphone": "/pɭɔdding/" },
+  {
+    "name": "monetary",
+    "trans": ["relating to money, esp. the money supply of a country"],
+    "usphone": "/ˈmɑn·ɪˌter·i/",
+    "ukphone": "/ˈmɑn·ɪˌter·i/"
+  },
+  {
+    "name": "incentive",
+    "trans": ["something that encourages a person to do something"],
+    "usphone": "/ɪnˈsen·tɪv/",
+    "ukphone": "/ɪnˈsen·tɪv/"
+  },
+  { "name": "appeal", "trans": ["to be interesting or attractive"], "usphone": "/əˈpil/", "ukphone": "/əˈpil/" },
+  { "name": "markedly", "trans": ["in a clearly noticeable manner"], "usphone": "/maɹkɛdɭj/", "ukphone": "/maɹkɛdɭj/" },
+  {
+    "name": "accelerate",
+    "trans": ["to move more quickly, or to make something happen faster or sooner"],
+    "usphone": "/ɪkˈsel·əˌreɪt, æk-/",
+    "ukphone": "/ɪkˈsel·əˌreɪt, æk-/"
+  },
+  {
+    "name": "commuter",
+    "trans": ["someone who regularly travels between work and home"],
+    "usphone": "/kəˈmjuː.t̬ɚ/",
+    "ukphone": "/kəˈmjuː.t̬ɚ/"
+  },
+  {
+    "name": "classify",
+    "trans": ["to divide things into groups according to type"],
+    "usphone": "/ˈklæs·əˌfɑɪ/",
+    "ukphone": "/ˈklæs·əˌfɑɪ/"
+  }
+]

@@ -1,1 +1,89 @@
-[{"name":"afloat","trans":["having enough money to continue"],"usphone":"/əfɭoʊt/","ukphone":"/əfɭoʊt/"},{"name":"project","trans":["to calculate an amount or result expected in the future from information already known"],"usphone":"/prəˈdʒekt/","ukphone":"/prəˈdʒekt/"},{"name":"sound","trans":["in good condition; (of a person) healthy, or (of a thing) not broken or damaged"],"usphone":"/saʊnd/","ukphone":"/saʊnd/"},{"name":"edge","trans":["an advantage"],"usphone":"/ɛdʒ/","ukphone":"/ɛdʒ/"},{"name":"tip","trans":["a useful piece of information or advice, esp. something secret or not generally known"],"usphone":"/tɪp/","ukphone":"/tɪp/"},{"name":"inevitably","trans":["as predicted; as might be expected"],"usphone":"/ɪnɛvətəbɭi/","ukphone":"/ɪnɛvətəbɭi/"},{"name":"particular","trans":["special or single, or this and not any other"],"usphone":"/pərˈtɪk·jə·lər, pəˈtɪk-/","ukphone":"/pərˈtɪk·jə·lər, pəˈtɪk-/"},{"name":"motivation","trans":["willingness to do something, or something that causes such willingness"],"usphone":"/ˌmoʊ·t̬əˈveɪ·ʃən/","ukphone":"/ˌmoʊ·t̬əˈveɪ·ʃən/"},{"name":"characteristic","trans":["typical of a person or thing"],"usphone":"/ˌkær·ək·təˈrɪs·tɪk/","ukphone":"/ˌkær·ək·təˈrɪs·tɪk/"},{"name":"niche","trans":["a job, position, or place that is very suitable for someone"],"usphone":"/nɪtʃ/","ukphone":"/nɪtʃ/"},{"name":"compete","trans":["to do an activity with others and try to do better than they do"],"usphone":"/kəmˈpit/","ukphone":"/kəmˈpit/"},{"name":"product","trans":["something that is made to be sold, esp. something produced by an industrial process or something that is grown or raised through farming"],"usphone":"/ˈprɑd·əkt, -ʌkt/","ukphone":"/ˈprɑd·əkt, -ʌkt/"},{"name":"unique","trans":["being the only existing one of its type or, more generally, unusual or special in some way"],"usphone":"/jʊˈnik/","ukphone":"/jʊˈnik/"},{"name":"personalized","trans":["used to describe an object that has someone's name on it, or that has been made for a particular person"],"usphone":"/ˈpɝː.sən.əl.aɪz/","ukphone":"/ˈpɝː.sən.əl.aɪz/"},{"name":"reputation","trans":["the general opinion that people have about someone or something"],"usphone":"/ˌrep·jəˈteɪ·ʃən/","ukphone":"/ˌrep·jəˈteɪ·ʃən/"},{"name":"vital","trans":["necessary or extremely important for the success or continued existence of something"],"usphone":"/ˈvɑɪ·t̬əl/","ukphone":"/ˈvɑɪ·t̬əl/"},{"name":"potential","trans":["possible but not yet achieved"],"usphone":"/pəˈten·tʃəl/","ukphone":"/pəˈten·tʃəl/"},{"name":"profit","trans":["money that a business earns above what it costs to produce and sell goods and services"],"usphone":"/ˈprɑf·ɪt/","ukphone":"/ˈprɑf·ɪt/"},{"name":"financial","trans":["relating to money or how money is managed"],"usphone":"/faɪˈnæn.ʃəl/","ukphone":"/faɪˈnæn.ʃəl/"},{"name":"initial","trans":["of or at the beginning; first"],"usphone":"/ɪˈnɪʃ·əl/","ukphone":"/ɪˈnɪʃ·əl/"}]
+[
+  { "name": "afloat", "trans": ["having enough money to continue"], "usphone": "/əfɭoʊt/", "ukphone": "/əfɭoʊt/" },
+  {
+    "name": "project",
+    "trans": ["to calculate an amount or result expected in the future from information already known"],
+    "usphone": "/prəˈdʒekt/",
+    "ukphone": "/prəˈdʒekt/"
+  },
+  {
+    "name": "sound",
+    "trans": ["in good condition; (of a person) healthy, or (of a thing) not broken or damaged"],
+    "usphone": "/saʊnd/",
+    "ukphone": "/saʊnd/"
+  },
+  { "name": "edge", "trans": ["an advantage"], "usphone": "/ɛdʒ/", "ukphone": "/ɛdʒ/" },
+  {
+    "name": "tip",
+    "trans": ["a useful piece of information or advice, esp. something secret or not generally known"],
+    "usphone": "/tɪp/",
+    "ukphone": "/tɪp/"
+  },
+  { "name": "inevitably", "trans": ["as predicted; as might be expected"], "usphone": "/ɪnɛvətəbɭi/", "ukphone": "/ɪnɛvətəbɭi/" },
+  {
+    "name": "particular",
+    "trans": ["special or single, or this and not any other"],
+    "usphone": "/pərˈtɪk·jə·lər, pəˈtɪk-/",
+    "ukphone": "/pərˈtɪk·jə·lər, pəˈtɪk-/"
+  },
+  {
+    "name": "motivation",
+    "trans": ["willingness to do something, or something that causes such willingness"],
+    "usphone": "/ˌmoʊ·t̬əˈveɪ·ʃən/",
+    "ukphone": "/ˌmoʊ·t̬əˈveɪ·ʃən/"
+  },
+  {
+    "name": "characteristic",
+    "trans": ["typical of a person or thing"],
+    "usphone": "/ˌkær·ək·təˈrɪs·tɪk/",
+    "ukphone": "/ˌkær·ək·təˈrɪs·tɪk/"
+  },
+  { "name": "niche", "trans": ["a job, position, or place that is very suitable for someone"], "usphone": "/nɪtʃ/", "ukphone": "/nɪtʃ/" },
+  {
+    "name": "compete",
+    "trans": ["to do an activity with others and try to do better than they do"],
+    "usphone": "/kəmˈpit/",
+    "ukphone": "/kəmˈpit/"
+  },
+  {
+    "name": "product",
+    "trans": [
+      "something that is made to be sold, esp. something produced by an industrial process or something that is grown or raised through farming"
+    ],
+    "usphone": "/ˈprɑd·əkt, -ʌkt/",
+    "ukphone": "/ˈprɑd·əkt, -ʌkt/"
+  },
+  {
+    "name": "unique",
+    "trans": ["being the only existing one of its type or, more generally, unusual or special in some way"],
+    "usphone": "/jʊˈnik/",
+    "ukphone": "/jʊˈnik/"
+  },
+  {
+    "name": "personalized",
+    "trans": ["used to describe an object that has someone's name on it, or that has been made for a particular person"],
+    "usphone": "/ˈpɝː.sən.əl.aɪz/",
+    "ukphone": "/ˈpɝː.sən.əl.aɪz/"
+  },
+  {
+    "name": "reputation",
+    "trans": ["the general opinion that people have about someone or something"],
+    "usphone": "/ˌrep·jəˈteɪ·ʃən/",
+    "ukphone": "/ˌrep·jəˈteɪ·ʃən/"
+  },
+  {
+    "name": "vital",
+    "trans": ["necessary or extremely important for the success or continued existence of something"],
+    "usphone": "/ˈvɑɪ·t̬əl/",
+    "ukphone": "/ˈvɑɪ·t̬əl/"
+  },
+  { "name": "potential", "trans": ["possible but not yet achieved"], "usphone": "/pəˈten·tʃəl/", "ukphone": "/pəˈten·tʃəl/" },
+  {
+    "name": "profit",
+    "trans": ["money that a business earns above what it costs to produce and sell goods and services"],
+    "usphone": "/ˈprɑf·ɪt/",
+    "ukphone": "/ˈprɑf·ɪt/"
+  },
+  { "name": "financial", "trans": ["relating to money or how money is managed"], "usphone": "/faɪˈnæn.ʃəl/", "ukphone": "/faɪˈnæn.ʃəl/" },
+  { "name": "initial", "trans": ["of or at the beginning; first"], "usphone": "/ɪˈnɪʃ·əl/", "ukphone": "/ɪˈnɪʃ·əl/" }
+]

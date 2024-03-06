@@ -1,1 +1,94 @@
-[{"name":"found","trans":["to establish something"],"usphone":"/faʊnd/","ukphone":"/faʊnd/"},{"name":"band","trans":["a group of people who have joined together for a special purpose, or a group of animals"],"usphone":"/bænd/","ukphone":"/bænd/"},{"name":"trainer","trans":["a person who teaches skills to people or animals to prepare them for a job, activity, or sport"],"usphone":"/tɹeɪnɜ`/","ukphone":"/tɹeɪnɜ`/"},{"name":"entertainment","trans":["public shows, performances, or other ways of enjoying yourself"],"usphone":"/ˌen·tərˈteɪn·mənt/","ukphone":"/ˌen·tərˈteɪn·mənt/"},{"name":"century","trans":["a period of 100 years"],"usphone":"/ˈsen·tʃə·ri/","ukphone":"/ˈsen·tʃə·ri/"},{"name":"ancient","trans":["of or from a very long time ago"],"usphone":"/ˈeɪn·ʃənt/","ukphone":"/ˈeɪn·ʃənt/"},{"name":"venue","trans":["the place where a public event or meeting happens"],"usphone":"/ˈven·ju/","ukphone":"/ˈven·ju/"},{"name":"popular","trans":["liked, enjoyed, or admired by many people or by most people in a particular group"],"usphone":"/ˈpɑp·jə·lər/","ukphone":"/ˈpɑp·jə·lər/"},{"name":"spectator","trans":["a person who watches an activity, esp. a public event, without taking part"],"usphone":"/ˈspekˌteɪ·t̬ər/","ukphone":"/ˈspekˌteɪ·t̬ər/"},{"name":"exhibit","trans":["to show something in public for competition, sale, or amusement"],"usphone":"/ɪɡˈzɪb·ət/","ukphone":"/ɪɡˈzɪb·ət/"},{"name":"exotic","trans":["unusual and specially interesting because of coming from a country that is far away"],"usphone":"/ɪɡˈzɑt̬·ɪk/","ukphone":"/ɪɡˈzɑt̬·ɪk/"},{"name":"renovation","trans":["the process of repairing and improving a building so that it is in good condition again, or the improvements that are carried out"],"usphone":"/ɹɛnɔvatiɔn/","ukphone":"/ɹɛnɔvatiɔn/"},{"name":"massive","trans":["very large in size, amount, or degree"],"usphone":"/ˈmæs·ɪv/","ukphone":"/ˈmæs·ɪv/"},{"name":"remnant","trans":["a small piece or amount of something that is left from a larger, original piece or amount"],"usphone":"/ˈrem·nənt/","ukphone":"/ˈrem·nənt/"},{"name":"Permanently","trans":["always and for ever"],"usphone":"/ˈpɝː.mə.nənt.li/","ukphone":"/ˈpɝː.mə.nənt.li/"},{"name":"reduce","trans":["to make something less in size, amount, degree, importance, or price"],"usphone":"/rɪˈdus/","ukphone":"/rɪˈdus/"},{"name":"develop","trans":["to grow or cause to grow or change into a more advanced form"],"usphone":"/dɪˈvel·əp/","ukphone":"/dɪˈvel·əp/"},{"name":"talent","trans":["a special natural ability to do something well, or people who have this ability"],"usphone":"/ˈtæl·ənt/","ukphone":"/ˈtæl·ənt/"},{"name":"survive","trans":["to continue to live or to exist, esp. after a dangerous event"],"usphone":"/sərˈvɑɪv/","ukphone":"/sərˈvɑɪv/"},{"name":"grandeur","trans":["a quality of great beauty and size which attracts admiration"],"usphone":"/ˈɡræn·dʒər, -ˌdʒʊər/","ukphone":"/ˈɡræn·dʒər, -ˌdʒʊər/"}]
+[
+  { "name": "found", "trans": ["to establish something"], "usphone": "/faʊnd/", "ukphone": "/faʊnd/" },
+  {
+    "name": "band",
+    "trans": ["a group of people who have joined together for a special purpose, or a group of animals"],
+    "usphone": "/bænd/",
+    "ukphone": "/bænd/"
+  },
+  {
+    "name": "trainer",
+    "trans": ["a person who teaches skills to people or animals to prepare them for a job, activity, or sport"],
+    "usphone": "/tɹeɪnɜ`/",
+    "ukphone": "/tɹeɪnɜ`/"
+  },
+  {
+    "name": "entertainment",
+    "trans": ["public shows, performances, or other ways of enjoying yourself"],
+    "usphone": "/ˌen·tərˈteɪn·mənt/",
+    "ukphone": "/ˌen·tərˈteɪn·mənt/"
+  },
+  { "name": "century", "trans": ["a period of 100 years"], "usphone": "/ˈsen·tʃə·ri/", "ukphone": "/ˈsen·tʃə·ri/" },
+  { "name": "ancient", "trans": ["of or from a very long time ago"], "usphone": "/ˈeɪn·ʃənt/", "ukphone": "/ˈeɪn·ʃənt/" },
+  { "name": "venue", "trans": ["the place where a public event or meeting happens"], "usphone": "/ˈven·ju/", "ukphone": "/ˈven·ju/" },
+  {
+    "name": "popular",
+    "trans": ["liked, enjoyed, or admired by many people or by most people in a particular group"],
+    "usphone": "/ˈpɑp·jə·lər/",
+    "ukphone": "/ˈpɑp·jə·lər/"
+  },
+  {
+    "name": "spectator",
+    "trans": ["a person who watches an activity, esp. a public event, without taking part"],
+    "usphone": "/ˈspekˌteɪ·t̬ər/",
+    "ukphone": "/ˈspekˌteɪ·t̬ər/"
+  },
+  {
+    "name": "exhibit",
+    "trans": ["to show something in public for competition, sale, or amusement"],
+    "usphone": "/ɪɡˈzɪb·ət/",
+    "ukphone": "/ɪɡˈzɪb·ət/"
+  },
+  {
+    "name": "exotic",
+    "trans": ["unusual and specially interesting because of coming from a country that is far away"],
+    "usphone": "/ɪɡˈzɑt̬·ɪk/",
+    "ukphone": "/ɪɡˈzɑt̬·ɪk/"
+  },
+  {
+    "name": "renovation",
+    "trans": [
+      "the process of repairing and improving a building so that it is in good condition again, or the improvements that are carried out"
+    ],
+    "usphone": "/ɹɛnɔvatiɔn/",
+    "ukphone": "/ɹɛnɔvatiɔn/"
+  },
+  { "name": "massive", "trans": ["very large in size, amount, or degree"], "usphone": "/ˈmæs·ɪv/", "ukphone": "/ˈmæs·ɪv/" },
+  {
+    "name": "remnant",
+    "trans": ["a small piece or amount of something that is left from a larger, original piece or amount"],
+    "usphone": "/ˈrem·nənt/",
+    "ukphone": "/ˈrem·nənt/"
+  },
+  { "name": "Permanently", "trans": ["always and for ever"], "usphone": "/ˈpɝː.mə.nənt.li/", "ukphone": "/ˈpɝː.mə.nənt.li/" },
+  {
+    "name": "reduce",
+    "trans": ["to make something less in size, amount, degree, importance, or price"],
+    "usphone": "/rɪˈdus/",
+    "ukphone": "/rɪˈdus/"
+  },
+  {
+    "name": "develop",
+    "trans": ["to grow or cause to grow or change into a more advanced form"],
+    "usphone": "/dɪˈvel·əp/",
+    "ukphone": "/dɪˈvel·əp/"
+  },
+  {
+    "name": "talent",
+    "trans": ["a special natural ability to do something well, or people who have this ability"],
+    "usphone": "/ˈtæl·ənt/",
+    "ukphone": "/ˈtæl·ənt/"
+  },
+  {
+    "name": "survive",
+    "trans": ["to continue to live or to exist, esp. after a dangerous event"],
+    "usphone": "/sərˈvɑɪv/",
+    "ukphone": "/sərˈvɑɪv/"
+  },
+  {
+    "name": "grandeur",
+    "trans": ["a quality of great beauty and size which attracts admiration"],
+    "usphone": "/ˈɡræn·dʒər, -ˌdʒʊər/",
+    "ukphone": "/ˈɡræn·dʒər, -ˌdʒʊər/"
+  }
+]

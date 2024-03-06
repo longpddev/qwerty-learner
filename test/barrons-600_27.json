@@ -1,1 +1,84 @@
-[{"name":"back","trans":["in, at, or toward a previous place or condition or an earlier time"],"usphone":"/bæk/","ukphone":"/bæk/"},{"name":"file","trans":["to store papers, letters, or other documents in an ordered or particular way"],"usphone":"/fɑɪl/","ukphone":"/fɑɪl/"},{"name":"clamp","trans":["to use a device to hold something tightly"],"usphone":"/kɭæmp/","ukphone":"/kɭæmp/"},{"name":"current","trans":["a flow of electricity"],"usphone":"/kɜ`ənt/","ukphone":"/kɜ`ənt/"},{"name":"inventor","trans":["someone who designs or creates something that did not exist before"],"usphone":"/ɪnˈven·tər/","ukphone":"/ɪnˈven·tər/"},{"name":"inspiration","trans":["someone or something that gives you ideas for doing something"],"usphone":"/ˌɪn·spə·ˈreɪ·ʃən/","ukphone":"/ˌɪn·spə·ˈreɪ·ʃən/"},{"name":"derive","trans":["to get or obtain something"],"usphone":"/dɪˈrɑɪv/","ukphone":"/dɪˈrɑɪv/"},{"name":"refinement","trans":["the process of improving something"],"usphone":"/rɪˈfɑɪn·mənt/","ukphone":"/rɪˈfɑɪn·mənt/"},{"name":"unveil","trans":["to make something secret known"],"usphone":"/ʌnˈveɪl/","ukphone":"/ʌnˈveɪl/"},{"name":"critical","trans":["of the greatest importance"],"usphone":"/ˈkrɪt̬·ɪ·kəl/","ukphone":"/ˈkrɪt̬·ɪ·kəl/"},{"name":"ruling","trans":["an official decision"],"usphone":"/ˈru·lɪŋ/","ukphone":"/ˈru·lɪŋ/"},{"name":"device","trans":["an object or machine that has been invented to fulfill a particular purpose"],"usphone":"/dɪˈvɑɪs/","ukphone":"/dɪˈvɑɪs/"},{"name":"patent","trans":["the legal right to be the only one who can make, use, or sell an invention for a particular number of years"],"usphone":"/ˈpæt·ənt/","ukphone":"/ˈpæt·ənt/"},{"name":"specifically","trans":["clearly, exactly, or in detail"],"usphone":"/spɪˈsɪf·ɪk·li/","ukphone":"/spɪˈsɪf·ɪk·li/"},{"name":"entrepreneur","trans":["a person who attempts to make a profit by starting a company or by operating alone in the business world, esp. when it involves taking risks"],"usphone":"/ˌɑn·trə·prəˈnɜr, -ˈnʊər/","ukphone":"/ˌɑn·trə·prəˈnɜr, -ˈnʊər/"},{"name":"investor","trans":["a person or group of people that puts its money into a business or other organization in order to make a profit"],"usphone":"/ɪnˈves·tər/","ukphone":"/ɪnˈves·tər/"},{"name":"ransack","trans":["to completely search a place in a way that causes mess and damage"],"usphone":"/ˈrænˌsæk/","ukphone":"/ˈrænˌsæk/"},{"name":"suitable","trans":["being right or correct for a particular situation or person"],"usphone":"/ˈsu·t̬ə·bəl/","ukphone":"/ˈsu·t̬ə·bəl/"},{"name":"infringement","trans":["an action that breaks a rule, law, etc."],"usphone":"/ɪnˈfrɪndʒ.mənt/","ukphone":"/ɪnˈfrɪndʒ.mənt/"},{"name":"invalid","trans":["not true or acceptable, or not correctly thought out"],"usphone":"/ɪnˈvæl·ɪd/","ukphone":"/ɪnˈvæl·ɪd/"}]
+[
+  {
+    "name": "back",
+    "trans": ["in, at, or toward a previous place or condition or an earlier time"],
+    "usphone": "/bæk/",
+    "ukphone": "/bæk/"
+  },
+  {
+    "name": "file",
+    "trans": ["to store papers, letters, or other documents in an ordered or particular way"],
+    "usphone": "/fɑɪl/",
+    "ukphone": "/fɑɪl/"
+  },
+  { "name": "clamp", "trans": ["to use a device to hold something tightly"], "usphone": "/kɭæmp/", "ukphone": "/kɭæmp/" },
+  { "name": "current", "trans": ["a flow of electricity"], "usphone": "/kɜ`ənt/", "ukphone": "/kɜ`ənt/" },
+  {
+    "name": "inventor",
+    "trans": ["someone who designs or creates something that did not exist before"],
+    "usphone": "/ɪnˈven·tər/",
+    "ukphone": "/ɪnˈven·tər/"
+  },
+  {
+    "name": "inspiration",
+    "trans": ["someone or something that gives you ideas for doing something"],
+    "usphone": "/ˌɪn·spə·ˈreɪ·ʃən/",
+    "ukphone": "/ˌɪn·spə·ˈreɪ·ʃən/"
+  },
+  { "name": "derive", "trans": ["to get or obtain something"], "usphone": "/dɪˈrɑɪv/", "ukphone": "/dɪˈrɑɪv/" },
+  { "name": "refinement", "trans": ["the process of improving something"], "usphone": "/rɪˈfɑɪn·mənt/", "ukphone": "/rɪˈfɑɪn·mənt/" },
+  { "name": "unveil", "trans": ["to make something secret known"], "usphone": "/ʌnˈveɪl/", "ukphone": "/ʌnˈveɪl/" },
+  { "name": "critical", "trans": ["of the greatest importance"], "usphone": "/ˈkrɪt̬·ɪ·kəl/", "ukphone": "/ˈkrɪt̬·ɪ·kəl/" },
+  { "name": "ruling", "trans": ["an official decision"], "usphone": "/ˈru·lɪŋ/", "ukphone": "/ˈru·lɪŋ/" },
+  {
+    "name": "device",
+    "trans": ["an object or machine that has been invented to fulfill a particular purpose"],
+    "usphone": "/dɪˈvɑɪs/",
+    "ukphone": "/dɪˈvɑɪs/"
+  },
+  {
+    "name": "patent",
+    "trans": ["the legal right to be the only one who can make, use, or sell an invention for a particular number of years"],
+    "usphone": "/ˈpæt·ənt/",
+    "ukphone": "/ˈpæt·ənt/"
+  },
+  { "name": "specifically", "trans": ["clearly, exactly, or in detail"], "usphone": "/spɪˈsɪf·ɪk·li/", "ukphone": "/spɪˈsɪf·ɪk·li/" },
+  {
+    "name": "entrepreneur",
+    "trans": [
+      "a person who attempts to make a profit by starting a company or by operating alone in the business world, esp. when it involves taking risks"
+    ],
+    "usphone": "/ˌɑn·trə·prəˈnɜr, -ˈnʊər/",
+    "ukphone": "/ˌɑn·trə·prəˈnɜr, -ˈnʊər/"
+  },
+  {
+    "name": "investor",
+    "trans": ["a person or group of people that puts its money into a business or other organization in order to make a profit"],
+    "usphone": "/ɪnˈves·tər/",
+    "ukphone": "/ɪnˈves·tər/"
+  },
+  {
+    "name": "ransack",
+    "trans": ["to completely search a place in a way that causes mess and damage"],
+    "usphone": "/ˈrænˌsæk/",
+    "ukphone": "/ˈrænˌsæk/"
+  },
+  {
+    "name": "suitable",
+    "trans": ["being right or correct for a particular situation or person"],
+    "usphone": "/ˈsu·t̬ə·bəl/",
+    "ukphone": "/ˈsu·t̬ə·bəl/"
+  },
+  {
+    "name": "infringement",
+    "trans": ["an action that breaks a rule, law, etc."],
+    "usphone": "/ɪnˈfrɪndʒ.mənt/",
+    "ukphone": "/ɪnˈfrɪndʒ.mənt/"
+  },
+  {
+    "name": "invalid",
+    "trans": ["not true or acceptable, or not correctly thought out"],
+    "usphone": "/ɪnˈvæl·ɪd/",
+    "ukphone": "/ɪnˈvæl·ɪd/"
+  }
+]

@@ -1,1 +1,82 @@
-[{"name":"deliberately","trans":["in a way that is intended or planned"],"usphone":"/dɪɭɪbɜ`ətɭi/","ukphone":"/dɪɭɪbɜ`ətɭi/"},{"name":"chunk","trans":["a large piece or part"],"usphone":"/ʈʃəŋk/","ukphone":"/ʈʃəŋk/"},{"name":"obesity","trans":["the fact of being extremely fat, in a way that is dangerous for health"],"usphone":"/oʊˈbiː.sə.t̬i/","ukphone":"/oʊˈbiː.sə.t̬i/"},{"name":"physical","trans":["connected with the body"],"usphone":"/ˈfɪz·ɪ·kəl/","ukphone":"/ˈfɪz·ɪ·kəl/"},{"name":"crucial","trans":["(of a decision or event) extremely important because many other things depend on it"],"usphone":"/ˈkru·ʃəl/","ukphone":"/ˈkru·ʃəl/"},{"name":"intellectual","trans":["relating to the ability to think and understand ideas at a high level, or involving ideas"],"usphone":"/ˌɪnt·əlˈek·tʃu·əl/","ukphone":"/ˌɪnt·əlˈek·tʃu·əl/"},{"name":"overwhelming","trans":["very great or strong"],"usphone":"/ˌoʊ·vərˈhwel·mɪŋ, -ˈwel·mɪŋ/","ukphone":"/ˌoʊ·vərˈhwel·mɪŋ, -ˈwel·mɪŋ/"},{"name":"suffer","trans":["to experience or show the effects of something bad"],"usphone":"/ˈsʌf·ər/","ukphone":"/ˈsʌf·ər/"},{"name":"merely","trans":["only; and nothing more"],"usphone":"/ˈmɪər·li/","ukphone":"/ˈmɪər·li/"},{"name":"emotion","trans":["(a) strong feeling, such as of love, anger, fear, etc."],"usphone":"/ɪˈmoʊ·ʃən/","ukphone":"/ɪˈmoʊ·ʃən/"},{"name":"rejuvenate","trans":["to make someone look or feel young and energetic again"],"usphone":"/rɪˈdʒu·vəˌneɪt/","ukphone":"/rɪˈdʒu·vəˌneɪt/"},{"name":"passive","trans":["not reacting to what happens, or not acting or taking part"],"usphone":"/ˈpæs·ɪv/","ukphone":"/ˈpæs·ɪv/"},{"name":"pastime","trans":["an activity that is done for enjoyment"],"usphone":"/ˈpæsˌtɑɪm/","ukphone":"/ˈpæsˌtɑɪm/"},{"name":"reluctant","trans":["not wanting to do something and therefore slow to do it"],"usphone":"/rɪˈlʌk·tənt/","ukphone":"/rɪˈlʌk·tənt/"},{"name":"depression","trans":["a feeling of sadness, or medical a type of mental illness that causes long periods of unhappiness"],"usphone":"/dɪˈpreʃ·ən/","ukphone":"/dɪˈpreʃ·ən/"},{"name":"authority","trans":["the power to control or demand obedience from others"],"usphone":"/əˈθɔr·ɪ·t̬i, əˈθɑr-/","ukphone":"/əˈθɔr·ɪ·t̬i, əˈθɑr-/"},{"name":"acknowledge","trans":["to accept the truth or recognize the existence of something"],"usphone":"/ɪkˈnɑl·ɪdʒ, æk-/","ukphone":"/ɪkˈnɑl·ɪdʒ, æk-/"},{"name":"obvious","trans":["easily seen, recognized, or understood"],"usphone":"/ˈɑb·vi·əs/","ukphone":"/ˈɑb·vi·əs/"},{"name":"industrious","trans":["regularly working very hard"],"usphone":"/ɪnˈdʌs·tri·əs/","ukphone":"/ɪnˈdʌs·tri·əs/"},{"name":"engage","trans":["to cause someone to become interested or involved in an activity, or to attract someone’s interest"],"usphone":"/ɪnˈɡeɪdʒ/","ukphone":"/ɪnˈɡeɪdʒ/"}]
+[
+  { "name": "deliberately", "trans": ["in a way that is intended or planned"], "usphone": "/dɪɭɪbɜ`ətɭi/", "ukphone": "/dɪɭɪbɜ`ətɭi/" },
+  { "name": "chunk", "trans": ["a large piece or part"], "usphone": "/ʈʃəŋk/", "ukphone": "/ʈʃəŋk/" },
+  {
+    "name": "obesity",
+    "trans": ["the fact of being extremely fat, in a way that is dangerous for health"],
+    "usphone": "/oʊˈbiː.sə.t̬i/",
+    "ukphone": "/oʊˈbiː.sə.t̬i/"
+  },
+  { "name": "physical", "trans": ["connected with the body"], "usphone": "/ˈfɪz·ɪ·kəl/", "ukphone": "/ˈfɪz·ɪ·kəl/" },
+  {
+    "name": "crucial",
+    "trans": ["(of a decision or event) extremely important because many other things depend on it"],
+    "usphone": "/ˈkru·ʃəl/",
+    "ukphone": "/ˈkru·ʃəl/"
+  },
+  {
+    "name": "intellectual",
+    "trans": ["relating to the ability to think and understand ideas at a high level, or involving ideas"],
+    "usphone": "/ˌɪnt·əlˈek·tʃu·əl/",
+    "ukphone": "/ˌɪnt·əlˈek·tʃu·əl/"
+  },
+  {
+    "name": "overwhelming",
+    "trans": ["very great or strong"],
+    "usphone": "/ˌoʊ·vərˈhwel·mɪŋ, -ˈwel·mɪŋ/",
+    "ukphone": "/ˌoʊ·vərˈhwel·mɪŋ, -ˈwel·mɪŋ/"
+  },
+  { "name": "suffer", "trans": ["to experience or show the effects of something bad"], "usphone": "/ˈsʌf·ər/", "ukphone": "/ˈsʌf·ər/" },
+  { "name": "merely", "trans": ["only; and nothing more"], "usphone": "/ˈmɪər·li/", "ukphone": "/ˈmɪər·li/" },
+  {
+    "name": "emotion",
+    "trans": ["(a) strong feeling, such as of love, anger, fear, etc."],
+    "usphone": "/ɪˈmoʊ·ʃən/",
+    "ukphone": "/ɪˈmoʊ·ʃən/"
+  },
+  {
+    "name": "rejuvenate",
+    "trans": ["to make someone look or feel young and energetic again"],
+    "usphone": "/rɪˈdʒu·vəˌneɪt/",
+    "ukphone": "/rɪˈdʒu·vəˌneɪt/"
+  },
+  {
+    "name": "passive",
+    "trans": ["not reacting to what happens, or not acting or taking part"],
+    "usphone": "/ˈpæs·ɪv/",
+    "ukphone": "/ˈpæs·ɪv/"
+  },
+  { "name": "pastime", "trans": ["an activity that is done for enjoyment"], "usphone": "/ˈpæsˌtɑɪm/", "ukphone": "/ˈpæsˌtɑɪm/" },
+  {
+    "name": "reluctant",
+    "trans": ["not wanting to do something and therefore slow to do it"],
+    "usphone": "/rɪˈlʌk·tənt/",
+    "ukphone": "/rɪˈlʌk·tənt/"
+  },
+  {
+    "name": "depression",
+    "trans": ["a feeling of sadness, or medical a type of mental illness that causes long periods of unhappiness"],
+    "usphone": "/dɪˈpreʃ·ən/",
+    "ukphone": "/dɪˈpreʃ·ən/"
+  },
+  {
+    "name": "authority",
+    "trans": ["the power to control or demand obedience from others"],
+    "usphone": "/əˈθɔr·ɪ·t̬i, əˈθɑr-/",
+    "ukphone": "/əˈθɔr·ɪ·t̬i, əˈθɑr-/"
+  },
+  {
+    "name": "acknowledge",
+    "trans": ["to accept the truth or recognize the existence of something"],
+    "usphone": "/ɪkˈnɑl·ɪdʒ, æk-/",
+    "ukphone": "/ɪkˈnɑl·ɪdʒ, æk-/"
+  },
+  { "name": "obvious", "trans": ["easily seen, recognized, or understood"], "usphone": "/ˈɑb·vi·əs/", "ukphone": "/ˈɑb·vi·əs/" },
+  { "name": "industrious", "trans": ["regularly working very hard"], "usphone": "/ɪnˈdʌs·tri·əs/", "ukphone": "/ɪnˈdʌs·tri·əs/" },
+  {
+    "name": "engage",
+    "trans": ["to cause someone to become interested or involved in an activity, or to attract someone’s interest"],
+    "usphone": "/ɪnˈɡeɪdʒ/",
+    "ukphone": "/ɪnˈɡeɪdʒ/"
+  }
+]

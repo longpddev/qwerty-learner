@@ -1,1 +1,87 @@
-[{"name":"transitional","trans":["relating to the process of changing"],"usphone":"/tɹænzɪʃənəɭ/","ukphone":"/tɹænzɪʃənəɭ/"},{"name":"violent","trans":["very strong and uncontrolled"],"usphone":"/vaɪəɭənt/","ukphone":"/vaɪəɭənt/"},{"name":"mechanism","trans":["a part of a machine, or a set of parts that work together"],"usphone":"/ˈmek·əˌnɪz·əm/","ukphone":"/ˈmek·əˌnɪz·əm/"},{"name":"swing","trans":["to change from one condition or attitude to another"],"usphone":"/swɪŋ/","ukphone":"/swɪŋ/"},{"name":"occupy","trans":["to fill, use, or exist in a place or a time"],"usphone":"/ˈɑː.kjə.paɪ/","ukphone":"/ˈɑː.kjə.paɪ/"},{"name":"sparse","trans":["small in number or amount and not dense or close together"],"usphone":"/spɑːrs/","ukphone":"/spɑːrs/"},{"name":"extreme","trans":["very great; beyond what is usual or what might be expected"],"usphone":"/ɪkˈstrim/","ukphone":"/ɪkˈstrim/"},{"name":"fringe","trans":["the outer or less important part of an area, group, or activity"],"usphone":"/frɪndʒ/","ukphone":"/frɪndʒ/"},{"name":"diverse","trans":["varied or different"],"usphone":"/dɪˈvɜrs, dɑɪ-/","ukphone":"/dɪˈvɜrs, dɑɪ-/"},{"name":"adapt","trans":["to adjust to different conditions or uses, or to change to meet different situations"],"usphone":"/əˈdæpt/","ukphone":"/əˈdæpt/"},{"name":"thrive","trans":["to grow, develop, or be successful"],"usphone":"/θrɑɪv/","ukphone":"/θrɑɪv/"},{"name":"resilient","trans":["able to improve quickly after being hurt or being ill"],"usphone":"/rɪˈzɪl·jənt/","ukphone":"/rɪˈzɪl·jənt/"},{"name":"stressor","trans":["something that causes stress (= great worry or emotional difficulty)"],"usphone":"/stɹɛsɜ`/","ukphone":"/stɹɛsɜ`/"},{"name":"minimize","trans":["to reduce something to the smallest possible level or amount"],"usphone":"/ˈmɪn·əˌmɑɪz/","ukphone":"/ˈmɪn·əˌmɑɪz/"},{"name":"moisture","trans":["very small drops of water, either in the air or on a surface"],"usphone":"/ˈmɔɪs·tʃər/","ukphone":"/ˈmɔɪs·tʃər/"},{"name":"prolific","trans":["producing a great number or amount of something"],"usphone":"/prəˈlɪf·ɪk/","ukphone":"/prəˈlɪf·ɪk/"},{"name":"evaporation","trans":["the process of changing from a liquid to a gas, or a change from a liquid to a gas"],"usphone":"/ɪˌvæp·əˈreɪ·ʃən/","ukphone":"/ɪˌvæp·əˈreɪ·ʃən/"},{"name":"dilute","trans":["to make a liquid weaker by mixing it with water or another liquid"],"usphone":"/dɑɪˈlut, də-/","ukphone":"/dɑɪˈlut, də-/"},{"name":"determine","trans":["to control or influence directly; to decide"],"usphone":"/dɪˈtɜr·mən/","ukphone":"/dɪˈtɜr·mən/"},{"name":"accumulate","trans":["to collect or increase something gradually, esp. over a period of time"],"usphone":"/əˈkjum·jəˌleɪt/","ukphone":"/əˈkjum·jəˌleɪt/"}]
+[
+  { "name": "transitional", "trans": ["relating to the process of changing"], "usphone": "/tɹænzɪʃənəɭ/", "ukphone": "/tɹænzɪʃənəɭ/" },
+  { "name": "violent", "trans": ["very strong and uncontrolled"], "usphone": "/vaɪəɭənt/", "ukphone": "/vaɪəɭənt/" },
+  {
+    "name": "mechanism",
+    "trans": ["a part of a machine, or a set of parts that work together"],
+    "usphone": "/ˈmek·əˌnɪz·əm/",
+    "ukphone": "/ˈmek·əˌnɪz·əm/"
+  },
+  { "name": "swing", "trans": ["to change from one condition or attitude to another"], "usphone": "/swɪŋ/", "ukphone": "/swɪŋ/" },
+  { "name": "occupy", "trans": ["to fill, use, or exist in a place or a time"], "usphone": "/ˈɑː.kjə.paɪ/", "ukphone": "/ˈɑː.kjə.paɪ/" },
+  {
+    "name": "sparse",
+    "trans": ["small in number or amount and not dense or close together"],
+    "usphone": "/spɑːrs/",
+    "ukphone": "/spɑːrs/"
+  },
+  {
+    "name": "extreme",
+    "trans": ["very great; beyond what is usual or what might be expected"],
+    "usphone": "/ɪkˈstrim/",
+    "ukphone": "/ɪkˈstrim/"
+  },
+  {
+    "name": "fringe",
+    "trans": ["the outer or less important part of an area, group, or activity"],
+    "usphone": "/frɪndʒ/",
+    "ukphone": "/frɪndʒ/"
+  },
+  { "name": "diverse", "trans": ["varied or different"], "usphone": "/dɪˈvɜrs, dɑɪ-/", "ukphone": "/dɪˈvɜrs, dɑɪ-/" },
+  {
+    "name": "adapt",
+    "trans": ["to adjust to different conditions or uses, or to change to meet different situations"],
+    "usphone": "/əˈdæpt/",
+    "ukphone": "/əˈdæpt/"
+  },
+  { "name": "thrive", "trans": ["to grow, develop, or be successful"], "usphone": "/θrɑɪv/", "ukphone": "/θrɑɪv/" },
+  {
+    "name": "resilient",
+    "trans": ["able to improve quickly after being hurt or being ill"],
+    "usphone": "/rɪˈzɪl·jənt/",
+    "ukphone": "/rɪˈzɪl·jənt/"
+  },
+  {
+    "name": "stressor",
+    "trans": ["something that causes stress (= great worry or emotional difficulty)"],
+    "usphone": "/stɹɛsɜ`/",
+    "ukphone": "/stɹɛsɜ`/"
+  },
+  {
+    "name": "minimize",
+    "trans": ["to reduce something to the smallest possible level or amount"],
+    "usphone": "/ˈmɪn·əˌmɑɪz/",
+    "ukphone": "/ˈmɪn·əˌmɑɪz/"
+  },
+  {
+    "name": "moisture",
+    "trans": ["very small drops of water, either in the air or on a surface"],
+    "usphone": "/ˈmɔɪs·tʃər/",
+    "ukphone": "/ˈmɔɪs·tʃər/"
+  },
+  {
+    "name": "prolific",
+    "trans": ["producing a great number or amount of something"],
+    "usphone": "/prəˈlɪf·ɪk/",
+    "ukphone": "/prəˈlɪf·ɪk/"
+  },
+  {
+    "name": "evaporation",
+    "trans": ["the process of changing from a liquid to a gas, or a change from a liquid to a gas"],
+    "usphone": "/ɪˌvæp·əˈreɪ·ʃən/",
+    "ukphone": "/ɪˌvæp·əˈreɪ·ʃən/"
+  },
+  {
+    "name": "dilute",
+    "trans": ["to make a liquid weaker by mixing it with water or another liquid"],
+    "usphone": "/dɑɪˈlut, də-/",
+    "ukphone": "/dɑɪˈlut, də-/"
+  },
+  { "name": "determine", "trans": ["to control or influence directly; to decide"], "usphone": "/dɪˈtɜr·mən/", "ukphone": "/dɪˈtɜr·mən/" },
+  {
+    "name": "accumulate",
+    "trans": ["to collect or increase something gradually, esp. over a period of time"],
+    "usphone": "/əˈkjum·jəˌleɪt/",
+    "ukphone": "/əˈkjum·jəˌleɪt/"
+  }
+]

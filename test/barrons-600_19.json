@@ -1,1 +1,67 @@
-[{"name":"passion","trans":["something that you are strongly interested in and enjoy"],"usphone":"/pæʃən/","ukphone":"/pæʃən/"},{"name":"staple","trans":["a basic food, or a main product or material"],"usphone":"/steɪpəɭ/","ukphone":"/steɪpəɭ/"},{"name":"thirst","trans":["a strong desire for something"],"usphone":"/θɜ`st/","ukphone":"/θɜ`st/"},{"name":"prevail","trans":["to be greater in strength or influence; triumph"],"usphone":"/pɹɪveɪɭ/","ukphone":"/pɹɪveɪɭ/"},{"name":"selective","trans":["tending to select; characterized by careful choice"],"usphone":"/səɭɛktɪv/","ukphone":"/səɭɛktɪv/"},{"name":"conglomerate","trans":["a very large company consisting of several smaller companies or divisions that supply varied products or services"],"usphone":"/kənˈɡlɑm·ər·ət/","ukphone":"/kənˈɡlɑm·ər·ət/"},{"name":"fleeting","trans":["brief or quick"],"usphone":"/ˈfli·t̬ɪŋ/","ukphone":"/ˈfli·t̬ɪŋ/"},{"name":"brand","trans":["a type of product made by a particular company"],"usphone":"/brænd/","ukphone":"/brænd/"},{"name":"bond","trans":["a close and lasting relationship between people"],"usphone":"/bɑnd/","ukphone":"/bɑnd/"},{"name":"reverse","trans":["to cause something to go in the opposite direction, order, or position"],"usphone":"/rɪˈvɜrs/","ukphone":"/rɪˈvɜrs/"},{"name":"consistently","trans":["in a way that does not vary"],"usphone":"/kənˈsɪs·tənt·li/","ukphone":"/kənˈsɪs·tənt·li/"},{"name":"convince","trans":["to cause someone to believe something or to do something"],"usphone":"/kənˈvɪns/","ukphone":"/kənˈvɪns/"},{"name":"endorsement","trans":["the act of making a public statement of your support for something or someone"],"usphone":"/ɪnˈdɔr·smənt/","ukphone":"/ɪnˈdɔr·smənt/"},{"name":"status","trans":["position or rank, esp. in a social group or legal system"],"usphone":"/ˈsteɪ·t̬əs, ˈstæt̬·əs/","ukphone":"/ˈsteɪ·t̬əs, ˈstæt̬·əs/"},{"name":"ignore","trans":["to give no attention to something or someone"],"usphone":"/ɪɡˈnɔr, -ˈnoʊr/","ukphone":"/ɪɡˈnɔr, -ˈnoʊr/"},{"name":"outperform","trans":["to perform better or do better than someone or something"],"usphone":"/ˌɑʊt·pərˈfɔrm/","ukphone":"/ˌɑʊt·pərˈfɔrm/"},{"name":"loyalty","trans":["the quality of being loyal"],"usphone":"/ˈlɔɪ.əl.t̬i/","ukphone":"/ˈlɔɪ.əl.t̬i/"},{"name":"phenomenon","trans":["anything that is or can be experienced or felt, esp. something that is noticed because it is unusual or new"],"usphone":"/fɪˈnɑm·əˌnɑn, -nən/","ukphone":"/fɪˈnɑm·əˌnɑn, -nən/"},{"name":"burgeoning","trans":["growing or developing quickly"],"usphone":"/ˈbɜr·dʒə·nɪŋ/","ukphone":"/ˈbɜr·dʒə·nɪŋ/"},{"name":"promote","trans":["to advertise something in order to sell it"],"usphone":"/prəˈmoʊt/","ukphone":"/prəˈmoʊt/"}]
+[
+  { "name": "passion", "trans": ["something that you are strongly interested in and enjoy"], "usphone": "/pæʃən/", "ukphone": "/pæʃən/" },
+  { "name": "staple", "trans": ["a basic food, or a main product or material"], "usphone": "/steɪpəɭ/", "ukphone": "/steɪpəɭ/" },
+  { "name": "thirst", "trans": ["a strong desire for something"], "usphone": "/θɜ`st/", "ukphone": "/θɜ`st/" },
+  { "name": "prevail", "trans": ["to be greater in strength or influence; triumph"], "usphone": "/pɹɪveɪɭ/", "ukphone": "/pɹɪveɪɭ/" },
+  {
+    "name": "selective",
+    "trans": ["tending to select; characterized by careful choice"],
+    "usphone": "/səɭɛktɪv/",
+    "ukphone": "/səɭɛktɪv/"
+  },
+  {
+    "name": "conglomerate",
+    "trans": ["a very large company consisting of several smaller companies or divisions that supply varied products or services"],
+    "usphone": "/kənˈɡlɑm·ər·ət/",
+    "ukphone": "/kənˈɡlɑm·ər·ət/"
+  },
+  { "name": "fleeting", "trans": ["brief or quick"], "usphone": "/ˈfli·t̬ɪŋ/", "ukphone": "/ˈfli·t̬ɪŋ/" },
+  { "name": "brand", "trans": ["a type of product made by a particular company"], "usphone": "/brænd/", "ukphone": "/brænd/" },
+  { "name": "bond", "trans": ["a close and lasting relationship between people"], "usphone": "/bɑnd/", "ukphone": "/bɑnd/" },
+  {
+    "name": "reverse",
+    "trans": ["to cause something to go in the opposite direction, order, or position"],
+    "usphone": "/rɪˈvɜrs/",
+    "ukphone": "/rɪˈvɜrs/"
+  },
+  { "name": "consistently", "trans": ["in a way that does not vary"], "usphone": "/kənˈsɪs·tənt·li/", "ukphone": "/kənˈsɪs·tənt·li/" },
+  {
+    "name": "convince",
+    "trans": ["to cause someone to believe something or to do something"],
+    "usphone": "/kənˈvɪns/",
+    "ukphone": "/kənˈvɪns/"
+  },
+  {
+    "name": "endorsement",
+    "trans": ["the act of making a public statement of your support for something or someone"],
+    "usphone": "/ɪnˈdɔr·smənt/",
+    "ukphone": "/ɪnˈdɔr·smənt/"
+  },
+  {
+    "name": "status",
+    "trans": ["position or rank, esp. in a social group or legal system"],
+    "usphone": "/ˈsteɪ·t̬əs, ˈstæt̬·əs/",
+    "ukphone": "/ˈsteɪ·t̬əs, ˈstæt̬·əs/"
+  },
+  {
+    "name": "ignore",
+    "trans": ["to give no attention to something or someone"],
+    "usphone": "/ɪɡˈnɔr, -ˈnoʊr/",
+    "ukphone": "/ɪɡˈnɔr, -ˈnoʊr/"
+  },
+  {
+    "name": "outperform",
+    "trans": ["to perform better or do better than someone or something"],
+    "usphone": "/ˌɑʊt·pərˈfɔrm/",
+    "ukphone": "/ˌɑʊt·pərˈfɔrm/"
+  },
+  { "name": "loyalty", "trans": ["the quality of being loyal"], "usphone": "/ˈlɔɪ.əl.t̬i/", "ukphone": "/ˈlɔɪ.əl.t̬i/" },
+  {
+    "name": "phenomenon",
+    "trans": ["anything that is or can be experienced or felt, esp. something that is noticed because it is unusual or new"],
+    "usphone": "/fɪˈnɑm·əˌnɑn, -nən/",
+    "ukphone": "/fɪˈnɑm·əˌnɑn, -nən/"
+  },
+  { "name": "burgeoning", "trans": ["growing or developing quickly"], "usphone": "/ˈbɜr·dʒə·nɪŋ/", "ukphone": "/ˈbɜr·dʒə·nɪŋ/" },
+  { "name": "promote", "trans": ["to advertise something in order to sell it"], "usphone": "/prəˈmoʊt/", "ukphone": "/prəˈmoʊt/" }
+]

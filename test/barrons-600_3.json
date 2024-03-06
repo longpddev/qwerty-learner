@@ -1,1 +1,87 @@
-[{"name":"tolerate","trans":["to accept behavior and beliefs that are different from your own, although you may not agree with or approve of them"],"usphone":"/taɭəɹeɪt/","ukphone":"/taɭəɹeɪt/"},{"name":"indiscernible","trans":["impossible to see, see clearly, or understand"],"usphone":"/ˌɪn.dɪˈsɝː.nə.bəl/","ukphone":"/ˌɪn.dɪˈsɝː.nə.bəl/"},{"name":"maneuver","trans":["a planned action that is intended to obtain an advantage"],"usphone":"/mənuvɜ`/","ukphone":"/mənuvɜ`/"},{"name":"focus","trans":["the main object or interest, or the attention given something"],"usphone":"/ˈfoʊ·kəs/","ukphone":"/ˈfoʊ·kəs/"},{"name":"indistinct","trans":["not clear"],"usphone":"/ˌɪn·dɪˈstɪŋkt/","ukphone":"/ˌɪn·dɪˈstɪŋkt/"},{"name":"blur","trans":["something whose shape is not clear"],"usphone":"/blɜr/","ukphone":"/blɜr/"},{"name":"unconsciously","trans":["without awareness"],"usphone":"/ənkanʃəsɭi/","ukphone":"/ənkanʃəsɭi/"},{"name":"peripheral","trans":["not central or of main importance"],"usphone":"/pəˈrɪf·ər·əl/","ukphone":"/pəˈrɪf·ər·əl/"},{"name":"vision","trans":["the ability to see"],"usphone":"/ˈvɪʒ·ən/","ukphone":"/ˈvɪʒ·ən/"},{"name":"athlete","trans":["a person who is trained or skilled in a sport and esp. one who regularly competes with others in organized events"],"usphone":"/ˈæθˌlit/","ukphone":"/ˈæθˌlit/"},{"name":"demonstrate","trans":["to show how to do something; explain"],"usphone":"/ˈdem·ənˌstreɪt/","ukphone":"/ˈdem·ənˌstreɪt/"},{"name":"range","trans":["the level to which something is limited, or the area within which something operates"],"usphone":"/reɪndʒ/","ukphone":"/reɪndʒ/"},{"name":"performance","trans":["the act of doing something, such as your job"],"usphone":"/pərˈfɔr·məns/","ukphone":"/pərˈfɔr·məns/"},{"name":"detect","trans":["to notice something that is partly hidden or not clear or to discover something, esp. using a special method"],"usphone":"/dɪˈtekt/","ukphone":"/dɪˈtekt/"},{"name":"distracting","trans":["to cause to turn one's attention away from something"],"usphone":"/dəsˈtrakting/","ukphone":"/dəsˈtrakting/"},{"name":"anticipate","trans":["to imagine or expect that something will happen, sometimes taking action in preparation for it"],"usphone":"/ænˈtɪs·əˌpeɪt/","ukphone":"/ænˈtɪs·əˌpeɪt/"},{"name":"scan","trans":["to examine something carefully"],"usphone":"/skæn/","ukphone":"/skæn/"},{"name":"complicate","trans":["to make something more difficult to deal with or do"],"usphone":"/ˈkɑm·plɪˌkeɪt/","ukphone":"/ˈkɑm·plɪˌkeɪt/"},{"name":"coordinate","trans":["to make various, separate things work together"],"usphone":"/koʊˈɔr·dənˌeɪt/","ukphone":"/koʊˈɔr·dənˌeɪt/"},{"name":"boundary","trans":["an edge or limit of something"],"usphone":"/ˈbɑʊn·dri, -də·ri/","ukphone":"/ˈbɑʊn·dri, -də·ri/"}]
+[
+  {
+    "name": "tolerate",
+    "trans": ["to accept behavior and beliefs that are different from your own, although you may not agree with or approve of them"],
+    "usphone": "/taɭəɹeɪt/",
+    "ukphone": "/taɭəɹeɪt/"
+  },
+  {
+    "name": "indiscernible",
+    "trans": ["impossible to see, see clearly, or understand"],
+    "usphone": "/ˌɪn.dɪˈsɝː.nə.bəl/",
+    "ukphone": "/ˌɪn.dɪˈsɝː.nə.bəl/"
+  },
+  {
+    "name": "maneuver",
+    "trans": ["a planned action that is intended to obtain an advantage"],
+    "usphone": "/mənuvɜ`/",
+    "ukphone": "/mənuvɜ`/"
+  },
+  {
+    "name": "focus",
+    "trans": ["the main object or interest, or the attention given something"],
+    "usphone": "/ˈfoʊ·kəs/",
+    "ukphone": "/ˈfoʊ·kəs/"
+  },
+  { "name": "indistinct", "trans": ["not clear"], "usphone": "/ˌɪn·dɪˈstɪŋkt/", "ukphone": "/ˌɪn·dɪˈstɪŋkt/" },
+  { "name": "blur", "trans": ["something whose shape is not clear"], "usphone": "/blɜr/", "ukphone": "/blɜr/" },
+  { "name": "unconsciously", "trans": ["without awareness"], "usphone": "/ənkanʃəsɭi/", "ukphone": "/ənkanʃəsɭi/" },
+  { "name": "peripheral", "trans": ["not central or of main importance"], "usphone": "/pəˈrɪf·ər·əl/", "ukphone": "/pəˈrɪf·ər·əl/" },
+  { "name": "vision", "trans": ["the ability to see"], "usphone": "/ˈvɪʒ·ən/", "ukphone": "/ˈvɪʒ·ən/" },
+  {
+    "name": "athlete",
+    "trans": ["a person who is trained or skilled in a sport and esp. one who regularly competes with others in organized events"],
+    "usphone": "/ˈæθˌlit/",
+    "ukphone": "/ˈæθˌlit/"
+  },
+  {
+    "name": "demonstrate",
+    "trans": ["to show how to do something; explain"],
+    "usphone": "/ˈdem·ənˌstreɪt/",
+    "ukphone": "/ˈdem·ənˌstreɪt/"
+  },
+  {
+    "name": "range",
+    "trans": ["the level to which something is limited, or the area within which something operates"],
+    "usphone": "/reɪndʒ/",
+    "ukphone": "/reɪndʒ/"
+  },
+  {
+    "name": "performance",
+    "trans": ["the act of doing something, such as your job"],
+    "usphone": "/pərˈfɔr·məns/",
+    "ukphone": "/pərˈfɔr·məns/"
+  },
+  {
+    "name": "detect",
+    "trans": ["to notice something that is partly hidden or not clear or to discover something, esp. using a special method"],
+    "usphone": "/dɪˈtekt/",
+    "ukphone": "/dɪˈtekt/"
+  },
+  {
+    "name": "distracting",
+    "trans": ["to cause to turn one's attention away from something"],
+    "usphone": "/dəsˈtrakting/",
+    "ukphone": "/dəsˈtrakting/"
+  },
+  {
+    "name": "anticipate",
+    "trans": ["to imagine or expect that something will happen, sometimes taking action in preparation for it"],
+    "usphone": "/ænˈtɪs·əˌpeɪt/",
+    "ukphone": "/ænˈtɪs·əˌpeɪt/"
+  },
+  { "name": "scan", "trans": ["to examine something carefully"], "usphone": "/skæn/", "ukphone": "/skæn/" },
+  {
+    "name": "complicate",
+    "trans": ["to make something more difficult to deal with or do"],
+    "usphone": "/ˈkɑm·plɪˌkeɪt/",
+    "ukphone": "/ˈkɑm·plɪˌkeɪt/"
+  },
+  {
+    "name": "coordinate",
+    "trans": ["to make various, separate things work together"],
+    "usphone": "/koʊˈɔr·dənˌeɪt/",
+    "ukphone": "/koʊˈɔr·dənˌeɪt/"
+  },
+  { "name": "boundary", "trans": ["an edge or limit of something"], "usphone": "/ˈbɑʊn·dri, -də·ri/", "ukphone": "/ˈbɑʊn·dri, -də·ri/" }
+]
