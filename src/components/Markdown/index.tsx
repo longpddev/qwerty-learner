@@ -1,8 +1,12 @@
-// import ReactMarkdown from 'react-markdown'
-// import remarkGfm from 'remark-gfm'
+import { lazy, Suspense } from 'react'
 
+const MarkdownLazy = lazy(() => import('./MarkdownComponent'))
 const Markdown = ({ children }: { children: string }) => {
-  return null
+  return (
+    <Suspense fallback={null}>
+      <MarkdownLazy>{children}</MarkdownLazy>
+    </Suspense>
+  )
 }
 
 export default Markdown
